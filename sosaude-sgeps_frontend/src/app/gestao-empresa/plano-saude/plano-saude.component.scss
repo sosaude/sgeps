@@ -1,0 +1,212 @@
+.all-section {
+    padding-left: 20px;
+}
+
+.title-group {
+    font-size: 36px;
+    font-weight: bold;
+    color: #585858;
+}
+
+.title-group-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5526;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.title-group-no-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5526;
+}
+
+.card-add {
+    background-color: #FF5100;
+    color: white;
+    border-radius: 4px;
+    width: 100%;
+    height: 104.49;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.card-body i {
+    background-color: #ff551e;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.card-text-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #585858;
+}
+
+.card-text-normal {
+    font-size: 14px;
+    font-weight: normal;
+    color: #585858;
+}
+
+.loading_spin {
+    color: rgb(255, 85, 30);
+}
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: 47px;
+}
+
+#custom-search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input .search-btn {
+    margin: 11px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+}
+
+.search-btn i {
+    color: rgb(255, 85, 30);
+}
+
+.table {
+    background-color: #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.modal-header {
+    padding: 5px 5px;
+    background-color: rgb(255, 85, 30);
+}
+
+.modal-header .title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px 0px 10px;
+}
+
+.modal-header .waves-light span {
+    color: #ffffff;
+    width: 17.64px;
+    height: 17.64px;
+}
+
+.form-group span {
+    width: 411px;
+}
+
+.form-group input {
+    width: 374.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+#planoSaudeMedicamentos .form-group input {
+    width: 100%;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+#planoSaudeServicos .form-group input {
+    width: 100%;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.title-ilimitado {
+    color: #707070;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+:host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(255, 85, 30);
+}
+
+:host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgb(255, 85, 30);
+}
+
+:host /deep/ .mat-checkbox-checked.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: rgb(255, 85, 30)!important;
+        border-color: rgb(255, 85, 30)!important;
+    }
+    .mat-checkbox-background,
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+        background-color: rgb(255, 85, 30);
+        border-color: rgb(255, 85, 30)!important;
+    }
+}
+
+:host /deep/ .mat-checkbox.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: rgb(255, 85, 30)!important;
+        border-color: rgb(255, 85, 30)!important;
+    }
+}
+
+#setLimiteGlobal .modal-content {
+    width: 411px;
+    height: 100%;
+}
+
+.title-paises {
+    color: #585858;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+    padding-right: 50px;
+}
+
+.title-paises-corpo {
+    color: #585858;
+    font-size: 16px;
+    font-weight: normal;
+    display: inline;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.btn-indigo-submit {
+    height: 45px;
+}
+
+.btn-redefinir {
+    background-color: #585858;
+    color: #fff !important;
+    border-radius: 4px;
+    height: 45px;
+    width: 167.95px;
+}

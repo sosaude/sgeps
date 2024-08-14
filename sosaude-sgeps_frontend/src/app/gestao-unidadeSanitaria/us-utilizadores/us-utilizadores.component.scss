@@ -1,0 +1,378 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+.btn {
+    padding: 0 !important;
+    text-transform: none;
+}
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: 47px;
+}
+
+#custom-search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+.form-group input {
+    width: 374.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group textarea {
+    width: 374.41px;
+    // height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group mat-select {
+    width: 374.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group .two-columns input {
+    width: 174.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group .two-columns-contacto input {
+    width: 252.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin-bottom: 5px;
+}
+
+.form-group .two-columns-horario input {
+    width: 85px;
+    height: 14.5px;
+    color: #707070;
+    display: block;
+    margin-bottom: 5px;
+    border: 0;
+    padding: 12px 5px 5px 5px;
+}
+
+:host /deep/ .mat-slide-toggle-label {
+    padding: 10px;
+}
+
+:host /deep/ .mat-slide-toggle-content {
+    color: #707070;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.form-group .two-columns-contacto button,
+.remove-contacto {
+    color: #FF5500;
+    font-size: 12px;
+    background-color: #ffffff;
+    border: 0;
+    width: 102px;
+    height: 14px;
+}
+
+.form-group .two-columns input:first-child {
+    margin-right: 10px;
+}
+
+#custom-search-input .search-btn {
+    margin: 11px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    // border-left: dashed 1px rgb(255, 85, 30);
+}
+
+#custom-search-input .fas {
+    font-size: 20px;
+}
+
+::-webkit-input-placeholder {
+    /* Edge */
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+ :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 12px;
+    color: #7B7B7B;
+}
+
+ ::placeholder {
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+.search-btn i {
+    color: rgb(255, 85, 30);
+}
+
+.all-page {
+    background: #F0F0F7;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-title span {
+    font-size: 25px;
+    font-weight: normal;
+    color: rgb(255, 85, 30);
+}
+
+.card-footer {
+    border-top: 2px solid rgba(0, 0, 0, .125);
+}
+
+.btn-footer {
+    width: 63px;
+    height: 15px;
+    border-radius: 12px;
+    border: 1px solid rgb(255, 85, 30);
+    color: rgb(255, 85, 30);
+    background-color: #ffffff;
+    font-size: 6px;
+    font-weight: bold;
+}
+
+.modal-header {
+    padding: 5px 5px;
+    background-color: rgb(255, 85, 30);
+}
+
+.modal-header .title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px 0px 10px;
+}
+
+.modal-header .waves-light span {
+    color: #ffffff;
+    width: 17.64px;
+    height: 17.64px;
+}
+
+.form-group span {
+    width: 411px;
+}
+
+#crudMarcasModal .modal-content {
+    width: 411px;
+    height: 100%;
+}
+
+#crudModal .modal-content {
+    width: 411px;
+    height: 100%;
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #707070;
+}
+
+input[type="time"] {
+    width: 68px;
+    height: 14.5px;
+    color: #707070;
+    display: block;
+}
+
+.card-body {
+    cursor: pointer;
+}
+
+.table {
+    background-color: #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.table thead th {
+    color: #585858;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    color: #585858;
+    font-size: 14px;
+    font-weight: normal;
+    height: 80px !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr td i {
+    background-color: #ff551e;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.btn-edit {
+    background-color: rgb(255, 85, 30);
+    color: #fff !important;
+    border-radius: 4px;
+    height: 30px;
+    width: 76px;
+}
+
+#custom-search-input .btn-add {
+    width: 132.45px;
+    height: 33.12px;
+    border-radius: 4px;
+    border: 1px solid #ff551e;
+    background-color: #ff551e;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.btn-add i {
+    width: 12.14px;
+    height: 12.14px;
+    // border: 1px solid #ff551e;
+    color: #ffffff;
+}
+
+#custom-search-input .fa-plus {
+    font-size: 13px;
+}
+
+.loading_spin {
+    color: rgb(255, 85, 30);
+}
+
+.card-add {
+    background-color: #FF5100;
+    color: white;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 200px;
+    height: 87px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-view {
+    background-color: transparent;
+    color: #FF5100;
+    border: 1px solid #FF5100;
+    box-shadow: none;
+    border-radius: 4px;
+    width: 200px;
+    height: 87px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-view .card-body .card-title-main span {
+    font-size: 20px;
+    color: #5E7D8D;
+    font-weight: bold;
+}
+
+.card-view .card-body .card-title,
+.card-text {
+    font-size: 12px;
+    color: #6E6E6E;
+    font-weight: normal;
+}
+
+.card-add i {
+    width: 32.27px;
+    height: 32.27px;
+}
+
+.noContent-div span {
+    font-size: 40px;
+    font-weight: 600;
+    color: #6E6E6E;
+    padding-right: 10px;
+}
+
+.noContent-div img {
+    object-fit: fill;
+}
+
+.required-mark {
+    color: red;
+    font-size: 14px;
+}
+
+
+/*Check box*/
+
+input[type="checkbox"]+.label-text:before {
+    content: "\f096";
+    font-family: "FontAwesome";
+    // speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    width: 1em;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+input[type="checkbox"]:checked+.label-text:before {
+    content: "\f14a";
+    color: #FF5100;
+    animation: effect 250ms ease-in;
+}
+
+input[type="checkbox"]:disabled+.label-text {
+    color: #aaa;
+}
+
+input[type="checkbox"]:disabled+.label-text:before {
+    content: "\f0c8";
+    color: #ccc;
+}
+
+.form-check label {
+    font-size: 16px;
+}
+
+.activo-status {
+    color: rgb(255, 85, 30);
+    font-weight: 700;
+}
+
+.inactivo-status {
+    color: #585858;
+    font-weight: 700;
+}
+
+.selected-permissoes label {
+    font-size: 15px;
+    /* font-weight: bold; */
+    color: rgb(255, 85, 30);
+}

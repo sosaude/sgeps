@@ -1,0 +1,24 @@
+<div class="container-fluid all-page">
+    <div class="row">&nbsp;</div>
+    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+    </p>
+    <div class="row">
+        <ng-container *ngFor="let item of sugestoes">
+            <div class="col-md-4">
+                <div class="alert alert-success alert-with-icon div_description">
+                    <p> Secção: <span style="color: #5E7D8D;">{{item.seccao}}</span> &nbsp;&nbsp; Nome: <span style="color: #5E7D8D;">{{item.nome}}</span></p>
+                    <p> Email: <span style="color: #5E7D8D;">{{item.email}}</span> </p>
+                    <p> Contacto: <span style="color: #5E7D8D;">{{item.contacto}}</span> </p>
+                    <p> Sugestão: <span style="color: #5E7D8D;">{{item.conteudo}}</span></p>
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <i class="fas fa-trash" style="cursor: pointer;" (click)="delete(item)"></i>
+                        <h6 class="text-right" style="color: #2d2d2d;">{{item.data}}</h6>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>

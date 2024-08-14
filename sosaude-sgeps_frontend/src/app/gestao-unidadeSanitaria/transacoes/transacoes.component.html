@@ -1,0 +1,146 @@
+<div class="container-fluid all-page">
+    
+    <div class="row">
+        <div class="col-md-5">
+            <div class="text-center">
+              <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+              </p>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-12 form-group">
+            <p class="p-filtro">
+                <a class="btn btn-indigo white-text" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Filtros<i class="fas fa-filter"></i>
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div>
+                      <form [formGroup]="form">
+                        <div class="form-row">
+                        <div class="form-group col-md-6">
+                         
+                            <input matInput [matDatepicker]="picker" placeholder="Data Inicial"  formControlName="startDate" class="input-date-filter">
+                            <mat-datepicker-toggle matSuffix [for]="picker" class="date-picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                                     
+                      </div>
+              
+                      <div class="form-group col-md-6">
+                       
+                          <input matInput [matDatepicker]="picker2" placeholder="Data Final"  formControlName="endDate"  class="input-date-filter">
+                          <mat-datepicker-toggle matSuffix [for]="picker2" class="date-picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        
+                        
+                      </div>
+          
+                      <div class="form-group col-md-6">
+                        
+                          <mat-select formControlName="companyId" placeholder="Selecione a Empresa"
+                                          (selectionChange)="onSelectOption_empresa($event)" class="mat-select">
+                                          <mat-option>Selecione</mat-option>
+                                          <mat-option>Todos</mat-option>
+                                          <mat-option *ngFor="let emp of empresas" [value]="emp.id">
+                                              {{emp.nome}}</mat-option>
+                          </mat-select>
+                          
+                      </div>
+          
+                      <div class="form-group col-md-6">
+                      <button type="button" class="btn btn-indigo white-text" (click)="getAllFiltered()"> Actualizar</button>
+                      </div>
+                    </div>
+          
+              
+                      </form>
+                   
+                    </div>
+                  </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12" style="position: -webkit-sticky; position: sticky; top: 0;">
+
+            <div class="row">
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header">Ordem de reserva</h5>
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.ordens_reserva }}</h5>
+                            <p class="card-text valor">Inicialização do gasto</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header">Autorizações</h5>
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.pedidos_aprovacao_aguardando }}</h5>
+                            <p class="card-text valor">Inicialização do gasto</p>
+ 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header titulo">Autorizações</h5> 
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.pedidos_aprovacao_rejeitado }}</h5>
+                            <p class="card-text valor">Devolvido</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header">Transações</h5>
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.transacoes_aguarda }}</h5>
+                            <p class="card-text valor">Aguarda confirmação</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header">Transações</h5>
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.transacoes_pagamento }}</h5>
+                            <p class="card-text valor">Aguarda pagamento</p>
+ 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-8">
+                    <div class="card">
+                        <h5 class="card-header">Transações</h5>
+                        <div class="card-body">
+                            <h5 class="card-title valor">{{ overview_resumo.transacoes_rejeitado }}</h5>
+                            <p class="card-text valor">Devolvido</p>
+
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="col-md-12">
+                    <hr>
+                    <!-- <h4 class="titulo-baixa"> Transações</h4>
+                    <hr> -->
+                </div>
+                <div class="col-md-12 col-sm-8" #chartId style="background-color: #fff;">
+                    <canvas id="myChart2" height="160px"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

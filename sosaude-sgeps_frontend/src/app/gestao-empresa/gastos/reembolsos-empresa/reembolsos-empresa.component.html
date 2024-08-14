@@ -1,0 +1,565 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="left-side">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 d-flex justify-content-between">
+                        <div class="titulo-baixa">
+                            Pedidos de Reembolso
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row d-flex justify-content-center"> -->
+                <div class="btn-group" role="group" aria-label="tipos">
+                    <div class="row d-flex flex-row">
+                        <div class="col-md-5" style="padding: 2px 2px;">
+                            <div class="card"
+                                [ngClass]="{'card-add':selectedCardView == 1, 'card-view':selectedCardView != 1}"
+                                (click)="changeView(1)">
+                                <div class="card-body align-items-center d-flex justify-content-center">
+                                    Aguarda Confirmação
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="padding: 2px 2px;">
+                            <div class="card"
+                                [ngClass]="{'card-add':selectedCardView == 2, 'card-view':selectedCardView != 2}"
+                                (click)="changeView(2)">
+                                <div class="card-body align-items-center d-flex justify-content-center">
+                                    Aguarda Pagamento
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5" style="padding: 2px 2px;">
+                            <div class="card"
+                                [ngClass]="{'card-add':selectedCardView == 3, 'card-view':selectedCardView != 3}"
+                                (click)="changeView(3)">
+                                <div class="card-body align-items-center d-flex justify-content-center">
+                                    Pagamento Processado
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding: 2px 2px;">
+                            <div class="card"
+                                [ngClass]="{'card-add':selectedCardView == 4, 'card-view':selectedCardView != 4}"
+                                (click)="changeView(4)">
+                                <div class="card-body align-items-center d-flex justify-content-center">
+                                    Devolvidos
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card-add"
+                                (click)="getAllExcel()">
+                                <div class="card-body align-items-center d-flex justify-content-center">
+                                    <i class="fas fa-download"></i> &nbsp; Reembolso
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                        class="fas fa-search"></i></button> </span>
+                            <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                                placeholder="Procurar pedidos de reembolso..." [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="array_bulk.length > 0">
+                <div class="col-lg-12 col-md-12 d-flex justify-content-end">
+                    <button type="button" class="btn btn-indigo btn-submit white-text" (click)="submeterGastoBulk()"
+                        *ngIf="selectedCardView == 1" [disabled]="spinner_1">Confirmar ({{array_bulk.length}})
+                        pedido(s)</button>
+                    <button type="button" class="btn btn-indigo btn-submit white-text" (click)="submeterGastoBulk()"
+                        *ngIf="selectedCardView == 2" [disabled]="spinner_1">Processar ({{array_bulk.length}})
+                        pedido(s)</button>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-8 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Membro Principal</th>
+                                <th scope="col">Nome da Instituição</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Valor</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <p class="text-center"><i *ngIf="spinner"
+                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+
+                        <tbody *ngFor="let item of show_By_Estado | filter:searchText">
+                            <tr>
+                                <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                    {{item.nome_beneficiario}}</td>
+                                <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                    {{item.unidade_sanitaria}}</td>
+                                <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                    {{item.updated_at}}</td>
+                                <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">{{item.valor |
+                                    currency:'INR':''}} MZN</td>
+                                <td *ngIf="selectedCardView == 1 || selectedCardView == 2">
+                                    <mat-checkbox (change)="changeStateGasto($event, item.id)"
+                                        [checked]="stateGasto(item.id)"></mat-checkbox>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-end">
+                    <button type="button" class="btn btn-indigo white-text" data-toggle="modal" data-target="#addModal"
+                        (click)="addPedido()"><i class="fas fa-plus"></i> &nbsp; Adicionar pedido</button>
+                </div>
+            </div>
+            <div class="card" style="position: -webkit-sticky; position: sticky; top: 0;">
+                <div class="card-body">
+                    <h4>Resumo dos Pedidos de Reembolso</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-center"><i *ngIf="spinner"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="myChart" height="250px"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="myChart2" height="250px"></canvas>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <canvas id="myChart3" height="100px"></canvas>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- REGISTER MODAL-->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- CLASS => cascading-modal -->
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h6 class="title">
+                        Adicionar pedido de reembolso
+                    </h6>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <form [formGroup]="form">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="unidade_sanitaria"> Nome da Unidade Sanitária</label>
+                                <input type="text" formControlName="unidade_sanitaria" placeholder="" maxlength="80"
+                                    name="unidade_sanitaria" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.unidade_sanitaria.errors }">
+                                <div *ngIf="submitted && form.controls.unidade_sanitaria.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="form.controls.unidade_sanitaria.errors.required">Este campo é
+                                        obrigatório</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="beneficiario_id">Nome do Beneficiário</label>
+                                <mat-select formControlName="beneficiario_id" name="beneficiario_id"
+                                    class="form-control" (selectionChange)="selectedBeneficiario()"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.beneficiario_id.errors }">
+                                    <mat-option *ngFor="let opcao of create_reembolso?.beneficiarios"
+                                        [value]="opcao.id">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form.controls.beneficiario_id.errors" class="invalid-feedback">
+                                    <div *ngIf="form.controls.beneficiario_id.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="beneficio_proprio_beneficiario"> Benefício próprio (Do
+                                    Beneficiário)?</label>
+                                <mat-slide-toggle formControlName="beneficio_proprio_beneficiario"
+                                    (change)="onChange_dependentes($event)">
+                                </mat-slide-toggle>
+                            </div>
+
+                            <div class="col-md-6 form-group" *ngIf="dependente_isBeneficiario">
+                                <label for="dependente_beneficiario_id">Nome do Dependente</label>
+                                <mat-select formControlName="dependente_beneficiario_id"
+                                    name="dependente_beneficiario_id" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.dependente_beneficiario_id.errors }">
+                                    <mat-option *ngFor="let opcao of dependentes_array" [value]="opcao.id">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form.controls.dependente_beneficiario_id.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="form.controls.dependente_beneficiario_id.errors.required">Este campo é
+                                        obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="servico_prestado">Serviço Prestado</label>
+                                <mat-select formControlName="servico_prestado" name="servico_prestado"
+                                    (selectionChange)="selectedServico()" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.servico_prestado.errors }">
+                                    <mat-option *ngFor="let opcao of servicos_prestados" [value]="opcao.nome">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form.controls.servico_prestado.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="form.controls.servico_prestado.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group" *ngIf="isServico_outro">
+                                <label for="isServico_outro_value"> Escreva o serviço prestado</label>
+                                <input type="text" [(ngModel)]="isServico_outro_value" placeholder="" maxlength="80"
+                                    name="isServico_outro_value" class="form-control"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+
+
+                            <div class="col-md-6 form-group">
+                                <label for="valor"> Valor do Recibo (MT)</label>
+                                <input type="number" formControlName="valor" placeholder="" maxlength="80" name="valor"
+                                    class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.valor.errors }">
+                                <div *ngIf="submitted && form.controls.valor.errors" class="invalid-feedback">
+                                    <div *ngIf="form.controls.valor.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="nr_comprovativo"> Número do comprovativo</label>
+                                <input type="number" formControlName="nr_comprovativo" placeholder="" maxlength="80"
+                                    name="nr_comprovativo" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && form.controls.nr_comprovativo.errors }">
+                                <div *ngIf="submitted && form.controls.nr_comprovativo.errors" class="invalid-feedback">
+                                    <div *ngIf="form.controls.nr_comprovativo.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="data_alvara_emissao"> Data do Recibo (dia/mês/ano)</label>
+                                <div class="d-flex flex-row data-emissao-select">
+                                    <mat-select name="dia" class="form-control dia-ano" [(ngModel)]="modelData.dia"
+                                        (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let opcao of dias" [value]="opcao">
+                                            {{opcao}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-select name="mes" class="form-control cl-mes" [(ngModel)]="modelData.mes"
+                                        (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let opcao of meses" [value]="opcao.value">
+                                            {{opcao.nome}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-select name="ano" class="form-control dia-ano" [(ngModel)]="modelData.ano"
+                                        (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let opcao of anos" [value]="opcao">
+                                            {{opcao}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                                <div *ngIf="selectdiaMesAnoBoolean" class="genero-error">
+                                    Deve preencher o campo da data correctamente
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="comentario"> Comentário</label>
+                                <textarea name="comentario" formControlName="comentario" rows="2"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="">Anexos</label>
+                            </div>
+                            <ng-container *ngFor="let anexo of selectedFiles; let i = index;">
+                                <div class="col-lg-4 col-md-4">
+                                    <label>{{anexo.name}}</label>
+                                    <button type="button" class="btn-floating btn-danger" (click)="deleteFile(i)"> <i
+                                            class="fas fa-trash"></i></button>
+                                </div>
+                            </ng-container>
+                            <div class="col-lg-12 col-lg-12 form-group">
+                                <button type="button" class="btn btn-indigo white-text" style="float: right;"
+                                    (click)="fileInput.click()"> <i class="fas fa-plus"></i> Ficheiro</button>
+                                <input type="file" style="display: none" id="files" #fileInput multiple
+                                    (change)="detectFiles($event)">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr>
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-indigo white-text" [disabled]="spinner"
+                                    (click)="submitPedido()">Submeter</button>
+                                <p class="text-center"><i *ngIf="spinner"
+                                        class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="addPedidoID"
+                                data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW MODAL-->
+    <div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <!--Modal: Contact form-->
+        <div class="modal-dialog modal-lg" role="document">
+            <!-- CLASS => cascading-modal -->
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <h6 class="title">
+                        Informação de pedido de reembolso
+                    </h6>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="nome"> Quem se beneficiou do serviço?</label>
+                            <input type="text" value="BENEFICIÁRIO"
+                                *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 1" placeholder=""
+                                maxlength="80" name="nome_beneficiario" class="form-control" disabled>
+                            <input type="text" value="DEPENDENTE"
+                                *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 0" placeholder=""
+                                maxlength="80" name="nome_beneficiario" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="nome" *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 1"> Nome
+                                do Beneficiário</label>
+                            <label for="nome" *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 0"> Nome
+                                do Dependente</label>
+
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.nome_beneficiario"
+                                *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 1" placeholder=""
+                                maxlength="80" name="nome_beneficiario" class="form-control" disabled>
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.nome_dependente"
+                                *ngIf="model_pedido_reembolso.beneficio_proprio_beneficiario == 0" placeholder=""
+                                maxlength="80" name="nome_dependente" class="form-control" disabled>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label for="nome">Nome da Instituição</label>
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.unidade_sanitaria" placeholder=""
+                                maxlength="80" name="unidade_sanitaria" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="nome"> Data da prestação do serviço</label>
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.data" placeholder="" maxlength="80"
+                                name="data" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="nome"> Valor (MZN)</label>
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.valor" placeholder="" maxlength="80"
+                                name="valor" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="nome"> Data da última actualização</label>
+                            <input type="text" [(ngModel)]="model_pedido_reembolso.updated_at" placeholder=""
+                                maxlength="80" name="updated_at" class="form-control" disabled>
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 form-group">
+                            <label for="">Anexos</label>
+                        </div>
+                        <div class="col-lg-12 col-md-12 form-group">
+                            <div class="row">
+                                <ng-container *ngFor="let anexo of model_pedido_reembolso.comprovativo; let i = index;">
+                                    <div class="col-md-3 form-group"
+                                        [ngStyle]=" i > 0 ?{'display': 'inline-flex'} : {'display': 'block'}">
+                                        <label for="" class="btn-anexo"> <a
+                                                (click)="getFileDownload(anexo)">{{anexo}}</a></label>
+                                    </div>
+                                </ng-container>
+                                <p class="text-center"><i *ngIf="spinner_download"
+                                        class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Serviço prestado</th>
+                                        <th scope="col">Nº do comprovativo</th>
+                                        <!-- <th scope="col">Comentário</th> -->
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td>{{model_pedido_reembolso.servico_prestado}}</td>
+                                        <td>{{model_pedido_reembolso.nr_comprovativo}}</td>
+                                        <!-- <td>{{model_pedido_reembolso.comentario}}</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-start" *ngIf="model_pedido_reembolso.responsavel">
+                        <div class="col-md-12 form-group">
+                            <span for="nome" class="responsavel_class"> RESPONSÁVEL</span>
+                        </div>
+                        <ng-container *ngFor="let item of model_pedido_reembolso.responsavel">
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="nome">Data: </label> &nbsp; <span>{{item.data}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="nome">Acção:</label>&nbsp; <span>{{item.accao}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="nome">Nome:</label> &nbsp;<span>{{item.nome}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="row" *ngIf="model_pedido_reembolso.comentario">
+                        <hr>
+                        <div class="col-md-12 form-group">
+                            <span for="nome" class="responsavel_class"> Comentários</span>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-start">
+                        <ng-container *ngFor="let item of model_pedido_reembolso.comentario">
+                            <div class="col-md-6 form-group">
+                                <label for="nome">Data: {{item.data}}</label> <br>
+                                <label for="nome">Nome: {{item.nome}}</label>
+                                <textarea rows="2" class="form-control" value="{{item.comentario}}" name="comentario"
+                                    disabled></textarea>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="row"
+                        *ngIf="model_pedido_reembolso.estado_pedido_reembolso_codigo == '10' || model_pedido_reembolso.estado_pedido_reembolso_codigo == '11'">
+                        <div class="col-md-12 form-group">
+                            <label for="nome"> Escreva o Comentário</label>
+                            <textarea name="comentario_devolucao" [(ngModel)]="comentario_devolucao"
+                                (ngModelChange)="onChangeInput($event)" rows="3" class="form-control"
+                                [ngClass]="{'is-invalid': invalid_comentario}"></textarea>
+                            <div class="invalid-feedback d-block" *ngIf="invalid_comentario"> Este campo é obrigatório
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row"
+                        *ngIf="model_pedido_reembolso.estado_pedido_reembolso_codigo == '10' || model_pedido_reembolso.estado_pedido_reembolso_codigo == '11'">
+                        <div class="col-md-12">
+                            <label for="">Anexos</label>
+                        </div>
+                        <ng-container *ngFor="let anexo of selectedFiles; let i = index;">
+                            <div class="col-lg-4 col-md-4">
+                                <label>{{anexo.name}}</label>
+                                <button type="button" class="btn-floating btn-danger" (click)="deleteFile(i)"> <i
+                                        class="fas fa-trash"></i></button>
+                            </div>
+                        </ng-container>
+                        <div class="col-lg-12 col-lg-12 form-group">
+                            <button type="button" class="btn btn-indigo white-text" style="float: right;"
+                                (click)="fileInput.click()"> <i class="fas fa-plus"></i> Ficheiro</button>
+                            <input type="file" style="display: none" id="files" #fileInput multiple
+                                (change)="detectFiles($event)">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="confirmacaoPagamento()"
+                                *ngIf="model_pedido_reembolso.estado_pedido_reembolso_codigo == '10'"
+                                [disabled]="spinner_1">Confirmar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="processarPagamento()"
+                                *ngIf="model_pedido_reembolso.estado_pedido_reembolso_codigo == '11'"
+                                [disabled]="spinner_1">Processar</button>
+                            <button type="submit" class="btn btn-outline-indigo text-center"
+                                (click)="devolverPedidoReembolso()"
+                                *ngIf="model_pedido_reembolso.estado_pedido_reembolso_codigo == '10' || model_pedido_reembolso.estado_pedido_reembolso_codigo == '11'"
+                                [disabled]="spinner_1">Devolver</button>
+
+                            <p class="text-center"><i *ngIf="spinner_1"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+            <!--/Modal: Contact form-->
+        </div>
+    </div>

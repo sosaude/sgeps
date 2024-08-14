@@ -1,0 +1,239 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row d-flex justify-content-start">
+        <div class="col-lg-2 col-md-6">
+            <p class="main-title">Serviços</p>
+            <button class="btn btn-indigo" style="margin-left: 0;" (click)="switchViewTable()" *ngIf="!adicionar_servico_bool">Adicionar</button> <br>
+            <button class="btn btn-indigo-active" style="margin-left: 0;" (click)="voltar()" *ngIf="adicionar_servico_bool">Voltar</button> <br>
+            <div class="suporte-div">
+                <div style="display: inline-flex;">
+                    <img src="../../../assets/Logo_PNG/support.png" alt="" srcset=""> &nbsp;&nbsp;
+                    <span class="title-suporte">Suporte</span>
+                </div>
+                <p style="color: #576271;">suporte@sgep.com</p>
+                <p style="color: #576271;">+2588567451200</p>
+                <p style="color: #FD5721;">www.sgep.com</p>
+            </div>
+        </div>
+
+        <div class="col-lg-10 col-md-6" *ngIf="!adicionar_servico_bool">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                            <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar..." />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 col-md-7 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do serviço</th>
+                                <th scope="col">Preço sem IVA</th>
+                                <th scope="col">IVA (%)</th>
+                                <th scope="col">Preço com IVA</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_all" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of servicos_unidade_sanitaria | filter:searchText | paginate: { itemsPerPage: 8, currentPage: p }">
+                            <!-- <tbody> -->
+                            <tr>
+                                <td>{{item.servico_nome}}</td>
+                                <td>{{item.preco}}</td>
+                                <td>{{item.iva}}</td>
+                                <td>{{item.preco_iva}}</td>
+                                <!-- <td style="cursor: pointer;"> <i class="fas fa-pen" data-toggle="modal" data-target="#crudModalEdit" (click)="viewCard(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="delete(item)"></i></td> -->
+
+                                <td>
+                                    <button type="button" class="btn btn-add" data-toggle="modal" data-target="#crudModalEdit" (click)="edit(item)"><i
+                                    class="fas fa-pen"></i>&nbsp;</button>
+                                    &nbsp;&nbsp; &nbsp;&nbsp;
+                                    <button type="button" class="btn btn-add" (click)="removeItem(item)"><i
+                                        class="fas fa-trash"></i>&nbsp;</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-10 col-md-6" *ngIf="adicionar_servico_bool">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                            <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar serviços..." />
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="row">
+                <div class="col-lg-7 col-md-7 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_all" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of servicos_unidade_sanitaria_admin | filter:searchText | paginate: { itemsPerPage: 8, currentPage: p }">
+                            <!-- <tbody> -->
+                            <tr>
+                                <td>{{item.servico_nome}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-add" data-toggle="modal" data-target="#crudModal" (click)="add(item)"><i
+                                  class="fas fa-plus"></i>&nbsp;Adicionar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- REGIST MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Adicionar Serviço
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form [formGroup]="form">
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Nome</label>
+                            <input type="text" [(ngModel)]="model_servico_view.servico_nome" placeholder="" name="servico_nome" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Preço <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="preco" placeholder="" maxlength="80" name="preco" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.preco.errors }">
+                            <div *ngIf="submitted && form.controls.preco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.preco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="iva">IVA (%) <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="iva" placeholder="" name="iva" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.iva.errors }">
+                            <div *ngIf="submitted && form.controls.iva.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.iva.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço com IVA</label>
+                            <input type="number" [(ngModel)]="model_servico_view.preco_iva" placeholder="" name="preco_iva" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </form>
+                </div>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- EDIT MODAL-->
+<div class="modal fade" id="crudModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Actualizar Serviço
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form [formGroup]="form">
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Nome</label>
+                            <input type="text" [(ngModel)]="model_servico_view.servico_nome" placeholder="" name="servico_nome" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Preço <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="preco" placeholder="" maxlength="80" name="preco" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.preco.errors }">
+                            <div *ngIf="submitted && form.controls.preco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.preco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="iva">IVA (%) <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="iva" placeholder="" name="iva" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.iva.errors }">
+                            <div *ngIf="submitted && form.controls.iva.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.iva.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço com IVA</label>
+                            <input type="number" [(ngModel)]="model_servico_view.preco_iva" placeholder="" name="preco_iva" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submitUpdate()" [disabled]="spinner">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_update" data-dismiss="modal">sub</button>
+                    </form>
+                </div>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

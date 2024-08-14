@@ -1,0 +1,154 @@
+/* You can add global styles to this file, and also import other style files */
+
+header,
+.view {
+    min-height: 100vh;
+}
+
+@media (max-width: 740px) {
+    header,
+    .view {
+        height: 1000px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    header,
+    .view {
+        height: 650px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #be0028!important;
+    }
+}
+
+
+/* Navbar animation */
+
+.navbar {
+    background-color: #be0028!important;
+}
+
+.top-nav-collapse {
+    background-color: #be0028;
+}
+
+
+/* Adding color to the Navbar on mobile */
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #be0028;
+    }
+}
+
+.input .form-control {
+    border: none;
+    background-color: #F5F5F5
+}
+
+.input .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+::-webkit-input-placeholder {
+    /* Edge */
+    color: #aaa;
+    font-style: normal;
+    font-size: 16px;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #aaa;
+    font-style: normal;
+    font-size: 16px;
+}
+
+::placeholder {
+    color: #aaa;
+    font-style: normal;
+    font-size: 16px;
+}
+
+span {
+    border-block-end: #aaa;
+}
+
+.loading_spin {
+    margin: 5px 0px;
+    color: #be0028;
+}
+
+.navbar-brand img {
+    width: 60px;
+    // height: 90px;
+}
+
+p {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.display-5,
+p {
+    color: #fff;
+}
+
+.button-recuperacao {
+    width: 250px;
+}
+
+.navbar-brand img {
+    width: 50px;
+}
+
+.navbar.scrolling-navbar {
+    padding: 0 0;
+}
+
+label a {
+    color: blue;
+    text-decoration: underline;
+}
+
+/deep/ .mat-checkbox.mat-accent {
+    .mat-checkbox-frame {
+        border: 1px solid #960528;
+    }
+    &.mat-checkbox-checked .mat-checkbox-background {
+        background-color: #960528;
+        border: 1px solid #960528;
+    }
+    .mat-checkbox-checkmark-path {
+        stroke: white !important;
+    }
+}
+
+.img-logo {
+    padding-bottom: 35px;
+}
+
+.img-file {
+    object-fit: contain;
+}
+
+.view img {
+    display: initial;
+    // width: 150px;
+}
+
+fieldset {
+    font-size: 14px;
+}

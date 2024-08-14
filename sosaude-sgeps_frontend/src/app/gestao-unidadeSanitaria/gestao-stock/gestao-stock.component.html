@@ -1,0 +1,311 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row d-flex justify-content-start">
+        <div class="col-lg-2 col-md-6">
+            <p class="main-title">Medicamentos</p>
+            <button class="btn btn-indigo" style="margin-left: 0;" (click)="switchViewTable()" *ngIf="!adicionar_medicamento_bool">Adicionar</button> <br>
+            <button class="btn btn-indigo-active" style="margin-left: 0;" (click)="voltar()" *ngIf="adicionar_medicamento_bool">Voltar</button> <br>
+            <div class="suporte-div">
+                <div style="display: inline-flex;">
+                    <img src="../../../assets/Logo_PNG/support.png" alt="" srcset="">&nbsp;&nbsp;
+                    <span class="title-suporte">Suporte</span>
+                </div>
+                <p style="color: #576271;">suporte@sgep.com</p>
+                <p style="color: #576271;">+2588567451200</p>
+                <p style="color: #FD5721;">www.sgep.com</p>
+            </div>
+        </div>
+
+        <div class="col-lg-10 col-md-6" *ngIf="!adicionar_medicamento_bool">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div id="custom-search-input">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                            <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar Medicamentos..." />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Sub. Activa</th>
+                                <th scope="col">Forma</th>
+                                <th scope="col">Dosagem</th>
+                                <th scope="col">Preço sem IVA</th>
+                                <th scope="col">IVA (%)</th>
+                                <th scope="col">Preço com IVA</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col"></th> 
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_all" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of marcas_medicamentos_farmacia | filter:searchText | paginate: { itemsPerPage: 8, currentPage: p }">
+                            <!-- <tbody> -->
+                            <tr>
+                                <td>{{item.marca}}</td>
+                                <td>{{item.medicamento_nome_generico}}</td>
+                                <td>{{item.medicamento_forma}}</td>
+                                <td>{{item.medicamento_dosagem}}</td>
+                                <td>{{item.preco}}</td>
+                                <td>{{item.iva}}</td>
+                                <td>{{item.preco_iva}}</td>
+                                <td>{{item.quantidade_disponivel}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-add" data-toggle="modal" data-target="#crudModalEdit" (click)="edit(item)"><i
+                                    class="fas fa-pen"></i>&nbsp;</button>
+                                    <button type="button" class="btn btn-add" (click)="removeItem(item)"><i
+                                        class="fas fa-trash"></i>&nbsp;</button>
+                                    
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-10 col-md-6" *ngIf="adicionar_medicamento_bool">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div id="custom-search-input"> 
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                            <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar Medicamentos..." />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Sub. Activa</th>
+                                <th scope="col">Forma</th>
+                                <th scope="col">Dosagem</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_all" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of marcas_medicamentos_admin | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <!-- <tbody> -->
+                            <tr>
+                                <td>{{item.marca}}</td>
+                                <td>{{item.medicamento_nome_generico}}</td>
+                                <td>{{item.medicamento_forma}}</td>
+                                <td>{{item.medicamento_dosagem}}</td>
+
+                                <td>
+                                    <button type="button" class="btn btn-add" data-toggle="modal" data-target="#crudModal" (click)="add(item)"><i
+                                    class="fas fa-plus"></i>&nbsp;Adicionar</button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end"></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- REGIST MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Adicionar Stock
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form [formGroup]="form">
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Substância Activa</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_nome_generico" placeholder="" name="medicamento_nome_generico" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Marca</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca" placeholder="" name="marca" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Forma</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_forma" placeholder="" name="medicamento_forma" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Dosagem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_dosagem" placeholder="" name="medicamento_dosagem" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> País de Origem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca_pais_origem" placeholder="" name="marca_pais_origem" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Quantidade <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="quantidade_disponivel" placeholder="" maxlength="80" name="quantidade_disponivel" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.quantidade_disponivel.errors }">
+                            <div *ngIf="submitted && form.controls.quantidade_disponivel.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.quantidade_disponivel.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Preço <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="preco" placeholder="" maxlength="80" name="preco" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.preco.errors }">
+                            <div *ngIf="submitted && form.controls.preco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.preco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="iva">IVA (%) <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="iva" placeholder="" name="iva" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.iva.errors }">
+                            <div *ngIf="submitted && form.controls.iva.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.iva.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço com IVA</label>
+                            <input type="number" [(ngModel)]="model_medicamento_view.preco_iva" placeholder="" name="preco_iva" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </form>
+                </div>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- REGIST, MODAL-->
+<div class="modal fade" id="crudModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Actualizar Stock
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center">
+                    <form [formGroup]="form">
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Substância Activa</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_nome_generico" placeholder="" name="medicamento_nome_generico" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Marca</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca" placeholder="" name="marca" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Forma</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_forma" placeholder="" name="medicamento_forma" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Dosagem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_dosagem" placeholder="" name="medicamento_dosagem" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> País de Origem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca_pais_origem" placeholder="" name="marca_pais_origem" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Quantidade <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="quantidade_disponivel" placeholder="" maxlength="80" name="quantidade_disponivel" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.quantidade_disponivel.errors }">
+                            <div *ngIf="submitted && form.controls.quantidade_disponivel.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.quantidade_disponivel.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome">Preço <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="preco" placeholder="" maxlength="80" name="preco" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.preco.errors }">
+                            <div *ngIf="submitted && form.controls.preco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.preco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="iva">IVA (%) <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="iva" placeholder="" name="iva" (ngModelChange)="calculoIVA()" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.iva.errors }">
+                            <div *ngIf="submitted && form.controls.iva.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.iva.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço com IVA</label>
+                            <input type="number" [(ngModel)]="model_medicamento_view.preco_iva" placeholder="" name="preco_iva" maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submitUpdate()" [disabled]="spinner">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_update" data-dismiss="modal">sub</button>
+                    </form>
+                </div>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

@@ -1,0 +1,339 @@
+<div class="container-fluid all-page">
+  <br>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="text-center">
+        <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="padding-bottom: 10px;">
+      <p class="p-filtro">
+        <a class="btn btn-indigo white-text" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Filtros<i class="fas fa-filter"></i>
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <div>
+            <form [formGroup]="form">
+              <div class="form-row">
+              <div class="form-group col-md-2">
+               
+                  <input matInput [matDatepicker]="picker" placeholder="Data Inicial"  formControlName="startDate" class="input-date-filter">
+                  <mat-datepicker-toggle matSuffix [for]="picker" class="date-picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                           
+            </div>
+    
+            <div class="form-group col-md-2">
+             
+                <input matInput [matDatepicker]="picker2" placeholder="Data Final"  formControlName="endDate"  class="input-date-filter">
+                <mat-datepicker-toggle matSuffix [for]="picker2" class="date-picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              
+              
+            </div>
+
+            <div class="form-group col-md-3">
+             
+              <mat-select formControlName="farmUsOpt" placeholder="Fltrar Por"
+                                (selectionChange)="onSelectOption_farmus($event)" class="mat-select">
+                                <mat-option value="0">Todos</mat-option>
+                                <mat-option value="1">Farmacia</mat-option>
+                                <mat-option value="2">Unidade Sanitaria</mat-option>
+                </mat-select>
+        
+            </div>
+
+            <div *ngIf="filterId == 1" class="form-group col-md-2">
+              
+                <mat-select formControlName="farmId" placeholder="Selecione a Farmacia"
+                                (selectionChange)="onSelectOption_farmacia($event)" class="mat-select">
+                                <mat-option value="0">Todos</mat-option>
+                                <mat-option *ngFor="let farm of farmacias" [value]="farm.id">
+                                    {{farm.nome}}</mat-option>
+                </mat-select>
+                
+            </div>
+
+            <div *ngIf="filterId == 2" class="form-group col-md-2">
+              
+                <mat-select formControlName="usId" placeholder="Selecione a Unidade Sanitaria"
+                                (selectionChange)="onSelectOption_us($event)">
+                                <mat-option value="0">Todos</mat-option>
+                                <mat-option *ngFor="let u of us" [value]="u.id" class="mat-select">
+                                    {{u.nome}}</mat-option>
+                </mat-select>
+               
+            </div>
+
+            <div class="form-group col-md=2">
+            <button type="button" class="btn btn-indigo white-text" (click)="add()"><i class="fas fa-plus"></i> &nbsp; Actualizar</button>
+            </div>
+          </div>
+
+    
+            </form>
+         
+          </div>
+        </div>
+      </div>
+       
+    </div>
+
+
+    <div class="col-md-5">
+      <div class="left-side">
+        <div class="row" style="padding-right: 5px;">
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Valor pago até a data</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.valor_pago }} MZN</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Valor facturado até a data</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.valor_faturado }} MZN</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Valor orçado até a data</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.valor_orcado }} MZN</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Valor recusado até a data</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.valor_recusado }} MZN</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2" style="max-height: 100px;">
+      <canvas id="myChart2" width="100%" height="105px"></canvas>
+    </div>
+    <div class="col-md-5">
+      <div class="left-side">
+        <div class="row" style="padding-right: 5px; padding-left: 5px;">
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Nº de Beneficiários (activos)</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.nr_beneficiarios }}</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Nº de provedores activos</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">{{ overview.provedores }}</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Nº de localidades activas</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">1</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <div class="card">
+              <h5 class="card-header">Sinistralidade</h5>
+              <div class="card-body">
+                <h5 class="card-title valor">0</h5>
+                <!-- <p class="card-text valor">vs mês anterior</p> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="padding-top: 10px;">
+      <!-- <div class="card">
+        <div class="card-body">
+          <h4>aaaaaaaaaaaaaa888888888888888888888888888888 </h4>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">{{ overview.bene_homem_percent }} %<img src="../../../assets/images/man.svg" width="50"
+                    height="50" alt=""></div>
+                <div class="col-md-4">{{ overview.bene_mulher_percent }} %<img src="../../../assets/images/girlsvg.svg" width="50"
+                    height="50" alt=""></div>
+                <div class="col-md-4">{{ overview.dependentes_percent }} %<img src="../../../assets/images/group.svg" width="50"
+                    height="50" alt=""></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">{{ overview.nr_beneficiarios_geral }}<img src="../../../assets/images/Add.svg" width="50"
+                    height="50" alt="" style="left: 30px;"></div>
+                <div class="col-md-6">{{ overview.nr_beneficiarios_inactivos   }} <img src="../../../assets/images/subtract (1).svg" width="50"
+                    height="50" alt=""></div>
+
+
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">0 internados <img src="../../../assets/images/hospitalized.svg" width="50"
+                    height="50" alt=""></div>
+                <div class="col-md-6" style="align-items: center;">Mês/Ano <img src="../../../assets/images/hospitalized.svg" width="50"
+                  height="50" alt=""></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="padding-top: 10px;">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <canvas id="myChart3" height="100px"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" #chartId1>
+                  <canvas id="myChart1" height="360px"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <canvas id="myChart4" height="360px"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" #chartId5>
+                  <canvas id="myChart5" height="360px"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="padding-top: 10px;">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div #chartId7 >
+                <canvas id="myChart7" height="108px"></canvas>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+
+            
+
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Grupo estatístico</th>
+                        <th scope="col">Sinistro</th>
+                        <th scope="col">Qtd</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let item of descricao_servicos">
+                      <tr>
+                        <td>{{ item.servico }}</td>
+                        <td>{{ item.preco }}</td>
+                        <td>{{ item.quantidade }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="servicos.length == 0 && servicos_farm.length == 0"><p class="d-flex justify-content-center">Sem Informação</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div *ngIf="doencas_percent.length == 0"><p class="d-flex justify-content-center">Sem Informação</p></div>
+                  <div #chartId6 ><canvas id="myChart6" height="380px"></canvas></div>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+</div>

@@ -1,0 +1,188 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Categorias</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalCategoria" (click)="modalGrupo(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalCategoria" (click)="modalGrupo(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-between" style="padding-right: 15px; padding-left: 10px;">
+        <div class="">
+            <button type="button" class="btn btn-indigo white-text" data-toggle="modal" data-target="#crudModal" (click)="add()"><i
+  class="fas fa-plus"></i>&nbsp;&nbsp;Serviço</button>
+        </div>
+        <div id="custom-search-input">
+            <div class="input-group">
+                <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar..." />
+                <span class="input-group-btn">
+            <button class="search-btn" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+        </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+    </p>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8 col-sm-8 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Acção</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of servicos  | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <!-- <tbody> -->
+                    <tr>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.categoria_servico.nome}}</td>
+                        <td> <button type="button" class="btn btn-edit" (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">Ver</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Serviço
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="nome"> Nome <span class="required-mark">*</span></label>
+                            <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.nome.errors }">
+                            <div *ngIf="submitted && form.controls.nome.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nome.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="categoria">Categoria <span class="required-mark">*</span></label>
+                            <mat-select formControlName="categoria_servico_id" name="categoria_servico_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.categoria_servico_id.errors }">
+                                <mat-option *ngFor="let opcao of servicos_create" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.categoria_servico_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.categoria_servico_id.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdate()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmit()" *ngIf="editBtn">Submeter</button>
+                            <button type="submit" class="btn btn-outline-indigo float-right" (click)="delete()" *ngIf="viewBtn" [disabled]="spinner">Apagar</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL -- GRUPOS-->
+<div class="modal fade" id="crudModalCategoria" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Categoria
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="group_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Categoria</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of categorias; let i=index">
+                            <tr>
+                                <td>{{item.codigo}}</td>
+                                <td>{{item.nome}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardGrupo(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteGrupo(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="group_modal_option == 2 || group_modal_option == 3">
+                    <form [formGroup]="form_categoria">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="codigo"> Código </label>
+                                <input type="text" formControlName="codigo" placeholder="" maxlength="80" name="codigo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_categoria.controls.codigo.errors }">
+                                <div *ngIf="submitted && form_categoria.controls.codigo.errors" class="invalid-feedback">
+                                    <div *ngIf="form_categoria.controls.codigo.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label for="nome"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_categoria.controls.nome.errors }">
+                                <div *ngIf="submitted && form_categoria.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_categoria.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" (click)="modalGrupo(3)" [disabled]="spinner_grupo" *ngIf="group_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalGrupo(4)" *ngIf="group_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalGrupo(5)" *ngIf="group_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_grupo" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<div class="container-fluid all-page">
+
+    <div class="row d-flex justify-content-start" style="padding-top: 10px;">
+
+        <div class="col-md-4">
+            <button type="button" class="btn btn-outline-indigo btn-import btn-lg" data-toggle="modal"
+                data-target="#crudModalImport"><i class="fas fa-upload"></i> &nbsp; Importar</button>
+
+            <button type="button" class="btn btn-indigo white-text" (click)="exportAsXLSX()"><i
+                    class="fas fa-download"></i> &nbsp; Dependentes</button>
+        </div>
+
+        <div class="col-md-8">
+            <div id="custom-search-input">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="search-btn" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </span>
+                    <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                        placeholder="Procurar dependentes..." />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+    </p>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-sm-8 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nº do Beneficiário</th>
+                        <th scope="col">Nome do Beneficiário</th>
+                        <th scope="col">Código do Dependente</th>
+                        <th scope="col">Nome do Dependente</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Parantesco</th>
+                        <th scope="col"></th>
+
+
+                    </tr>
+                </thead>
+                <tbody
+                    *ngFor="let item of beneficiarios | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                    <!-- <tbody> -->
+                    <tr>
+                        <td>{{item.numero_beneficiario}}</td>
+                        <td>{{item.beneficiario_nome}}</td>
+                        <td>{{item.codigo_acesso}}</td>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.telefone}}</td>
+                        <td>{{item.endereco}}</td>
+                        <td>{{item.parantesco}}</td>
+                        <!-- <td> <button type="button" class="btn btn-edit" (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">Editar</button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" (pageBoundsCorrection)="p = $event"
+                class="d-flex justify-content-end paginator"></pagination-controls>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModalImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Importar Dependente
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <!-- <form [formGroup]="form"> -->
+                <div class="row">
+
+
+                    <div class="col-md-8 form-group">
+                        <input type="file" id="ficheiro" class="form-control" (change)="onChange($event)">
+
+                    </div>
+
+                    <hr>
+                    <div class="col-md-8 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-indigo white-text" [disabled]="spinner"
+                            (click)="importarExcell()">Submeter</button>
+
+                        <p class="text-center"><i *ngIf="spinner"
+                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <button type="button" style="display: none;" id="actualizarID_dependente"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                </div>
+                <!-- </form> -->
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

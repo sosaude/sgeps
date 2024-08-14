@@ -1,0 +1,633 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row d-flex justify-content-between" style="padding-right: 15px; padding-left: 10px;">
+        <div class="">
+            <button type="button" class="btn btn-indigo white-text" data-toggle="modal" data-target="#crudModal" (click)="add()"><i
+    class="fas fa-plus"></i>&nbsp;&nbsp;Unidade Sanitária</button>
+        </div>
+        <div id="custom-search-input">
+            <div class="input-group">
+                <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar Unidade Sanitária..." />
+                <span class="input-group-btn">
+                <button class="search-btn" type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+            </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- CARDS -->
+    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+    </p>
+    <div class="row">
+        <ng-container *ngFor="let item of clinicas | filter:searchText">
+            <div class="col-md-3">
+                <div class="card">
+                    <!-- <div class="card-header bg-transparent"> <span>i</span> Farmácia 00</div> -->
+                    <div class="card-body" (click)="viewCard(item)" data-toggle="modal" data-target="#crudModalEdit">
+                        <h6 class="card-title"> <span>i</span> {{item.nome}}</h6>
+                        <p class="card-text">{{item.endereco}}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex justify-content-between">
+                        <button type="button" class="btn btn-footer" data-toggle="modal" data-target="#crudModalFarmaceutico" (click)="addUtilizador(item)"><i
+                  class="fas fa-plus"></i>&nbsp;Utilizador</button>
+                        <!-- <button type="button" class="btn btn-footer" (click)="add()"><i
+                  class="fas fa-plus"></i>&nbsp;Medicamento</button> -->
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Unidade Sanitária
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="categoria_unidade_sanitaria_id">Categoria <span class="required-mark">*</span></label>
+                            <mat-select formControlName="categoria_unidade_sanitaria_id" name="categoria_unidade_sanitaria_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.categoria_unidade_sanitaria_id.errors }">
+                                <mat-option *ngFor="let opcao of perfil_roles_unidade_sanitaria" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.categoria_unidade_sanitaria_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.categoria_unidade_sanitaria_id.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="nome"> Nome <span class="required-mark">*</span></label>
+                            <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.nome.errors }">
+                            <div *ngIf="submitted && form.controls.nome.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nome.errors.required">Este campo é obrigatório</div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="email"> Email <span class="required-mark">*</span></label>
+                            <input type="email" placeholder="" class="form-control" formControlName="email" name="email" [ngClass]="{ 'is-invalid': submitted && form.controls.email.errors }">
+                            <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.email.errors.required">Este campo é obrigatório</div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.email.errors.email">Este campo deve ser válido</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="endereco"> Endereço <span class="required-mark">*</span></label>
+                            <input type="text" placeholder="" class="form-control" formControlName="endereco" name="endereco" [ngClass]="{ 'is-invalid': submitted && form.controls.endereco.errors }">
+                            <div *ngIf="submitted && form.controls.endereco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.endereco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="nuit"> NUIT <span class="required-mark">*</span></label>
+                            <input type="number" placeholder="" class="form-control" formControlName="nuit" name="nuit" oninput="if(value.length>9)value=value.slice(0,9)" [ngClass]="{ 'is-invalid': submitted && form.controls.nuit.errors }">
+                            <div *ngIf="submitted && form.controls.nuit.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nuit.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="latitude"> Coordenadas geográficas <span class="required-mark">*</span></label>
+                            <div class="two-columns" style="display: inline-flex;">
+                                <input type="text" formControlName="latitude" maxlength="20" placeholder="Latitude" name="latitude" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.latitude.errors }">
+                                <input type="text" formControlName="longitude" maxlength="20" placeholder="Longitude" name="longitude" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.longitude.errors }">
+                            </div>
+                            <div *ngIf="submitted && form.controls.latitude.errors" class="d-block invalid-feedback">
+                                <div *ngIf="form.controls.latitude.errors.required">Este campo é obrigatório</div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.longitude.errors" class="d-block invalid-feedback">
+                                <div *ngIf="form.controls.longitude.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-8 form-group">
+                            <label for="contacto"> Contactos <span class="required-mark">*</span></label>
+                            <div formArrayName="contactos">
+                                <div *ngFor="let item of form.get('contactos')['controls']; let pointIndex=index" [formGroupName]="pointIndex">
+                                    <div class="two-columns-contacto" style="display: inline-flex;">
+                                        <input type="number" placeholder="Contacto {{pointIndex + 1}}" class="form-control" formControlName="contacto" name="contacto">
+                                        <button type="button" class="addContacto" (click)="addContacto()" *ngIf="pointIndex == 0"> Adicionar contacto</button>
+                                        <button type="button" class="remove-contacto" (click)="deleteContacto(pointIndex)" *ngIf="pointIndex > 0"> <i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.contactos.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.contactos.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="col-md-8 form-group">
+                            <label for="contacto"> Contactos <span class="required-mark">*</span> </label>
+                            <div formArrayName="contactos">
+                                <div *ngFor="let item of form.get('contactos')['controls']; let pointIndex=index" [formGroupName]="pointIndex">
+                                    <div class="two-columns-contacto" style="display: inline-flex;">
+                                        <input type="text" placeholder="Contacto {{pointIndex + 1}}" minlength="2" class="form-control" formControlName="contacto" name="contacto" (ngModelChange)="onTelefoneChange($event)" [ngClass]="{ 'is-invalid': (submitted && form.get('contactos')['controls'].errors) || invalidTelefoneBoolean }">
+                                        <div *ngIf="invalidTelefoneBoolean" class="invalid-feedback d-block">Este campo deve ser válido </div>
+                                        <button type="button" class="addContacto" (click)="addContacto()" *ngIf="pointIndex == 0"> Adicionar contacto</button>
+                                        <button type="button" class="remove-contacto" (click)="deleteContacto(pointIndex)" *ngIf="pointIndex > 0"> <i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.contactos.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.contactos.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdate()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-outline-indigo float-right" (click)="delete()" *ngIf="viewBtn" [disabled]="spinner">Apagar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmit()" *ngIf="editBtn">Submeter</button>
+
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Unidade Sanitária
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form [formGroup]="form">
+                            <div class="row">
+                                <div class="col-md-8 form-group">
+                                    <label for="categoria_unidade_sanitaria_id">Categoria <span class="required-mark">*</span></label>
+                                    <mat-select formControlName="categoria_unidade_sanitaria_id" name="categoria_unidade_sanitaria_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.categoria_unidade_sanitaria_id.errors }">
+                                        <mat-option *ngFor="let opcao of perfil_roles_unidade_sanitaria" [value]="opcao.id">
+                                            {{opcao.nome}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <div *ngIf="submitted && form.controls.categoria_unidade_sanitaria_id.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.categoria_unidade_sanitaria_id.errors.required">Este campo é obrigatório
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="nome"> Nome</label>
+                                    <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.nome.errors }">
+                                    <div *ngIf="submitted && form.controls.nome.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.nome.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="email"> Email <span class="required-mark">*</span></label>
+                                    <input type="email" placeholder="" class="form-control" formControlName="email" name="email" [ngClass]="{ 'is-invalid': submitted && form.controls.email.errors }">
+                                    <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.email.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                    <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.email.errors.email">Este campo deve ser válido</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="endereco"> Endereço</label>
+                                    <input type="text" placeholder="" class="form-control" formControlName="endereco" name="endereco" [ngClass]="{ 'is-invalid': submitted && form.controls.endereco.errors }">
+                                    <div *ngIf="submitted && form.controls.endereco.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.endereco.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="nuit"> NUIT</label>
+                                    <input type="number" placeholder="" class="form-control" formControlName="nuit" name="nuit" oninput="if(value.length>9)value=value.slice(0,9)" [ngClass]="{ 'is-invalid': submitted && form.controls.nuit.errors }">
+                                    <div *ngIf="submitted && form.controls.nuit.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.nuit.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="latitude"> Coordenadas geográficas <span class="required-mark">*</span></label>
+                                    <div class="two-columns" style="display: inline-flex;">
+                                        <input type="text" formControlName="latitude" maxlength="20" placeholder="Latitude" name="latitude" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.latitude.errors }">
+                                        <input type="text" formControlName="longitude" maxlength="20" placeholder="Longitude" name="longitude" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.longitude.errors }">
+                                    </div>
+                                    <div *ngIf="submitted && form.controls.latitude.errors" class="d-block invalid-feedback">
+                                        <div *ngIf="form.controls.latitude.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                    <div *ngIf="submitted && form.controls.longitude.errors" class="d-block invalid-feedback">
+                                        <div *ngIf="form.controls.longitude.errors.required">Este campo é obrigatório</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 form-group">
+                                    <label for="contacto"> Contactos <span class="required-mark">*</span> </label>
+                                    <div formArrayName="contactos">
+                                        <div *ngFor="let item of form.get('contactos')['controls']; let pointIndex=index" [formGroupName]="pointIndex">
+                                            <div class="two-columns-contacto" style="display: inline-flex;">
+                                                <input type="text" placeholder="Contacto {{pointIndex + 1}}" class="form-control" formControlName="contacto" name="contacto" (ngModelChange)="onTelefoneChange($event)" [ngClass]="{ 'is-invalid': (submitted && form.get('contactos')['controls'].errors) || invalidTelefoneBoolean }">
+                                                <div *ngIf="invalidTelefoneBoolean" class="invalid-feedback d-block">Este campo deve ser válido </div>
+                                                <button type="button" class="addContacto" (click)="addContacto()" *ngIf="pointIndex == 0"> Adicionar contacto</button>
+                                                <button type="button" class="remove-contacto" (click)="deleteContacto(pointIndex)" *ngIf="pointIndex > 0"> <i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="submitted && form.controls.contactos.errors" class="invalid-feedback">
+                                        <div *ngIf="form.controls.contactos.errors.required">Este campo é obrigatório
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8 d-flex">
+                                    <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" *ngIf="submitBtn">Submeter</button>
+                                    <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdate()" *ngIf="viewBtn">actualizar</button>
+                                    <button type="submit" class="btn btn-outline-indigo float-right" (click)="delete()" *ngIf="viewBtn" [disabled]="spinner">Apagar</button>
+                                    <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmit()" *ngIf="editBtn">Submeter</button>
+
+                                    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                    </p>
+                                </div>
+                                <button type="button" style="display: none;" id="actualizarID_2" data-dismiss="modal">sub</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nome"> Utilizadores</label>
+                        <div class="col-md-10 form-group" *ngFor="let item of utilizadores">
+                            <p class="d-flex justify-content-between">
+                                <span class="" style="cursor: pointer;" data-toggle="modal" data-target="#crudModalFarmaceutico" (click)="viewCardFarmaceutico(item)">{{item.nome}}
+                              </span>
+                                <i class="fas fa-trash" style="cursor: pointer; padding: 10px; color: #747373;" (click)="deleteFarmaceutico(item.id)"></i>
+                            </p>
+                        </div>
+                        <p class="text-center"><i *ngIf="spinner_2" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                    </div>
+                </div>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModalFarmaceutico" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Utilizador da Unidade Sanitária
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form_utilizador">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12 form-group">
+                                <label for="role_id">Perfil <span class="required-mark">*</span></label>
+                                <mat-select id="role_id" formControlName="role_id" name="role_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_utilizador.controls.role_id.errors }">
+                                    <mat-option *ngFor="let opcao of perfil_roles" [value]="opcao.id">
+                                        {{opcao.role}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form_utilizador.controls.role_id.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.role_id.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="nome"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_utilizador.controls.nome.errors }">
+                                <div *ngIf="submitted && form_utilizador.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div> 
+                            <div class="col-md-12 form-group">
+                                <label for="email"> Email <span class="required-mark">*</span></label>
+                                <input type="email" formControlName="email" placeholder="" maxlength="80" name="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_utilizador.controls.email.errors }">
+                                <div *ngIf="submitted && form_utilizador.controls.email.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.email.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="nacionalidade">Nacionalidade <span class="required-mark">*</span></label>
+                                <mat-select id="nacionalidade" formControlName="nacionalidade" name="nacionalidade" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_utilizador.controls.nacionalidade.errors }">
+                                    <mat-option value="" selected>Selecione
+                                    </mat-option>
+                                    <mat-option value="Mocambique">Moçambique</mat-option>
+                                    <mat-option value="Africa do Sul">África do Sul</mat-option>
+                                    <mat-option value="Albania">Albânia</mat-option>
+                                    <mat-option value="Alemanha">Alemanha</mat-option>
+                                    <mat-option value="Andorra">Andorra</mat-option>
+                                    <mat-option value="Angola">Angola</mat-option>
+                                    <mat-option value="Anguilla">Anguilla</mat-option>
+                                    <mat-option value="Antigua">Antigua</mat-option>
+                                    <mat-option value="Arabia Saudita">Arábia Saudita</mat-option>
+                                    <mat-option value="Argentina">Argentina</mat-option>
+                                    <mat-option value="Armenia">Armênia</mat-option>
+                                    <mat-option value="Aruba">Aruba</mat-option>
+                                    <mat-option value="Australia">Austrália</mat-option>
+                                    <mat-option value="Áustria">Áustria</mat-option>
+                                    <mat-option value="Azerbaijao">Azerbaijão</mat-option>
+                                    <mat-option value="Bahamas">Bahamas</mat-option>
+                                    <mat-option value="Bahrein">Bahrein</mat-option>
+                                    <mat-option value="Bangladesh">Bangladesh</mat-option>
+                                    <mat-option value="Barbados">Barbados</mat-option>
+                                    <mat-option value="Belgica">Bélgica</mat-option>
+                                    <mat-option value="Benin">Benin</mat-option>
+                                    <mat-option value="Bermudas">Bermudas</mat-option>
+                                    <mat-option value="Botsuana">Botsuana</mat-option>
+                                    <mat-option value="Brasil">Brasil</mat-option>
+                                    <mat-option value="Brunei">Brunei</mat-option>
+                                    <mat-option value="Bulgaria">Bulgária</mat-option>
+                                    <mat-option value="Burkina Fasso">Burkina Fasso</mat-option>
+                                    <mat-option value="botao">botão</mat-option>
+                                    <mat-option value="Cabo Verde">Cabo Verde</mat-option>
+                                    <mat-option value="Camaroes">Camarões</mat-option>
+                                    <mat-option value="Camboja">Camboja</mat-option>
+                                    <mat-option value="Canada">Canadá</mat-option>
+                                    <mat-option value="Cazaquistao">Cazaquistão</mat-option>
+                                    <mat-option value="Chade">Chade</mat-option>
+                                    <mat-option value="Chile">Chile</mat-option>
+                                    <mat-option value="China">China</mat-option>
+                                    <mat-option value="Cidade do Vaticano">Cidade do Vaticano</mat-option>
+                                    <mat-option value="Colombia">Colômbia</mat-option>
+                                    <mat-option value="Congo">Congo</mat-option>
+                                    <mat-option value="Coreia do Sul">Coréia do Sul</mat-option>
+                                    <mat-option value="Costa do Marfim">Costa do Marfim</mat-option>
+                                    <mat-option value="Costa Rica">Costa Rica</mat-option>
+                                    <mat-option value="Croacia">Croácia</mat-option>
+                                    <mat-option value="Dinamarca">Dinamarca</mat-option>
+                                    <mat-option value="Djibuti">Djibuti</mat-option>
+                                    <mat-option value="Dominica">Dominica</mat-option>
+                                    <mat-option value="EUA">EUA</mat-option>
+                                    <mat-option value="Egito">Egito</mat-option>
+                                    <mat-option value="El Salvador">El Salvador</mat-option>
+                                    <mat-option value="Emirados Árabes">Emirados Árabes</mat-option>
+                                    <mat-option value="Equador">Equador</mat-option>
+                                    <mat-option value="Eritreia">Eritréia</mat-option>
+                                    <mat-option value="Escocia">Escócia</mat-option>
+                                    <mat-option value="Eslovaquia">Eslováquia</mat-option>
+                                    <mat-option value="Eslovenia">Eslovênia</mat-option>
+                                    <mat-option value="Espanha">Espanha</mat-option>
+                                    <mat-option value="Estonia">Estônia</mat-option>
+                                    <mat-option value="Etiopia">Etiópia</mat-option>
+                                    <mat-option value="Fiji">Fiji</mat-option>
+                                    <mat-option value="Filipinas">Filipinas</mat-option>
+                                    <mat-option value="Finlandia">Finlândia</mat-option>
+                                    <mat-option value="Franca">França</mat-option>
+                                    <mat-option value="Gabao">Gabão</mat-option>
+                                    <mat-option value="Gambia">Gâmbia</mat-option>
+                                    <mat-option value="Gana">Gana</mat-option>
+                                    <mat-option value="Georgia">Geórgia</mat-option>
+                                    <mat-option value="Gibraltar">Gibraltar</mat-option>
+                                    <mat-option value="Granada">Granada</mat-option>
+                                    <mat-option value="Grecia">Grécia</mat-option>
+                                    <mat-option value="Guadalupe">Guadalupe</mat-option>
+                                    <mat-option value="Guam">Guam</mat-option>
+                                    <mat-option value="Guatemala">Guatemala</mat-option>
+                                    <mat-option value="Guiana">Guiana</mat-option>
+                                    <mat-option value="Guiana Francesa">Guiana Francesa</mat-option>
+                                    <mat-option value="Guine-bissau">Guiné-bissau</mat-option>
+                                    <mat-option value="Haiti">Haiti</mat-option>
+                                    <mat-option value="Holanda">Holanda</mat-option>
+                                    <mat-option value="Honduras">Honduras</mat-option>
+                                    <mat-option value="Hong Kong">Hong Kong</mat-option>
+                                    <mat-option value="Hungria">Hungria</mat-option>
+                                    <mat-option value="Iemen">Iêmen</mat-option>
+                                    <mat-option value="Ilhas Cayman">Ilhas Cayman</mat-option>
+                                    <mat-option value="Ilhas Cook">Ilhas Cook</mat-option>
+                                    <mat-option value="Ilhas Curacao">Ilhas Curaçao</mat-option>
+                                    <mat-option value="Ilhas Marshall">Ilhas Marshall</mat-option>
+                                    <mat-option value="Ilhas Turks & Caicos">Ilhas Turks & Caicos
+                                    </mat-option>
+                                    <mat-option value="Ilhas Virgens (brit.)">Ilhas Virgens (brit.)
+                                    </mat-option>
+                                    <mat-option value="Ilhas Virgens(amer.)">Ilhas Virgens(amer.)
+                                    </mat-option>
+                                    <mat-option value="Ilhas Wallis e Futuna">Ilhas Wallis e Futuna
+                                    </mat-option>
+                                    <mat-option value="India">Índia</mat-option>
+                                    <mat-option value="Indonesia">Indonésia</mat-option>
+                                    <mat-option value="Inglaterra">Inglaterra</mat-option>
+                                    <mat-option value="Irlanda">Irlanda</mat-option>
+                                    <mat-option value="Islandia">Islândia</mat-option>
+                                    <mat-option value="Israel">Israel</mat-option>
+                                    <mat-option value="Italia">Itália</mat-option>
+                                    <mat-option value="Jamaica">Jamaica</mat-option>
+                                    <mat-option value="Japao">Japão</mat-option>
+                                    <mat-option value="Jordania">Jordânia</mat-option>
+                                    <mat-option value="Kuwait">Kuwait</mat-option>
+                                    <mat-option value="Latvia">Latvia</mat-option>
+                                    <mat-option value="Libano">Líbano</mat-option>
+                                    <mat-option value="Liechtenstein">Liechtenstein</mat-option>
+                                    <mat-option value="Lituania">Lituânia</mat-option>
+                                    <mat-option value="Luxemburgo">Luxemburgo</mat-option>
+                                    <mat-option value="Macau">Macau</mat-option>
+                                    <mat-option value="Macedonia">Macedônia</mat-option>
+                                    <mat-option value="Madagascar">Madagascar</mat-option>
+                                    <mat-option value="Malasia">Malásia</mat-option>
+                                    <mat-option value="Malaui">Malaui</mat-option>
+                                    <mat-option value="Mali">Mali</mat-option>
+                                    <mat-option value="Malta">Malta</mat-option>
+                                    <mat-option value="Marrocos">Marrocos</mat-option>
+                                    <mat-option value="Martinica">Martinica</mat-option>
+                                    <mat-option value="Mauritania">Mauritânia</mat-option>
+                                    <mat-option value="Mauritius">Mauritius</mat-option>
+                                    <mat-option value="Mexico">México</mat-option>
+                                    <mat-option value="Mocambique">Moçambique</mat-option>
+                                    <mat-option value="Moldova">Moldova</mat-option>
+                                    <mat-option value="Monaco">Mônaco</mat-option>
+                                    <mat-option value="Montserrat">Montserrat</mat-option>
+                                    <mat-option value="Nepal">Nepal</mat-option>
+                                    <mat-option value="Nicaragua">Nicarágua</mat-option>
+                                    <mat-option value="Niger">Niger</mat-option>
+                                    <mat-option value="Nigeria">Nigéria</mat-option>
+                                    <mat-option value="Noruega">Noruega</mat-option>
+                                    <mat-option value="Nova Caledonia">Nova Caledônia</mat-option>
+                                    <mat-option value="Nova Zelandia">Nova Zelândia</mat-option>
+                                    <mat-option value="Oma">Omã</mat-option>
+                                    <mat-option value="Palau">Palau</mat-option>
+                                    <mat-option value="Panama">Panamá</mat-option>
+                                    <mat-option value="Papua-nova Guine">Papua-nova Guiné</mat-option>
+                                    <mat-option value="Paquistao">Paquistão</mat-option>
+                                    <mat-option value="Peru">Peru</mat-option>
+                                    <mat-option value="Polinesia Francesa">Polinésia Francesa</mat-option>
+                                    <mat-option value="Polonia">Polônia</mat-option>
+                                    <mat-option value="Porto Rico">Porto Rico</mat-option>
+                                    <mat-option value="Portugal">Portugal</mat-option>
+                                    <mat-option value="Qatar">Qatar</mat-option>
+                                    <mat-option value="Quenia">Quênia</mat-option>
+                                    <mat-option value="Rep. Dominicana">Rep. Dominicana</mat-option>
+                                    <mat-option value="Rep. Tcheca">Rep. Tcheca</mat-option>
+                                    <mat-option value="Reunion">Reunion</mat-option>
+                                    <mat-option value="Romenia">Romênia</mat-option>
+                                    <mat-option value="Ruanda">Ruanda</mat-option>
+                                    <mat-option value="Russia">Rússia</mat-option>
+                                    <mat-option value="Saipan">Saipan</mat-option>
+                                    <mat-option value="Samoa Americana">Samoa Americana</mat-option>
+                                    <mat-option value="Senegal">Senegal</mat-option>
+                                    <mat-option value="Serra Leone">Serra Leone</mat-option>
+                                    <mat-option value="Seychelles">Seychelles</mat-option>
+                                    <mat-option value="Singapura">Singapura</mat-option>
+                                    <mat-option value="Síria">Síria</mat-option>
+                                    <mat-option value="Sri Lanka">Sri Lanka</mat-option>
+                                    <mat-option value="St. Kitts & Nevis">St. Kitts & Nevis</mat-option>
+                                    <mat-option value="St. Lucia">St. Lúcia</mat-option>
+                                    <mat-option value="St. Vincent">St. Vincent</mat-option>
+                                    <mat-option value="Sudao">Sudão</mat-option>
+                                    <mat-option value="Suecia">Suécia</mat-option>
+                                    <mat-option value="Suica">Suiça</mat-option>
+                                    <mat-option value="Suriname">Suriname</mat-option>
+                                    <mat-option value="Tailandia">Tailândia</mat-option>
+                                    <mat-option value="Taiwan">Taiwan</mat-option>
+                                    <mat-option value="Tanzania">Tanzânia</mat-option>
+                                    <mat-option value="Togo">Togo</mat-option>
+                                    <mat-option value="Trinidad & Tobago">Trinidad & Tobago</mat-option>
+                                    <mat-option value="Tunisia">Tunísia</mat-option>
+                                    <mat-option value="Turquia">Turquia</mat-option>
+                                    <mat-option value="Ucrania">Ucrânia</mat-option>
+                                    <mat-option value="Uganda">Uganda</mat-option>
+                                    <mat-option value="Uruguai">Uruguai</mat-option>
+                                    <mat-option value="Venezuela">Venezuela</mat-option>
+                                    <mat-option value="Vietna">Vietnã</mat-option>
+                                    <mat-option value="Zaire">Zaire</mat-option>
+                                    <mat-option value="Zambia">Zâmbia</mat-option>
+                                    <mat-option value="Zimbabue">Zimbábue</mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form_utilizador.controls.nacionalidade.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.nacionalidade.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="empresa_id">Empresa</label>
+                                <input type="text" value="{{utilizadorView.nome}}" placeholder="" maxlength="13" name="contacto" class="form-control" disabled>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="contacto"> Contacto</label>
+                                <input type="text" formControlName="contacto" placeholder="" maxlength="13" name="contacto" class="form-control" (ngModelChange)="onTelefoneChange($event)" [ngClass]="{ 'is-invalid': (submitted && form_utilizador.controls.contacto.errors) || invalidTelefoneBoolean }">
+                                <div *ngIf="submitted && form_utilizador.controls.contacto.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.contacto.errors.required">Este campo é obrigatório</div>
+                               </div>
+                                <div *ngIf="invalidTelefoneBoolean" class="invalid-feedback d-block">Este campo deve ser válido </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="activo">Situação <span class="required-mark">*</span></label>
+                                <mat-select id="activo" formControlName="activo" name="activo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_utilizador.controls.activo.errors }">
+                                    <mat-option *ngFor="let opcao of situacao_utilizador" [value]="opcao.value">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form_utilizador.controls.activo.errors" class="invalid-feedback">
+                                    <div *ngIf="form_utilizador.controls.activo.errors.required">Este campo é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="observacoes"> Observações</label>
+                                <textarea id="observacoes" rows="2" class="form-control" formControlName="observacoes" name="observacoes"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="permissaos">Permissões</label>
+                                    <mat-select formControlName="permissaos" (selectionChange)="onSelectOption($event)" multiple>
+                                        <mat-option *ngFor="let op of perfil_permissoes" [value]="op.id">{{op.nome}}</mat-option>
+                                    </mat-select>
+                                    <div *ngIf="submitted && form_utilizador.controls.permissaos.errors" class="invalid-feedback">
+                                        <div *ngIf="form_utilizador.controls.permissaos.errors.required">Este campo é obrigatório
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="permissaos">Lista de permissões selecionadas:</label>
+                                </div>
+                                <ng-container *ngFor="let item of perfil_permissoes">
+                                    <!-- <label for="">{{item.nome}}</label> -->
+                                    <ng-container *ngFor="let select_id of selectedPermissoes; let i = index">
+                                        <div class="col-md-12 form-group selected-permissoes" *ngIf="item.id == select_id">
+                                            <label for="">{{i + 1}}- {{item.nome}}</label>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submitUtilizador()" [disabled]="spinner_1" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdateUser()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_1" (click)="updatesubmitUtilizador()" *ngIf="editBtn">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner_1" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_utilizador" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

@@ -1,0 +1,157 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row d-flex justify-content-between" style="padding-right: 15px; padding-left: 10px;">
+        <div class="div">
+            <button type="button" class="btn btn-indigo white-text" data-toggle="modal" data-target="#crudModal" (click)="add()"><i
+          class="fas fa-plus"></i>&nbsp;&nbsp;Utilizador</button>
+        </div>
+        <div id="custom-search-input">
+            <div class="input-group">
+                <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar Utilizador..." />
+                <span class="input-group-btn">
+              <button class="search-btn" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+          </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+    </p>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12 col-sm-8 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Estado do Email</th>
+                        <th scope="col">Contacto</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of farmaceuticos | filter:searchText">
+                    <tr>
+                        <td>{{item.nome}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <ng-container *ngIf="item.email_verificado == 1"> <span class="btn-activo">Verificado</span></ng-container>
+                            <ng-container *ngIf="item.email_verificado == 0"> <span class="btn-inativo">Não verificado</span></ng-container>
+
+                        </td>
+                        <td>{{item.contacto}}</td>
+                        <td>
+                            <ng-container *ngIf="item.activo"> <span class="btn-activo">Activo</span></ng-container>
+                            <ng-container *ngIf="!item.activo"> <span class="btn-inativo">Inativo</span></ng-container>
+                        </td>
+                        <td>
+                            <i class="fas fa-pen" data-toggle="modal" data-target="#crudModal" (click)="viewCard(item)" style="cursor: pointer;"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="delete(item)" style="cursor: pointer;"></i>
+                            <ng-container *ngIf="item.activo">
+                                &nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-lock-open" (click)="mudarEstado(item)" style="cursor: pointer;"></i>
+                            </ng-container>
+                            <ng-container *ngIf="!item.activo">
+                                &nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-lock" (click)="mudarEstado(item)" style="cursor: pointer;"></i>
+                            </ng-container>
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Utilizador
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="role_id">Perfil <span class="required-mark">*</span></label>
+                            <mat-select id="role_id" formControlName="role_id" name="role_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.role_id.errors }">
+                                <mat-option *ngFor="let opcao of perfil_roles" [value]="opcao.id">
+                                    {{opcao.role}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.role_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.role_id.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="nome"> Nome <span class="required-mark">*</span></label>
+                            <input type="text" id="nome" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.nome.errors }">
+                            <div *ngIf="submitted && form.controls.nome.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nome.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="email"> Email <span class="required-mark">*</span></label>
+                            <input type="text" id="email" formControlName="email" placeholder="" name="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.email.errors }">
+                            <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.email.errors.required">Este campo é obrigatório</div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.email.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.email.errors.email">Este campo deve ser válido</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="contacto"> Contacto</label>
+                            <input type="number" formControlName="contacto" placeholder="" maxlength="13" name="contacto" class="form-control" (ngModelChange)="onTelefoneChange($event)" [ngClass]="{ 'is-invalid': (submitted && form.controls.contacto.errors) || invalidTelefoneBoolean }">
+                           <div *ngIf="invalidTelefoneBoolean" class="invalid-feedback d-block">Este campo deve ser válido </div>
+                        <div *ngIf="submitted && form_farmaceutico.controls.contacto.errors" class="invalid-feedback">
+                                <div *ngIf="form_farmaceutico.controls.contacto.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="activo">Estado <span class="required-mark">*</span></label>
+                            <mat-select id="activo" formControlName="activo" name="activo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.activo.errors }">
+                                <mat-option *ngFor="let opcao of situacao_utilizador" [value]="opcao.value">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.activo.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.activo.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdate()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-outline-indigo float-right" (click)="delete()" *ngIf="viewBtn" [disabled]="spinner">Apagar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmit()" *ngIf="editBtn">Submeter</button>
+
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>

@@ -1,0 +1,223 @@
+<nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
+    <div class="container-fluid" *ngIf="userRole == 1">
+        <a class="navbar-brand">
+            <span class="first">S</span> <span class="second">GEPS &nbsp; &nbsp;</span> <span class="us-nome d-flex align-self-center"> | {{userauth.organizacao_nome}}</span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ng-container>
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/overview']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Overview</a>
+                    </li>
+
+                    <li class="nav-item dropdown" routerLinkActive="active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Farmácias
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" [routerLink]="['/farmacias']" routerLinkActive="router-link-active">Gestão de farmácias</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/farmaceuticos']" routerLinkActive="router-link-active">Utilizadores</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/medicamentos']" routerLinkActive="router-link-active">Medicamentos e suas Marcas</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown" routerLinkActive="active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Unidades Sanitárias
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" [routerLink]="['/clinicas']" routerLinkActive="router-link-active">Gestão de Unidades Sanitárias</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/utilizador-clinicas']" routerLinkActive="router-link-active">utilizadores</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/servicos-clinicas']" routerLinkActive="router-link-active">Serviços</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" routerLinkActive="active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Empresas
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" [routerLink]="['/empresas']" routerLinkActive="router-link-active">Gestão de Empresas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/utilizador-empresas']" routerLinkActive="router-link-active">utilizadores</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/sugestoes']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Sugestões</a>
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/utilizadores']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Utilizadores</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" style="display: inline-flex; border-right: 1px solid #EBEBEB;" *ngIf="userauth">
+                        Olá {{userauth.nome}}! &nbsp;<img src="../../../assets/images/Clip.png" alt="" srcset=""></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" style="padding-left: 10px; cursor: pointer;" (click)="sair()">
+                        <i class="fas fa-power-off"></i>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- EMPRESA-->
+    <div class="container-fluid" *ngIf="userRole == 4">
+        <a class="navbar-brand" style="display: inline-flex;">
+            <span class="first">S</span> <span class="second">GEPS &nbsp;</span> <span class="us-nome d-flex align-self-center"> | {{userauth.organizacao_nome}}</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ng-container>
+                <ul class="navbar-nav mx-auto">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/overview']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp; Overview </a>
+                    </li> -->
+
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/empresa/overview']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp; Overview </a>
+                    </li>
+
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/empresa/beneficiarios']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Beneficiários</a>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/empresa/dependentes']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Dependentes</a>
+                    </li>
+
+                    <li class="nav-item dropdown" routerLinkActive="active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gastos
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                            <a class="dropdown-item" [routerLink]="['/empresa/gastos/baixas']" routerLinkActive="router-link-active">Baixas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/empresa/gastos/reembolsos']" routerLinkActive="router-link-active">Pedidos de Reembolso</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/empresa/gastos/aprovacoes']" routerLinkActive="router-link-active">Aprovações</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/empresa/configuracoes']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Configurações</a>
+                    </li>
+
+                    <!-- <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" [routerLink]="['/empresa/utilizadores']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Utilizadores</a>
+                    </li> -->
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <a class="nav-link" style="display: inline-flex; border-right: 1px solid #EBEBEB;" *ngIf="userauth">
+                        Olá {{userauth.nome}}! &nbsp;</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" style="padding-left: 10px; cursor: pointer;" (click)="sair()">
+                        <i class="fas fa-power-off"></i>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- UNIDADE SANITARIA-->
+    <div class="container-fluid" *ngIf="userRole == 6">
+        <!-- unidade-sanitaria/geral -->
+        <a class="navbar-brand" style="display: inline-flex;">
+            <span class="first">S</span> <span class="second">GEPS &nbsp;</span> <span class="us-nome d-flex align-self-center"> | {{userauth.organizacao_nome}}</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ng-container>
+                <ul class="navbar-nav mx-auto">
+
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" routerLinkActive="active">
+                        <button type="button" class="nav-link btn btn-nav-link" [routerLink]="['/unidade-sanitaria/us-geral']" routerLinkActive="router-link-active"> Geral</button>
+                        <!-- <a class="nav-link" [routerLink]="['/unidade-sanitaria/geral']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp; Geral </a> -->
+                    </li>
+                    <li class="nav-item" routerLinkActive="active">
+                        <button type="button" class="nav-link btn btn-nav-link" [routerLink]="['/unidade-sanitaria/servicos']" routerLinkActive="router-link-active"> Configurar Serviços</button>
+                        <!-- <a class="nav-link" [routerLink]="['/unidade-sanitaria/servicos']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp; Configurar Serviços </a> -->
+                    </li>
+
+                    <li class="nav-item d-flex align-self-center" routerLinkActive="active">
+                        <a class="nav-link" style="display: inline-flex; border-right: 1px solid #EBEBEB;" *ngIf="userauth">
+                        Olá {{userauth.nome}}! &nbsp;</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" style="padding-left: 10px; cursor: pointer;" (click)="sair()">
+                        <i class="fas fa-power-off"></i>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- FARMÁCIA-->
+    <div class="container-fluid" *ngIf="userRole == 2 || userRole == 3">
+        <!-- unidade-sanitaria/geral -->
+        <a class="navbar-brand" style="display: inline-flex;">
+            <span class="first">S</span> <span class="second">GEPS &nbsp;</span> <span class="us-nome d-flex align-self-center"> | {{userauth.organizacao_nome}}</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ng-container>
+                <ul class="navbar-nav mx-auto">
+
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" routerLinkActive="active">
+                        <button type="button" class="nav-link btn btn-nav-link" [routerLink]="['/unidade-sanitaria/farm-geral']" routerLinkActive="router-link-active"> Geral</button>
+                        <!-- <a class="nav-link" [routerLink]="['/unidade-sanitaria/geral']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp; Geral </a> -->
+                    </li>
+
+                    <li class="nav-item" routerLinkActive="active">
+                        <button type="button" class="nav-link btn btn-nav-link" [routerLink]="['/unidade-sanitaria/stock']" routerLinkActive="router-link-active"> Stock de Medicamentos</button>
+                        <!-- <a class="nav-link" [routerLink]="['/unidade-sanitaria/stock']" routerLinkActive="router-link-active">&nbsp;&nbsp;&nbsp;
+                        Stock de Medicamentos</a> -->
+                    </li>
+
+                    <li class="nav-item d-flex align-self-center" routerLinkActive="active">
+                        <a class="nav-link" style="display: inline-flex; border-right: 1px solid #EBEBEB;" *ngIf="userauth">
+                        Olá {{userauth.nome}}! &nbsp;</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center" style="padding-left: 10px; cursor: pointer;" (click)="sair()">
+                        <i class="fas fa-power-off"></i>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+
+</nav>

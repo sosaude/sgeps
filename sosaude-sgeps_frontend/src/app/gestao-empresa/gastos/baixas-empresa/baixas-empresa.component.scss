@@ -1,0 +1,352 @@
+.btn {
+    padding: 0 !important;
+    text-transform: none;
+}
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: 47px;
+}
+
+#custom-search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+.form-group input {
+    width: 360.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group textarea {
+    width: 360.41px;
+    // height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group mat-select {
+    width: 360.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group .two-columns {
+    width: 174.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+ :host /deep/ .mat-slide-toggle-label {
+    padding: 10px;
+}
+
+ :host /deep/ .mat-slide-toggle-content {
+    color: #707070;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+#custom-search-input button {
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+}
+
+#custom-search-input button:hover {
+    border: 0;
+    box-shadow: none;
+    border-left: dashed 1px rgb(255, 85, 30);
+}
+
+#custom-search-input .fas {
+    font-size: 20px;
+}
+
+ ::-webkit-input-placeholder {
+    /* Edge */
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+ :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 12px;
+    color: #7B7B7B;
+}
+
+ ::placeholder {
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+.search-btn i {
+    color: rgb(255, 85, 30);
+}
+
+.all-page {
+    background: #F3F7F8;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-title span {
+    font-size: 25px;
+    font-weight: normal;
+    color: rgb(255, 85, 30);
+}
+
+.card-footer {
+    border-top: 2px solid rgba(0, 0, 0, .125);
+}
+
+.btn-footer {
+    width: 63px;
+    height: 15px;
+    border-radius: 12px;
+    border: 1px solid rgb(255, 85, 30);
+    color: rgb(255, 85, 30);
+    background-color: #ffffff;
+    font-size: 6px;
+    font-weight: bold;
+}
+
+.modal-header {
+    padding: 5px 5px;
+    background-color: rgb(255, 85, 30);
+}
+
+.modal-header .title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px 0px 10px;
+}
+
+.modal-header .waves-light span {
+    color: #ffffff;
+    width: 17.64px;
+    height: 17.64px;
+}
+
+.form-group span {
+    width: 360.41px;
+}
+
+.left_content {
+    width: 411px;
+    height: 100%;
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #707070;
+}
+
+input[type="time"] {
+    width: 68px;
+    height: 14.5px;
+    color: #707070;
+    display: block;
+}
+
+.card-body {
+    cursor: pointer;
+}
+
+.table {
+    background-color: #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.table thead th {
+    color: #585858;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    color: #585858;
+    font-size: 14px;
+    font-weight: normal;
+    height: 80px !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #A1B7C2;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: rgb(255, 85, 30);
+    color: #fff !important;
+    border-radius: 4px;
+    height: 30px;
+    width: 76px;
+}
+
+.loading_spin {
+    color: rgb(255, 85, 30);
+}
+
+.activo-status {
+    color: rgb(255, 85, 30);
+    font-weight: 700;
+}
+
+.inactivo-status {
+    color: #585858;
+    font-weight: 700;
+}
+
+.selected-permissoes label {
+    font-size: 15px;
+    /* font-weight: bold; */
+    color: rgb(255, 85, 30);
+}
+
+.left-side {
+    background-color: #ffffff;
+}
+
+.card-add {
+    background-color: #FF5100;
+    color: white;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 160px;
+    height: 37px;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.card-view {
+    background-color: transparent;
+    color: #FF5100;
+    border: 1px solid #FF5100;
+    box-shadow: none;
+    border-radius: 4px;
+    width: 160px;
+    height: 37px;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.card-view .card-body {
+    font-size: 13px;
+    color: #FF5100;
+    font-weight: normal;
+    padding: 10px 15px;
+}
+
+.card-add .card-body {
+    // font-size: 13px;
+    color: white;
+    // font-weight: normal;
+    padding: 10px 15px;
+}
+
+.titulo-baixa {
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.btn-group {
+    padding: 10px 15px;
+}
+
+.card-content {
+    box-shadow: -1px 2px 10px -3px #b1adad;
+}
+
+.btn-anexo {
+    // background-color: #960528;
+    // width: 170px;
+    color: #FF5100;
+    text-decoration: underline;
+}
+
+.paginator /deep/ .ngx-pagination .current {
+    background: rgb(255, 85, 30);
+    border-radius: 4px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.paginator /deep/ .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+    background: rgb(255, 85, 30);
+    border-radius: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
+    text-decoration: none;
+}
+
+.paginator /deep/ .ngx-pagination a:focus,
+.ngx-pagination button:focus {
+    outline: none;
+    background: rgb(255, 85, 30);
+}
+
+.responsavel_class {
+    font-weight: bold;
+    color: #585858;
+}
+
+:host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(255, 85, 30);
+}
+
+:host /deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgb(255, 85, 30);
+}
+
+:host /deep/ .mat-checkbox-checked.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: rgb(255, 85, 30)!important;
+        border-color: rgb(255, 85, 30)!important;
+    }
+    .mat-checkbox-background,
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+        background-color: rgb(255, 85, 30);
+        border-color: rgb(255, 85, 30)!important;
+    }
+}
+
+:host /deep/ .mat-checkbox.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+        background-color: rgb(255, 85, 30)!important;
+        border-color: rgb(255, 85, 30)!important;
+    }
+}
+
+.btn-submit {
+    height: 45px;
+}
+
+.processos {
+    height: 400px;
+}

@@ -1,0 +1,219 @@
+<!-- Full Page Intro -->
+<div class="view full-page-intro" style="background-image: url('../assets/images/231.png'); background-repeat: no-repeat; background-size: cover;">
+    <!-- style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;"> -->
+
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <!-- Content -->
+        <div class="container">
+
+            <!-- ========================== START - LOGIN CONTAINER ================================-->
+            <ng-container *ngIf="loginNormal">
+
+                <div class="row wow fadeIn justify-content-center">
+
+                    <!--Grid column-->
+                    <div class="col-md-4 col-xl-4 mb-3">
+
+                        <!-- ============= START LOGIN CARD ====================== -->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+ 
+                                <!-- Form -->
+                                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                    <!-- Heading -->
+                                    <div class="text-center img-logo">
+                                        <img src="../../assets/Logo_PNG/SGEPS.png" alt="" class="img-file" srcset="">
+                                    </div>
+
+                                    <!-- <div class="md-form"> -->
+                                    <div class="form-group input">
+                                        <input type="text" id="form2" formControlName="identifier" name="identifier" placeholder="Email ou código" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.identifier.errors }">
+                                        <!-- <label for="form2"> E-mail</label> -->
+                                        <div *ngIf="submitted && loginForm.controls.identifier.errors" class="invalid-feedback">
+                                            <div *ngIf="loginForm.controls.identifier.errors.required">Este campo é obrigatório</div>
+                                        </div>
+                                        <!-- <div *ngIf="submitted && loginForm.controls.identifier.errors" class="invalid-feedback">
+                                            <div *ngIf="loginForm.controls.identifier.errors.email">E-mail deve ser válido</div>
+                                        </div> -->
+
+                                    </div>
+
+                                    <!-- <div class="md-form"> -->
+                                    <div class="form-group input">
+                                        <input id="form3" type="password" class="form-control" formControlName="password" name="password" placeholder="Senha" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.password.errors }">
+                                        <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-feedback">
+                                            <div *ngIf="loginForm.controls.password.errors.required">Senha é obrigatória</div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-indigo white-text" [disabled]="spinner">Entrar</button>
+                                        <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                        </p>
+
+                                        <hr>
+                                        <fieldset class="form-check">esqueceu email/username ou senha?
+                                            <a for="checkbox1" (click)="forgotPassword()" class="form-check-label blue-text">clique aqui</a>
+                                        </fieldset>
+                                    </div>
+
+                                </form>
+                                <!-- Form -->
+
+                            </div>
+
+                        </div>
+                        <!-- ============= END LOGIN CARD ====================== -->
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+            </ng-container>
+            <!-- ========================== END - LOGIN CONTAINER ================================-->
+
+
+            <!-- ========================== START - RESET PASSWORD CONTAINER ================================-->
+            <ng-container *ngIf="resetPasswordBoolean">
+                <!--Grid row-->
+                <div class="row wow fadeIn justify-content-center">
+
+                    <!--Grid column-->
+                    <div class="col-md-6 col-xl-5 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!-- Form -->
+                                <form [formGroup]="resetPass" (ngSubmit)="resetPasswordEmail()">
+                                    <h3 class="titulo text-center">
+                                        Recuperar Senha
+                                    </h3>
+
+                                    <div class="form-group input">
+                                        <input type="text" id="form2" formControlName="identifier" name="identifier" placeholder="Email ou username" class="form-control" [ngClass]="{ 'is-invalid': submitted && resetPass.controls.identifier.errors }">
+                                        <!-- <label for="form2"> E-mail</label> -->
+                                        <div *ngIf="submitted && resetPass.controls.identifier.errors" class="invalid-feedback">
+                                            <div *ngIf="resetPass.controls.identifier.errors.required">Este campo é obrigatório</div>
+                                        </div>
+                                        
+                                        <!-- <div *ngIf="submitted && resetPass.controls.identifier.errors" class="invalid-feedback">
+                                            <div *ngIf="resetPass.controls.identifier.errors.email">E-mail deve ser valido</div>
+                                        </div> -->
+
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-indigo button-recuperacao">Enviar link de recuperação</button>
+                                    </div>
+                                    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                    </p>
+                                    <hr>
+                                        <fieldset class="form-check">voltar a pagina de login?
+                                            <a for="checkbox1" (click)="voltar()" class="form-check-label blue-text">clique aqui</a>
+                                        </fieldset>
+
+                                </form>
+                                <!-- Form -->
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+            </ng-container>
+            <!-- ========================== START - RESET PASSWORD CONTAINER ================================-->
+
+
+            <!-- ========================== START - NEW PASSWORD CONTAINER ================================-->
+            <!--Grid row-->
+            <div class="row wow fadeIn justify-content-center">
+
+                <!--Grid column-->
+                <ng-container *ngIf="confirmarPasswordBoolean">
+                    <div class="col-md-6 col-xl-5 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!-- Form -->
+                                <form [formGroup]="myForm" (ngSubmit)="loginNewPassword()">
+
+                                    <!-- Heading -->
+                                    <h3 class="titulo text-center">
+                                        Nova Senha
+                                    </h3>
+
+
+                                    <div class="form-group input">
+                                        <input type="password" id="new_password" class="form-control" placeholder="Nova senha" formControlName="new_password" name="password" [ngClass]="{ 'is-invalid': submitted && myForm.controls.new_password.errors }">
+                                        <div *ngIf="submitted && myForm.controls.new_password.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.controls.new_password.errors.required">A senha é obrigatória</div>
+                                        </div>
+
+                                        <div *ngIf="submitted && myForm.controls.new_password.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.controls.new_password.errors.minLength">A senha deve ter no mÍnimo 7 caracteres
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group input">
+                                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmar a nova senha" formControlName="confirmPassword" name="confirmPassword" [ngClass]="{ 'is-invalid': submitted && myForm.controls.confirmPassword.errors }">
+                                        <div *ngIf="submitted && myForm.controls.confirmPassword.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.controls.confirmPassword.errors.required">A confirmação da senha é obrigatória
+                                            </div>
+                                        </div>
+                                        <div *ngIf="myForm.hasError('notSame')">
+                                            <strong style="color: red;">Deve introduzir a mesma senha</strong>
+                                        </div>
+                                    </div>
+
+                                    <!-- <ng-container *ngIf="userauth.user.role_id == 1">
+                                        <div class="md-form">
+                                            <input class="form-check-input filled-in" type="checkbox" value="" id="terms" (change)="fieldsChange($event)" name="terms">
+                                            <label class="form-check-label" for="terms">
+                                                Aceito os <a data-target="#termsModalCenter" data-toggle="modal" class="termos-condicoes">Termos e Condições</a>
+                                        </label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" id="submit" class="btn btn-indigo button" [disabled]="!isChecked">Entrar</button>
+                                        </div>
+                                    </ng-container> -->
+
+                                    <ng-container>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-indigo button" [disabled]="spinner">Entrar</button>
+                                        </div>
+                                    </ng-container>
+                                    <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                    </p>
+
+                                </form>
+                                <!-- Form -->
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+                </ng-container>
+            </div>
+            <!-- ========================== END NEW PASSWORD CONTAINER ================================-->
+        </div>
+        <!-- Content -->
+    </div>
+</div>

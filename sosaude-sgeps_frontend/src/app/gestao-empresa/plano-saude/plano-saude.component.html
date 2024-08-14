@@ -1,0 +1,439 @@
+<div class="all-section">
+
+    <div class="row d-flex justify-content-start">
+        <span class="title-group" *ngIf="!model_grupo_temp.id">
+            <ng-container *ngIf="plano_padrao_notExist">Configurar Plano de Saúde Principal</ng-container>
+            <ng-container *ngIf="!plano_padrao_notExist">Editar Plano de Saúde Principal</ng-container>
+        </span>
+        <span *ngIf="model_grupo_temp.id" style="color: #ff5526;">
+          <span class="title-group-link" (click)="backToGrupos()">Grupos </span> >
+        <span class="title-group-no-link">{{model_grupo_temp.nome}}</span> >
+        <span class="title-group-no-link">Plano de Saúde</span>
+        </span>
+    </div>
+
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-4 col-lg-4">
+            <div class="card">
+                <div class="row card-body" data-toggle="modal" data-target="#crudMarcasModal">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12 card-text-title">
+                                <span>Região de cobertura</span>
+                            </div>
+                            <div class="col-md-12 card-text-normal">
+                                <span *ngIf="allPaisesSelected">Todo mundo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-pen" style="cursor: pointer;" data-toggle="modal" data-target="#setRegiaoCobertura"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <div class="card">
+                <div class="row card-body" data-toggle="modal" data-target="#crudMarcasModal">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12 card-text-title">
+                                <span>Beneficio anual por segurado (limite global)</span>
+                            </div>
+                            <div class="col-md-12 card-text-normal">
+                                <span>{{model_cabecalho.valor_limite_anual_segurando}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-pen" style="cursor: pointer;" data-toggle="modal" data-target="#setLimiteGlobal"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4"> 
+            <div class="card">
+                <div class="row card-body" data-toggle="modal" data-target="#crudMarcasModal">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12 card-text-title">
+                                <span>Fora da área de cobertura</span>
+                            </div>
+                            <div class="col-md-12 card-text-normal">
+                                <span>{{model_cabecalho.valor_limite_fora_area_cobertura}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <i class="fas fa-pen" style="cursor: pointer;" data-toggle="modal" data-target="#setLimiteForaDeArea"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex" [ngClass]="{'justify-content-between':model_cabecalho.plano_saude_id, 'justify-content-end':!model_cabecalho.plano_saude_id }">
+        <button type="button" class="btn btn-redefinir white-text" (click)="redefinirPlano()" 
+         *ngIf="model_grupo_temp.id">Redefinir plano</button>
+        <button type="button" class="btn btn-indigo btn-indigo-submit white-text" (click)="submeterPlano()" [disabled]="spinner_1">Submeter</button>
+    </div>
+
+    <div class="row d-flex justify-content-start">
+        <!-- ============ SERVIÇOS ========================= -->
+        <div class="col-md-6 col-lg-6">
+            <div id="custom-search-input">
+                <div class="input-group">
+                    <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                    <input type="text" class="form-control input-lg" [(ngModel)]="searchText_servico" placeholder="Procurar serviços do plano de saúde..." />
+                </div>
+            </div>
+            <table class="table">
+                <p class="text-center"><i *ngIf="spinner_1" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                </p>
+
+                <tbody *ngFor="let item of plano_data_create?.categorias_servicos | filter:searchText_servico; let i=index">
+                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#planoSaudeServicos" data-backdrop="static" data-keyboard="false" (click)="selectedGrupoServicoes(item)">
+                        <td class="card-text-normal">{{item.nome}}</td>
+                        <td *ngIf="verifyServicoArrayOfObject(item.id)"> <img src="../../../assets/images/check_circle-24px_green.png" alt="" srcset="" data-toggle="modal" data-target="#planoSaudeServicos" data-backdrop="static" data-keyboard="false"></td>
+                        <td *ngIf="!verifyServicoArrayOfObject(item.id)"> <img src="../../../assets/images/check_circle-24px.png" alt="" srcset="" data-toggle="modal" data-target="#planoSaudeServicos" data-backdrop="static" data-keyboard="false"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============ MEDICAMENTOS ========================= -->
+        <div class="col-md-6 col-lg-6">
+            <div id="custom-search-input">
+                <div class="input-group">
+                    <span class="input-group-btn"><button class="search-btn" type="button"><i class="fas fa-search"></i></button> </span>
+                    <input type="text" class="form-control input-lg" [(ngModel)]="searchText_grupo" placeholder="Procurar medicamentos do plano de saúde..." />
+                </div>
+            </div>
+            <table class="table">
+                <p class="text-center"><i *ngIf="spinner_1" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                </p>
+
+                <tbody *ngFor="let item of plano_data_create?.grupos_medicamentos | filter:searchText_grupo; let i=index">
+                    <tr style="cursor: pointer;" data-toggle="modal" data-target="#planoSaudeMedicamentos" data-backdrop="static" data-keyboard="false" (click)="selectedGrupo(item)">
+                        <td class="card-text-normal">{{item.nome}}</td>
+                        <!-- <td>10/14</td> -->
+                        <td *ngIf="verifyMedicamentoArrayOfObject(item.id)"> <img src="../../../assets/images/check_circle-24px_green.png" alt="" srcset="" data-toggle="modal" data-target="#planoSaudeMedicamentos" data-backdrop="static" data-keyboard="false"></td>
+                        <td *ngIf="!verifyMedicamentoArrayOfObject(item.id)"> <img src="../../../assets/images/check_circle-24px.png" alt="" srcset="" data-toggle="modal" data-target="#planoSaudeMedicamentos" data-backdrop="static" data-keyboard="false"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--MODAL -- Beneficio anual por segurado (limite global)-->
+<div class="modal fade" id="setLimiteGlobal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Beneficio anual por segurado (limite global)
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <div class="modal-body">
+                <!-- <form> -->
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-between">
+                        <span class="title-ilimitado">limitado</span>
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.beneficio_anual_segurando_limitado" (change)="changeStateLimit($event, 1)"></mat-slide-toggle>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8 form-group">
+                        <label for="nome"> Limite</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.valor_limite_anual_segurando" name="valor_limite_anual_segurando" (ngModelChange)="inputChange_limite($event, 1)" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteBoolean" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+                </div>
+                <div class="row  d-flex justify-content-center">
+                    <div class="col-md-8 d-flex justify-content-center">
+                        <button type="button" class="btn btn-indigo white-text text-center" (click)="guardarLimite(1)">Guardar</button>
+                    </div>
+                </div>
+                <button type="button" style="display: none;" id="guardarLimiteGlobalID" data-dismiss="modal">sub</button>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL -- Fora da área de cobertura-->
+<div class="modal fade" id="setLimiteForaDeArea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Fora da área de cobertura
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <div class="modal-body">
+                <!-- <form> -->
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-between">
+                        <span class="title-ilimitado">limitado</span>
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.limite_fora_area_cobertura" (change)="changeStateLimit($event, 2)"></mat-slide-toggle>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-8 form-group">
+                        <label for="nome"> Limite</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.valor_limite_fora_area_cobertura" name="valor_limite_fora_area_cobertura" (ngModelChange)="inputChange_limite($event, 2)" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteBoolean" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+                </div>
+                <div class="row  d-flex justify-content-center">
+                    <div class="col-md-8 d-flex justify-content-center">
+                        <button type="button" class="btn btn-indigo white-text text-center" (click)="guardarLimite(2)">Guardar</button>
+                    </div>
+                </div>
+                <button type="button" style="display: none;" id="guardarLimiteGlobalID_1" data-dismiss="modal">sub</button>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL -- REGIAO DE COBERTURA-->
+<div class="modal fade" id="setRegiaoCobertura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Plano de saúde &nbsp; > &nbsp; Região de cobertura
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <span aria-hidden="true">×</span>
+</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row d-flex justify-content-start">
+                    <div class="col-md-4 title-paises">
+                        Todo Mundo &nbsp;
+                        <mat-slide-toggle (change)="changeStatePaises($event, 'todos', 0)" [checked]="allPaisesSelected"></mat-slide-toggle>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row d-flex justify-content-start">
+                    <ng-container *ngFor="let item of plano_data_create?.continentes">
+                        <div class="col-md-3 title-paises">
+                            {{item.nome}} &nbsp;
+                            <mat-slide-toggle (change)="changeStatePaises($event, 'alguns', item.id)" [checked]="stateContinent(item.id)"></mat-slide-toggle>
+                            <ng-container *ngFor="let pais of item.paises">
+                                <div class="row d-flex justify-content-between">
+                                    <div class="title-paises-corpo">{{pais.nome}}</div>
+                                    <mat-checkbox (change)="changeStatePaises($event, 'especifico', pais.id)" [checked]="statePais(pais.id)"></mat-checkbox>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+                <hr>
+                <div class="row d-flex justify-content-end">
+                    <button type="button" class="btn btn-indigo white-text text-center" data-dismiss="modal" aria-label="Close">OK</button>
+                </div>
+
+                <button type="button" style="display: none;" id="setRegiaoCobertura_close" data-dismiss="modal">sub</button>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL -- SERVIÇOS -->
+<div class="modal fade" id="planoSaudeServicos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Plano de saúde &nbsp; > &nbsp; Serviços &nbsp; > &nbsp; {{grupo_selected?.nome}}
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+  <!-- <span aria-hidden="true">×</span> -->
+  <i class="fas fa-times" style="color: white;"></i>
+</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row d-flex justify-content-start">
+                    <div class="col-md-4 title-paises-corpo">
+                        Todos Serviços &nbsp;
+                        <mat-slide-toggle (change)="changeStateServico($event, 'todos', 0)" [checked]="allServicosSelected"></mat-slide-toggle>
+                    </div>
+
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber_servicos">
+                        Comparticipação do beneficiário na fatura &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.categorias_servico_plano[conjunto_grupo_index].comparticipacao_factura" (change)="changeStateServico($event, 'alguns', 3)"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo form-group" *ngIf="shownToogleNumber_servicos">
+                        <label for="nome"> Comparticipação do beneficiário (%)</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.categorias_servico_plano[conjunto_grupo_index].valor_comparticipacao_factura" (ngModelChange)="inputChange_valorLimiteServico($event, 2)" name="valor_comparticipacao_factura" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteComparticipacaoBoolean_servico" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber_servicos">
+                        Sujeito a Limite Global &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.categorias_servico_plano[conjunto_grupo_index].sujeito_limite_global" name="sujeito_limite_global" (change)="changeStateServico($event, 'alguns', 2)"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber_servicos">
+                        Benefício Ilimitado &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.categorias_servico_plano[conjunto_grupo_index].beneficio_ilimitado" (change)="changeStateServico($event, 'alguns', 1)"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo form-group" *ngIf="shownToogleNumber_servicos">
+                        <label for="nome"> Limite (MT)</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.categorias_servico_plano[conjunto_grupo_index].valor_beneficio_limitado" name="valor_beneficio_limitado" (ngModelChange)="inputChange_valorLimiteServico($event, 1)" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteBeneficioBoolean_servico" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+
+                </div> 
+                <br>
+                <hr>
+
+                <div class="row d-flex justify-content-start">
+                    <!-- <ng-container *ngFor="let item of grupo_selected?.servicos"> -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <span style="font-size: 12px;"> Pré-autorização </span>
+                            </div>
+                        </div>
+
+                        <ng-container *ngFor="let servico of grupo_selected?.servicos">
+                            <div class="row d-flex justify-content-start">
+                                <div class="title-paises-corpo col-md-7">{{servico.nome}}
+                                </div>
+                                <div class="col-md-1">
+                                    <mat-checkbox (change)="changeStateServico($event, 'especifico', servico.id)" [checked]="stateServico(servico.id)"></mat-checkbox>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-slide-toggle (change)="changeStateServico($event, 'pre-autorizacao', servico.id)" [checked]="stateServicoPreAutorizacao(servico.id)"></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <!-- </ng-container> -->
+                </div>
+                <hr>
+                <div class="row d-flex justify-content-end">
+                    <button type="button" class="btn btn-indigo white-text text-center" data-dismiss="modal" aria-label="Close">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL -- MEDICAMENTOS -->
+<div class="modal fade" id="planoSaudeMedicamentos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Plano de saúde &nbsp; > &nbsp; Medicamentos &nbsp; > &nbsp; {{grupo_selected?.nome}}
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <!-- <span aria-hidden="true">×</span> -->
+                    <i class="fas fa-times" style="color: white;"></i>
+                  </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row d-flex justify-content-start">
+                    <div class="col-md-4 title-paises-corpo">
+                        Todos Medicamentos &nbsp;
+                        <mat-slide-toggle (change)="changeStateMedicamento($event, 'todos', 0)" [checked]="allMedicamentosSelected"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber">
+                        Comparticipação do beneficiário na fatura &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.grupos_medicamento_plano[conjunto_grupo_index].comparticipacao_factura" (change)="changeStateMedicamento($event, 'alguns', 3)"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo form-group" *ngIf="shownToogleNumber">
+                        <label for="nome">  Comparticipação do beneficiário (%)</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.grupos_medicamento_plano[conjunto_grupo_index].valor_comparticipacao_factura" (ngModelChange)="inputChange_valorLimite($event, 2)" name="valor_comparticipacao_factura" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteComparticipacaoBoolean" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber">
+                        Sujeito a Limite Global &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.grupos_medicamento_plano[conjunto_grupo_index].sujeito_limite_global" name="sujeito_limite_global" (change)="changeStateMedicamento($event, 'alguns', 2)"></mat-slide-toggle>
+                    </div>
+
+                    <div class="col-md-4 title-paises-corpo" *ngIf="shownToogleNumber">
+                        Benefício Ilimitado &nbsp;
+                        <mat-slide-toggle [(ngModel)]="model_cabecalho.grupos_medicamento_plano[conjunto_grupo_index].beneficio_ilimitado" (change)="changeStateMedicamento($event, 'alguns', 1)"></mat-slide-toggle>
+                    </div>
+                    <div class="col-md-4 title-paises-corpo form-group" *ngIf="shownToogleNumber">
+                        <label for="nome"> Limite (MT)</label>
+                        <input type="number" [(ngModel)]="model_cabecalho.grupos_medicamento_plano[conjunto_grupo_index].valor_beneficio_limitado" name="valor_beneficio_limitado" (ngModelChange)="inputChange_valorLimite($event, 1)" maxlength="15" class="form-control">
+                        <div *ngIf="insertLimiteBeneficioBoolean" class="invalid-feedback d-block">
+                            Este campo é obrigatório
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <hr>
+
+                <div class="row d-flex justify-content-start">
+                    <ng-container *ngFor="let item of grupo_selected?.sub_grupos_medicamentos">
+                        <div class="col-md-6">
+                            <div class="row d-flex justify-content-start">
+                                <div class="col-md-9">
+                                    <span class="title-paises"> {{item.nome}} </span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span style="font-size: 12px;"> Pré-autorização </span>
+                                </div>
+                            </div>
+
+                            <ng-container *ngFor="let medicamento of item.medicamentos">
+                                <div class="row d-flex justify-content-start">
+                                    <div class="title-paises-corpo col-md-8">{{medicamento.nome_generico}} 
+                                    </div>
+                                    <div class="col-md-1">
+                                        <mat-checkbox (change)="changeStateMedicamento($event, 'especifico', medicamento.id)" [checked]="stateMedicamento(medicamento.id)"></mat-checkbox>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <mat-slide-toggle (change)="changeStateMedicamento($event, 'pre-autorizacao', medicamento.id)" [checked]="stateMedicamentoPreAutorizacao(medicamento.id)"></mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+                <hr>
+                <div class="row d-flex justify-content-end">
+                    <button type="button" class="btn btn-indigo white-text text-center" data-dismiss="modal" aria-label="Close">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

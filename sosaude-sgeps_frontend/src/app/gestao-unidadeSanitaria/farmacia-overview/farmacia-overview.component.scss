@@ -1,0 +1,467 @@
+.all-page {
+    background: #F0F0F7;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.card {
+    width: 213.53px;
+    height: 84.92px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.card-add img {
+    color: white;
+    // background-color: rgb(255, 85, 30);
+}
+
+.card-view img {
+    color: rgb(255, 85, 30);
+    // background-color: rgb(255, 85, 30);
+}
+
+.card-body span {
+    font-weight: Bold;
+    font-size: 14px;
+}
+
+.card-add {
+    background-color: #FF5100;
+    color: white;
+    border-radius: 4px;
+    box-shadow: none;
+    // width: 113.53px;
+    // height: 37px;
+    // font-size: 13px;
+    // font-weight: normal;
+}
+
+.card-view {
+    background-color: white;
+    color: #FF5100;
+    // border: 1px solid #FF5100;
+    box-shadow: none;
+    border-radius: 4px;
+    // width: 113.53px;
+    // height: 37px;
+    // font-size: 13px;
+    // font-weight: normal;
+}
+
+.loading_spin {
+    color: #FF5100;
+}
+
+.texto-inicial {
+    font-size: 18px;
+    font-weight: normal;
+    padding-left: 15px;
+}
+
+.beneficiario-titulo {
+    font-weight: 700;
+}
+
+.beneficiario-valor {
+    font-weight: 500;
+}
+
+.modal-header {
+    padding: 5px 5px;
+    background-color: rgb(255, 85, 30);
+}
+
+// .modal {
+//     font-size: 20px;
+// }
+
+.modal-header .title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px 0px 10px;
+}
+
+.modal-header .waves-light span {
+    color: #ffffff;
+    width: 17.64px;
+    height: 17.64px;
+}
+
+#editModalFarmacia .modal-content {
+    width: 411px;
+    height: 100%;
+}
+
+.form-group input {
+    width: 360.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group textarea {
+    width: 374.41px;
+    // height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group mat-select {
+    width: 360.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group .two-columns-horario mat-select {
+    width: 90.41px;
+    height: 35.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin: 1px 1px;
+}
+
+.form-group p {
+    width: 360.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group p span {
+    font-size: 18px;
+    color: #F87750;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.form-group .two-columns input {
+    width: 174.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group .two-columns-contacto button,
+.remove-contacto {
+    color: #FF5500;
+    font-size: 12px;
+    background-color: #ffffff;
+    border: 0;
+    width: 102px;
+    height: 14px;
+}
+
+.form-group .two-columns input:first-child {
+    margin-right: 10px;
+}
+
+.form-group .data-emissao-select .dia-ano {
+    width: 320.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin: 1px 1px;
+}
+
+.form-group .data-emissao-select .cl-mes {
+    width: 441.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin: 1px 1px;
+}
+
+.form-group .two-columns-contacto input {
+    width: 252.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin-bottom: 5px;
+}
+
+.form-group .two-columns-horario input {
+    width: 85px;
+    height: 14.5px;
+    color: #707070;
+    display: block;
+    margin-bottom: 5px;
+    border: 0;
+    padding: 12px 5px 5px 5px;
+}
+
+.search-btn i {
+    color: rgb(255, 85, 30);
+}
+
+#custom-search-input .search-btn {
+    margin: 11px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+}
+
+#custom-search-input .fas {
+    font-size: 20px;
+}
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: 47px;
+}
+
+#custom-search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+.btn-add i {
+    width: 12.14px;
+    height: 12.14px;
+    // border: 1px solid #ff551e;
+    color: #ffffff;
+}
+
+.btn-view {
+    height: 42px;
+    border-radius: 4px;
+    border: 2px solid #ff551e;
+    background-color: #ffffff;
+    color: #ff551e;
+    font-size: 12px;
+    display: block;
+}
+
+.btn-add {
+    // width: 140.45px;
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid #ff551e;
+    background-color: #ff551e;
+    color: #ffffff;
+    font-size: 12px;
+    display: block;
+}
+
+.btn-checked {
+    // width: 140.45px;
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid #212A30;
+    background-color: #212A30;
+    color: #ffffff;
+    font-size: 12px;
+    display: block;
+}
+
+.label-autorizacao {
+    color: #ff551e;
+    font-weight: bold;
+}
+
+.col-g-4,
+.col-md-4 {
+    padding-bottom: 15px;
+}
+
+.genero-error {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.btn-indigo-active {
+    background-color: #212A30;
+    color: #fff !important;
+    border-radius: 4px;
+    height: 42px;
+    width: 143.95px;
+    display: block;
+}
+
+.table {
+    background-color: #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.table thead th {
+    color: #585858;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    color: #585858;
+    font-size: 14px;
+    font-weight: normal;
+    height: 80px !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.card-content {
+    box-shadow: -1px 2px 10px -3px #b1adad;
+}
+
+.form-group .two-columns {
+    width: 174.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+// .ordem-reserva-table tbody tr td i {
+//     background-color: #ff551e;
+//     color: #ffffff;
+//     padding: 5px;
+//     border-radius: 3px;
+// }
+.paginator /deep/ .ngx-pagination .current {
+    background: rgb(255, 85, 30);
+    border-radius: 4px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.paginator /deep/ .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+    background: rgb(255, 85, 30);
+    border-radius: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
+    text-decoration: none;
+}
+
+.paginator /deep/ .ngx-pagination a:focus,
+.ngx-pagination button:focus {
+    outline: none;
+    background: rgb(255, 85, 30);
+}
+
+#transacoesIDSection,
+#baixaModalView {
+    .table {
+        background-color: #FFFFFF;
+        border-radius: 8px 8px 8px 8px;
+    }
+    .table thead th {
+        color: #585858;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .table tbody tr {
+        color: #585858;
+        font-size: 14px;
+        font-weight: normal;
+        height: 80px !important;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .table tbody tr:hover {
+        background-color: #A1B7C2;
+        cursor: pointer;
+    }
+    .btn-edit {
+        background-color: rgb(255, 85, 30);
+        color: #fff !important;
+        border-radius: 4px;
+        height: 30px;
+        width: 76px;
+    }
+    .loading_spin {
+        color: rgb(255, 85, 30);
+    }
+    .activo-status {
+        color: rgb(255, 85, 30);
+        font-weight: 700;
+    }
+    .inactivo-status {
+        color: #585858;
+        font-weight: 700;
+    }
+    .selected-permissoes label {
+        font-size: 15px;
+        /* font-weight: bold; */
+        color: rgb(255, 85, 30);
+    }
+    .left-side {
+        background-color: #ffffff;
+    }
+    .left-side1 {
+        background-color: #ffffff;
+        padding: 20px;
+    }
+    .card-add {
+        background-color: #FF5100;
+        color: white;
+        border-radius: 4px;
+        box-shadow: none;
+        // width: 160px;
+        height: 37px;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    .card-view {
+        background-color: transparent;
+        color: #FF5100;
+        border: 1px solid #FF5100;
+        box-shadow: none;
+        border-radius: 4px;
+        // width: 160px;
+        height: 37px;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    .card-view .card-body {
+        font-size: 13px;
+        color: #FF5100;
+        font-weight: normal;
+        padding: 10px 15px;
+    }
+    .card-add .card-body {
+        // font-size: 13px;
+        color: white;
+        // font-weight: normal;
+        padding: 10px 15px;
+    }
+    .titulo-baixa {
+        padding: 10px 15px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .btn-group {
+        padding: 10px 15px;
+    }
+    .card-content {
+        box-shadow: -1px 2px 10px -3px #b1adad;
+    }
+    .btn-anexo {
+        // background-color: #960528;
+        // width: 170px;
+        color: #FF5100;
+        text-decoration: underline;
+    }
+    .btn-indigo {
+        width: 170.95px;
+    }
+}
+
+.img-profile {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    // overflow: hidden;
+    // border-radius: 50%;
+}
+
+.img-profile img {
+    width: 100%;
+    height: auto;
+}

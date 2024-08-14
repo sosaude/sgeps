@@ -1,0 +1,872 @@
+<div class="container-fluid all-page">
+
+    <br>
+
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Grupo Terapêutico</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalGrupo" (click)="modalGrupo(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalGrupo" (click)="modalGrupo(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Sub-Grupo Terapêutico</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalSubGrupo" (click)="modalSubGrupo(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalSubGrupo" (click)="modalSubGrupo(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Sub-classe</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalSubClasse" (click)="modalSubClasse(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalSubClasse" (click)="modalSubClasse(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Nome genérico</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalNomeGenerico" (click)="modalNomeGenerico(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalNomeGenerico" (click)="modalNomeGenerico(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 card" style="margin-right: 10px;">
+            <div class="row card-body h-100 justify-content-center">
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <h6>Forma</h6>
+                </div>
+                <div class="col-md-6" style="padding: 0px 0px;">
+                    <div class="btn-group align-middle">
+                        <button type="button" class="btn btn-indigo" style="padding-right: 2px;" data-toggle="modal" data-target="#crudModalFormas" (click)="modalFormas(1)">Ver</button>
+                        <button type="button" class="btn btn-indigo" data-toggle="modal" data-target="#crudModalFormas" (click)="modalFormas(2)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <!-- =====  MEDICAMENTO ====== -->
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-8">
+            <div id="custom-search-input">
+                <div class="input-group">
+                    <span class="input-group-btn">
+              <button class="search-btn" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+             </span>
+                    <input type="text" class="form-control input-lg" [(ngModel)]="searchText" placeholder="Procurar medicamento..." />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-add" data-toggle="modal" data-target="#crudModal" (click)="addMedicamento()"><i
+                            class="fas fa-plus"></i>&nbsp;Medicamento</button>
+                        </span>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr >
+                        <th scope="col">Nome do medicamento</th>
+                        <th scope="col">Nº de OMS</th>
+                        <th scope="col">Qtd. Marcas</th>
+                        <th scope="col">Acções</th>
+
+                    </tr>
+                </thead>
+                <p class="text-center"><i *ngIf="spinner_1" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                </p>
+
+                <tbody *ngFor="let item of medicamentos | filter:searchText; let i=index">
+                    <tr>
+                        <td (click)="viewMarcasContainer(item)">{{item.nome_generico.nome}}</td>
+                        <td (click)="viewMarcasContainer(item)">{{item.codigo}}</td>
+                        <td (click)="viewMarcasContainer(item)">{{item.marca_medicamentos_count}}</td>
+                        <td style="cursor: pointer;"> <i class="fas fa-pen" data-toggle="modal" data-target="#crudModal" (click)="viewCard(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="delete(item)"></i></td>
+                        <!-- <td style="cursor: pointer;"> <i class="fas fa-pen" data-toggle="modal" data-target="#crudModalEdit" (click)="viewCard(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="delete(item)"></i></td> -->
+                    </tr>
+                </tbody>
+            </table>
+   
+        </div>
+        <!-- =====  MARCAS ====== -->
+        <div class="col-md-4">
+            <div class="row">
+                <div id="custom-search-input">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                  <button class="search-btn" type="button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                 </span>
+                        <input type="text" class="form-control input-lg" [(ngModel)]="searchText_marca" placeholder="Procurar marcas..." />
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="!marcasviewContainerBool">
+                <div class="row d-flex justify-content-center noContent-div" style="padding-top: 3rem;">
+                    <div class="col-md-6"> <span>Não selecionou 
+                        um medicamento</span></div>
+                    <div class="col-md-6">
+                        <img src="../../assets/images/Group 227.png" width="150px" alt="">
+                    </div>
+
+                </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="marcasviewContainerBool">
+                <p class="text-center"><i *ngIf="spinner_2" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-add">
+                            <div class="card-body" style="font-size: 16px;" (click)="addMarca()" data-toggle="modal" data-target="#crudMarcasModal" *ngIf="medicamentoView">
+                                <i class="fas fa-plus"></i>&nbsp;{{medicamentoView.nome}}
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let item of marcas | filter:searchText_marca">
+                        <div class="col-md-12">
+                            <div class="card card-view">
+
+                                <div class="card-body"  style="font-size: 16px;" (click)="viewCardMarca(item)" data-toggle="modal" data-target="#crudMarcasModal">
+                                    <span class="card-title-main">{{item.marca}}</span>
+                                    <h6 class="card-title"> {{medicamentoView.nome}}</h6>
+                                    <p class="card-text d-flex justify-content-between">
+                                        <span>{{medicamentoView.forma}}</span>
+                                        <span>{{medicamentoView.dosagem}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!-- REGIST, VIEW, EDIT MODAL -- MEDICAMENTOS-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Medicamento
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="nome_generico_medicamento_id"> Nome <span class="required-mark">*</span></label>
+                            <mat-select formControlName="nome_generico_medicamento_id" name="nome_generico_medicamento_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.nome_generico_medicamento_id.errors }">
+                                <mat-option *ngFor="let opcao of create_grupos_all?.nomes_genericos_medicamentos" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.nome_generico_medicamento_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nome_generico_medicamento_id.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="codigo"> Nº de OMS <span class="required-mark">*</span> </label>
+                            <input type="number" formControlName="codigo" placeholder="" name="codigo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.codigo.errors }">
+                            <div *ngIf="submitted && form.controls.codigo.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.codigo.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="forma_medicamento_id"> Forma <span class="required-mark">*</span></label>
+                            <mat-select formControlName="forma_medicamento_id" name="forma_medicamento_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.forma_medicamento_id.errors }">
+                                <mat-option *ngFor="let opcao of create_grupos_all?.forma_medicamento" [value]="opcao.id">
+                                    {{opcao.forma}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.forma_medicamento_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.forma_medicamento_id.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="dosagem">Dosagem <span class="required-mark">*</span> </label>
+                            <input type="text" formControlName="dosagem" placeholder="" name="dosagem" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.dosagem.errors }">
+                            <div *ngIf="submitted && form.controls.dosagem.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.dosagem.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="grupo_medicamento_id"> Grupo <span class="required-mark">*</span></label>
+                            <mat-select formControlName="grupo_medicamento_id" name="grupo_medicamento_id" class="form-control" (selectionChange)="selectedGroup()" [ngClass]="{ 'is-invalid': submitted && form.controls.grupo_medicamento_id.errors }">
+                                <mat-option *ngFor="let opcao of create_grupos_all?.grupos_medicamentos" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.grupo_medicamento_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.grupo_medicamento_id.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="sub_grupo_medicamento_id"> Sub-Grupo <span class="required-mark">*</span></label>
+                            <mat-select formControlName="sub_grupo_medicamento_id" name="sub_grupo_medicamento_id" class="form-control" (selectionChange)="selectedSubGroup()" [ngClass]="{ 'is-invalid': submitted && form.controls.sub_grupo_medicamento_id.errors }">
+                                <mat-option *ngFor="let opcao of sub_grupos_medicamentos" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.sub_grupo_medicamento_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.sub_grupo_medicamento_id.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="sub_classe_medicamento_id"> Sub-Classe <span class="required-mark">*</span></label>
+                            <mat-select formControlName="sub_classe_medicamento_id" name="sub_classe_medicamento_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.controls.sub_classe_medicamento_id.errors }">
+                                <mat-option *ngFor="let opcao of sub_classes_medicamentos" [value]="opcao.id">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.sub_classe_medicamento_id.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.sub_classe_medicamento_id.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submit()" [disabled]="spinner" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdate()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmit()" *ngIf="editBtn">Submeter</button>
+
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL -- MARCAS-->
+<div class="modal fade" id="crudMarcasModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Marca
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form_marca">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="marca"> Marca <span class="required-mark">*</span></label>
+                            <input type="text" formControlName="marca" placeholder="" maxlength="80" name="marca" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_marca.controls.marca.errors }">
+                            <div *ngIf="submitted && form_marca.controls.marca.errors" class="invalid-feedback">
+                                <div *ngIf="form_marca.controls.marca.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="medicamento_id">Medicamento</label>
+                            <input type="text" value="{{medicamentoView.nome}}" placeholder="" maxlength="13" name="nome" class="form-control" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="codigo_1">Código <span class="required-mark">*</span> </label>
+                            <input type="text" formControlName="codigo" placeholder="" name="codigo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_marca.controls.codigo.errors }">
+                            <div *ngIf="submitted && form_marca.controls.codigo.errors" class="invalid-feedback">
+                                <div *ngIf="form_marca.controls.codigo.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="forma">Forma</label>
+                            <input type="text" value="{{medicamentoView.forma}}" placeholder="" maxlength="13" name="forma" class="form-control" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="dosagem">Dosagem</label>
+                            <input type="text" value="{{medicamentoView.dosagem}}" placeholder="" maxlength="13" name="dosagem" class="form-control" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="pais_origem">País de origem <span class="required-mark">*</span></label>
+                            <mat-select formControlName="pais_origem" name="pais_origem" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_marca.controls.pais_origem.errors }">
+                                <mat-option value="" selected>Selecione
+                                </mat-option>
+                                <mat-option value="Mocambique">Moçambique</mat-option>
+                                <mat-option value="Africa do Sul">África do Sul</mat-option>
+                                <mat-option value="Albania">Albânia</mat-option>
+                                <mat-option value="Alemanha">Alemanha</mat-option>
+                                <mat-option value="Andorra">Andorra</mat-option>
+                                <mat-option value="Angola">Angola</mat-option>
+                                <mat-option value="Anguilla">Anguilla</mat-option>
+                                <mat-option value="Antigua">Antigua</mat-option>
+                                <mat-option value="Arabia Saudita">Arábia Saudita</mat-option>
+                                <mat-option value="Argentina">Argentina</mat-option>
+                                <mat-option value="Armenia">Armênia</mat-option>
+                                <mat-option value="Aruba">Aruba</mat-option>
+                                <mat-option value="Australia">Austrália</mat-option>
+                                <mat-option value="Áustria">Áustria</mat-option>
+                                <mat-option value="Azerbaijao">Azerbaijão</mat-option>
+                                <mat-option value="Bahamas">Bahamas</mat-option>
+                                <mat-option value="Bahrein">Bahrein</mat-option>
+                                <mat-option value="Bangladesh">Bangladesh</mat-option>
+                                <mat-option value="Barbados">Barbados</mat-option>
+                                <mat-option value="Belgica">Bélgica</mat-option>
+                                <mat-option value="Benin">Benin</mat-option>
+                                <mat-option value="Bermudas">Bermudas</mat-option>
+                                <mat-option value="Botsuana">Botsuana</mat-option>
+                                <mat-option value="Brasil">Brasil</mat-option>
+                                <mat-option value="Brunei">Brunei</mat-option>
+                                <mat-option value="Bulgaria">Bulgária</mat-option>
+                                <mat-option value="Burkina Fasso">Burkina Fasso</mat-option>
+                                <mat-option value="botao">botão</mat-option>
+                                <mat-option value="Cabo Verde">Cabo Verde</mat-option>
+                                <mat-option value="Camaroes">Camarões</mat-option>
+                                <mat-option value="Camboja">Camboja</mat-option>
+                                <mat-option value="Canada">Canadá</mat-option>
+                                <mat-option value="Cazaquistao">Cazaquistão</mat-option>
+                                <mat-option value="Chade">Chade</mat-option>
+                                <mat-option value="Chile">Chile</mat-option>
+                                <mat-option value="China">China</mat-option>
+                                <mat-option value="Cidade do Vaticano">Cidade do Vaticano</mat-option>
+                                <mat-option value="Colombia">Colômbia</mat-option>
+                                <mat-option value="Congo">Congo</mat-option>
+                                <mat-option value="Coreia do Sul">Coréia do Sul</mat-option>
+                                <mat-option value="Costa do Marfim">Costa do Marfim</mat-option>
+                                <mat-option value="Costa Rica">Costa Rica</mat-option>
+                                <mat-option value="Croacia">Croácia</mat-option>
+                                <mat-option value="Dinamarca">Dinamarca</mat-option>
+                                <mat-option value="Djibuti">Djibuti</mat-option>
+                                <mat-option value="Dominica">Dominica</mat-option>
+                                <mat-option value="EUA">EUA</mat-option>
+                                <mat-option value="Egito">Egito</mat-option>
+                                <mat-option value="El Salvador">El Salvador</mat-option>
+                                <mat-option value="Emirados Árabes">Emirados Árabes</mat-option>
+                                <mat-option value="Equador">Equador</mat-option>
+                                <mat-option value="Eritreia">Eritréia</mat-option>
+                                <mat-option value="Escocia">Escócia</mat-option>
+                                <mat-option value="Eslovaquia">Eslováquia</mat-option>
+                                <mat-option value="Eslovenia">Eslovênia</mat-option>
+                                <mat-option value="Espanha">Espanha</mat-option>
+                                <mat-option value="Estonia">Estônia</mat-option>
+                                <mat-option value="Etiopia">Etiópia</mat-option>
+                                <mat-option value="Fiji">Fiji</mat-option>
+                                <mat-option value="Filipinas">Filipinas</mat-option>
+                                <mat-option value="Finlandia">Finlândia</mat-option>
+                                <mat-option value="Franca">França</mat-option>
+                                <mat-option value="Gabao">Gabão</mat-option>
+                                <mat-option value="Gambia">Gâmbia</mat-option>
+                                <mat-option value="Gana">Gana</mat-option>
+                                <mat-option value="Georgia">Geórgia</mat-option>
+                                <mat-option value="Gibraltar">Gibraltar</mat-option>
+                                <mat-option value="Granada">Granada</mat-option>
+                                <mat-option value="Grecia">Grécia</mat-option>
+                                <mat-option value="Guadalupe">Guadalupe</mat-option>
+                                <mat-option value="Guam">Guam</mat-option>
+                                <mat-option value="Guatemala">Guatemala</mat-option>
+                                <mat-option value="Guiana">Guiana</mat-option>
+                                <mat-option value="Guiana Francesa">Guiana Francesa</mat-option>
+                                <mat-option value="Guine-bissau">Guiné-bissau</mat-option>
+                                <mat-option value="Haiti">Haiti</mat-option>
+                                <mat-option value="Holanda">Holanda</mat-option>
+                                <mat-option value="Honduras">Honduras</mat-option>
+                                <mat-option value="Hong Kong">Hong Kong</mat-option>
+                                <mat-option value="Hungria">Hungria</mat-option>
+                                <mat-option value="Iemen">Iêmen</mat-option>
+                                <mat-option value="Ilhas Cayman">Ilhas Cayman</mat-option>
+                                <mat-option value="Ilhas Cook">Ilhas Cook</mat-option>
+                                <mat-option value="Ilhas Curacao">Ilhas Curaçao</mat-option>
+                                <mat-option value="Ilhas Marshall">Ilhas Marshall</mat-option>
+                                <mat-option value="Ilhas Turks & Caicos">Ilhas Turks & Caicos
+                                </mat-option>
+                                <mat-option value="Ilhas Virgens (brit.)">Ilhas Virgens (brit.)
+                                </mat-option>
+                                <mat-option value="Ilhas Virgens(amer.)">Ilhas Virgens(amer.)
+                                </mat-option>
+                                <mat-option value="Ilhas Wallis e Futuna">Ilhas Wallis e Futuna
+                                </mat-option>
+                                <mat-option value="India">Índia</mat-option>
+                                <mat-option value="Indonesia">Indonésia</mat-option>
+                                <mat-option value="Inglaterra">Inglaterra</mat-option>
+                                <mat-option value="Irlanda">Irlanda</mat-option>
+                                <mat-option value="Islandia">Islândia</mat-option>
+                                <mat-option value="Israel">Israel</mat-option>
+                                <mat-option value="Italia">Itália</mat-option>
+                                <mat-option value="Jamaica">Jamaica</mat-option>
+                                <mat-option value="Japao">Japão</mat-option>
+                                <mat-option value="Jordania">Jordânia</mat-option>
+                                <mat-option value="Kuwait">Kuwait</mat-option>
+                                <mat-option value="Latvia">Latvia</mat-option>
+                                <mat-option value="Libano">Líbano</mat-option>
+                                <mat-option value="Liechtenstein">Liechtenstein</mat-option>
+                                <mat-option value="Lituania">Lituânia</mat-option>
+                                <mat-option value="Luxemburgo">Luxemburgo</mat-option>
+                                <mat-option value="Macau">Macau</mat-option>
+                                <mat-option value="Macedonia">Macedônia</mat-option>
+                                <mat-option value="Madagascar">Madagascar</mat-option>
+                                <mat-option value="Malasia">Malásia</mat-option>
+                                <mat-option value="Malaui">Malaui</mat-option>
+                                <mat-option value="Mali">Mali</mat-option>
+                                <mat-option value="Malta">Malta</mat-option>
+                                <mat-option value="Marrocos">Marrocos</mat-option>
+                                <mat-option value="Martinica">Martinica</mat-option>
+                                <mat-option value="Mauritania">Mauritânia</mat-option>
+                                <mat-option value="Mauritius">Mauritius</mat-option>
+                                <mat-option value="Mexico">México</mat-option>
+                                <mat-option value="Mocambique">Moçambique</mat-option>
+                                <mat-option value="Moldova">Moldova</mat-option>
+                                <mat-option value="Monaco">Mônaco</mat-option>
+                                <mat-option value="Montserrat">Montserrat</mat-option>
+                                <mat-option value="Nepal">Nepal</mat-option>
+                                <mat-option value="Nicaragua">Nicarágua</mat-option>
+                                <mat-option value="Niger">Niger</mat-option>
+                                <mat-option value="Nigeria">Nigéria</mat-option>
+                                <mat-option value="Noruega">Noruega</mat-option>
+                                <mat-option value="Nova Caledonia">Nova Caledônia</mat-option>
+                                <mat-option value="Nova Zelandia">Nova Zelândia</mat-option>
+                                <mat-option value="Oma">Omã</mat-option>
+                                <mat-option value="Palau">Palau</mat-option>
+                                <mat-option value="Panama">Panamá</mat-option>
+                                <mat-option value="Papua-nova Guine">Papua-nova Guiné</mat-option>
+                                <mat-option value="Paquistao">Paquistão</mat-option>
+                                <mat-option value="Peru">Peru</mat-option>
+                                <mat-option value="Polinesia Francesa">Polinésia Francesa</mat-option>
+                                <mat-option value="Polonia">Polônia</mat-option>
+                                <mat-option value="Porto Rico">Porto Rico</mat-option>
+                                <mat-option value="Portugal">Portugal</mat-option>
+                                <mat-option value="Qatar">Qatar</mat-option>
+                                <mat-option value="Quenia">Quênia</mat-option>
+                                <mat-option value="Rep. Dominicana">Rep. Dominicana</mat-option>
+                                <mat-option value="Rep. Tcheca">Rep. Tcheca</mat-option>
+                                <mat-option value="Reunion">Reunion</mat-option>
+                                <mat-option value="Romenia">Romênia</mat-option>
+                                <mat-option value="Ruanda">Ruanda</mat-option>
+                                <mat-option value="Russia">Rússia</mat-option>
+                                <mat-option value="Saipan">Saipan</mat-option>
+                                <mat-option value="Samoa Americana">Samoa Americana</mat-option>
+                                <mat-option value="Senegal">Senegal</mat-option>
+                                <mat-option value="Serra Leone">Serra Leone</mat-option>
+                                <mat-option value="Seychelles">Seychelles</mat-option>
+                                <mat-option value="Singapura">Singapura</mat-option>
+                                <mat-option value="Síria">Síria</mat-option>
+                                <mat-option value="Sri Lanka">Sri Lanka</mat-option>
+                                <mat-option value="St. Kitts & Nevis">St. Kitts & Nevis</mat-option>
+                                <mat-option value="St. Lucia">St. Lúcia</mat-option>
+                                <mat-option value="St. Vincent">St. Vincent</mat-option>
+                                <mat-option value="Sudao">Sudão</mat-option>
+                                <mat-option value="Suecia">Suécia</mat-option>
+                                <mat-option value="Suica">Suiça</mat-option>
+                                <mat-option value="Suriname">Suriname</mat-option>
+                                <mat-option value="Tailandia">Tailândia</mat-option>
+                                <mat-option value="Taiwan">Taiwan</mat-option>
+                                <mat-option value="Tanzania">Tanzânia</mat-option>
+                                <mat-option value="Togo">Togo</mat-option>
+                                <mat-option value="Trinidad & Tobago">Trinidad & Tobago</mat-option>
+                                <mat-option value="Tunisia">Tunísia</mat-option>
+                                <mat-option value="Turquia">Turquia</mat-option>
+                                <mat-option value="Ucrania">Ucrânia</mat-option>
+                                <mat-option value="Uganda">Uganda</mat-option>
+                                <mat-option value="Uruguai">Uruguai</mat-option>
+                                <mat-option value="Venezuela">Venezuela</mat-option>
+                                <mat-option value="Vietna">Vietnã</mat-option>
+                                <mat-option value="Zaire">Zaire</mat-option>
+                                <mat-option value="Zambia">Zâmbia</mat-option>
+                                <mat-option value="Zimbabue">Zimbábue</mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form_marca.controls.pais_origem.errors" class="invalid-feedback">
+                                <div *ngIf="form_marca.controls.pais_origem.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="submitMarca()" [disabled]="spinner" *ngIf="submitBtn">Submeter</button>
+                            <button type="submit" class="btn btn-indigo white-text float-left" (click)="toUpdateMarca()" *ngIf="viewBtn">actualizar</button>
+                            <button type="submit" class="btn btn-outline-indigo float-right" (click)="deleteMarca()" *ngIf="viewBtn" [disabled]="spinner">Apagar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner" (click)="updateSubmitMarca()" *ngIf="editBtn">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_1" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+
+<!-- REGIST, VIEW, EDIT MODAL -- GRUPOS-->
+<div class="modal fade" id="crudModalGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Grupo
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="group_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Grupo</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of grupos_terapeuticos; let i=index">
+                            <tr>
+                                <td>{{item.nome}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardGrupo(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteGrupo(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="group_modal_option == 2 || group_modal_option == 3">
+                    <form [formGroup]="form_grupos">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="nome"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" id="nome" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_grupos.controls.nome.errors }">
+                                <div *ngIf="submitted && form_grupos.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_grupos.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" (click)="modalGrupo(3)" [disabled]="spinner_grupo" *ngIf="group_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalGrupo(4)" *ngIf="group_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalGrupo(5)" *ngIf="group_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_grupo" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- REGIST, VIEW, EDIT MODAL -- SUB-GRUPOS-->
+<div class="modal fade" id="crudModalSubGrupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Sub-Grupo
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="sub_group_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Sub-Grupo</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of sub_grupos_terapeuticos; let i=index">
+                            <tr>
+                                <td>{{item.nome}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardSubGrupo(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteSubGrupo(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="sub_group_modal_option == 2 || sub_group_modal_option == 3">
+                    <form [formGroup]="form_sub_grupos">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="nome"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_sub_grupos.controls.nome.errors }">
+                                <div *ngIf="submitted && form_sub_grupos.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_sub_grupos.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label for="forma"> Selecione o Grupo <span class="required-mark">*</span></label>
+                                <mat-select formControlName="grupo_medicamento_id" name="grupo_medicamento_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_sub_grupos.controls.grupo_medicamento_id.errors }">
+                                    <mat-option *ngFor="let opcao of create_grupos_all.grupos_medicamentos" [value]="opcao.id">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form_sub_grupos.controls.grupo_medicamento_id.errors" class="invalid-feedback">
+                                    <div *ngIf="form_sub_grupos.controls.grupo_medicamento_id.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalSubGrupo(3)" *ngIf="sub_group_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalSubGrupo(4)" *ngIf="sub_group_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalSubGrupo(5)" *ngIf="sub_group_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_sub_grupo" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL -- SUB-GRUPOS-->
+<div class="modal fade" id="crudModalSubClasse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Sub-Classe
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="sub_class_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Sub-Classe</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of sub_classes_terapeuticos; let i=index">
+                            <tr>
+                                <td>{{item.nome}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardSubClasse(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteSubClasse(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="sub_class_modal_option == 2 || sub_class_modal_option == 3">
+                    <form [formGroup]="form_sub_classes">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="nome"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_sub_classes.controls.nome.errors }">
+                                <div *ngIf="submitted && form_sub_classes.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_sub_classes.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label for="forma"> Selecione o Sub-Grupo <span class="required-mark">*</span></label>
+                                <mat-select formControlName="sub_grupo_medicamento_id" name="sub_grupo_medicamento_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_sub_classes.controls.sub_grupo_medicamento_id.errors }">
+                                    <mat-option *ngFor="let opcao of sub_grupos_terapeuticos" [value]="opcao.id">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="submitted && form_sub_classes.controls.sub_grupo_medicamento_id.errors" class="invalid-feedback">
+                                    <div *ngIf="form_sub_classes.controls.sub_grupo_medicamento_id.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalSubClasse(3)" *ngIf="sub_class_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalSubClasse(4)" *ngIf="sub_class_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalSubClasse(5)" *ngIf="sub_class_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_sub_classe" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- REGIST, VIEW, EDIT MODAL -- FORMAS -->
+<div class="modal fade" id="crudModalFormas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Forma
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="form_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome da Forma</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of formas_terapeutica; let i=index">
+                            <tr>
+                                <td>{{item.forma}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardFormas(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteFormas(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="form_modal_option == 2 || form_modal_option == 3">
+                    <form [formGroup]="form_formas">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="forma"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="forma" placeholder="" maxlength="80" name="forma" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_formas.controls.forma.errors }">
+                                <div *ngIf="submitted && form_formas.controls.forma.errors" class="invalid-feedback">
+                                    <div *ngIf="form_formas.controls.forma.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalFormas(3)" *ngIf="form_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalFormas(4)" *ngIf="form_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalFormas(5)" *ngIf="form_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_Formas" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL -- FORMAS -->
+<div class="modal fade" id="crudModalNomeGenerico" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Nome genérico do medicamento
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngIf="nomeGenerico_modal_option == 1">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome Genérico</th>
+                                <th scope="col">Acções</th>
+                            </tr>
+                        </thead>
+                        <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                        <tbody *ngFor="let item of nomes_Genericos; let i=index">
+                            <tr>
+                                <td>{{item.nome}}</td>
+                                <td style="cursor: pointer;"> <i class="fas fa-pen" (click)="editCardNomeGenerico(item)"></i>&nbsp;&nbsp; &nbsp;&nbsp;<i class="fas fa-trash" (click)="deleteNomeGenerico(item)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
+
+                <ng-container *ngIf="nomeGenerico_modal_option == 2 || nomeGenerico_modal_option == 3">
+                    <form [formGroup]="form_nome_generico">
+                        <div class="row">
+                            <div class="col-md-8 form-group">
+                                <label for="forma"> Nome <span class="required-mark">*</span></label>
+                                <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form_nome_generico.controls.nome.errors }">
+                                <div *ngIf="submitted && form_nome_generico.controls.nome.errors" class="invalid-feedback">
+                                    <div *ngIf="form_nome_generico.controls.nome.errors.required">Este campo é obrigatório</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex">
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalNomeGenerico(3)" *ngIf="nomeGenerico_modal_option == 2">Submeter</button>
+                                <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner_grupo" (click)="modalNomeGenerico(4)" *ngIf="nomeGenerico_modal_option == 3">Submeter</button>
+                                <button type="submit" class="btn btn-outline-indigo text-center" [disabled]="spinner_grupo" (click)="modalNomeGenerico(5)" *ngIf="nomeGenerico_modal_option == 3">Voltar</button>
+                                <p class="text-center"><i *ngIf="spinner_grupo" class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                </p>
+                            </div>
+                            <button type="button" style="display: none;" id="actualizarID_Formas" data-dismiss="modal">sub</button>
+                        </div>
+                    </form>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</div>

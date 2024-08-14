@@ -1,0 +1,1897 @@
+<div class="container-fluid all-page">
+    <br>
+
+    <ng-container *ngIf="!switch_to_ordemReserva && !switch_to_iniciarVenda">
+        <!-- NÃO É ORDEM DE RESERVA-->
+
+        <div class="row">
+            <div class="col-lg-12-col-md-12" style="padding: 10px 15px;"> Visão geral</div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7 col-md-7">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <!-- <div class="card" data-toggle="modal" data-target="#vendaModal" [ngClass]="{'card-add':selectedCardView == 1, 'card-view':selectedCardView != 1}" (click)="changeView(1)"> -->
+                        <div class="card" data-toggle="modal" data-target="#pesquisarBeneficiario"
+                            [ngClass]="{'card-add':selectedCardView == 1, 'card-view':selectedCardView != 1}"
+                            (click)="changeView(1)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Iniciar Venda</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2813.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card"
+                            [ngClass]="{'card-add':selectedCardView == 2, 'card-view':selectedCardView != 2}"
+                            (click)="changeView(2)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Ordem de reserva</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2793.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card" data-toggle="modal" data-target="#pesquisarBeneficiario"
+                            [ngClass]="{'card-add':selectedCardView == 3, 'card-view':selectedCardView != 3}"
+                            (click)="changeView(3)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Autorizações</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2664.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-4 col-md-4">
+                        <div class="card" [ngClass]="{'card-add':selectedCardView == 10, 'card-view':selectedCardView != 10}" (click)="changeView(10)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Pedidos de Autorizações</span> &nbsp;&nbsp; 
+                                <img src="../../../assets/Logo_PNG/Group 2765.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card"
+                            [ngClass]="{'card-add':selectedCardView == 4, 'card-view':selectedCardView != 4}"
+                            (click)="changeView(4)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Transações</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2765.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card"
+                            [ngClass]="{'card-add':selectedCardView == 11, 'card-view':selectedCardView != 11}"
+                            (click)="changeView(11)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Pedidos de Autorizações</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2765.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card" data-toggle="modal" data-target="#editModalFarmacia"
+                            [ngClass]="{'card-add':selectedCardView == 5, 'card-view':selectedCardView != 5}"
+                            (click)="changeView(5)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Perfil da Farmácia </span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2664.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card"
+                            [ngClass]="{'card-add':selectedCardView == 6, 'card-view':selectedCardView != 6}"
+                            (click)="changeView(6)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Utilizadores</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2765.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card" data-toggle="modal" data-target="#pesquisarBeneficiario"
+                            [ngClass]="{'card-add':selectedCardView == 7, 'card-view':selectedCardView != 7}"
+                            (click)="changeView(7) ; limparCampos()">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Iniciar verificação</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Group 2813.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                        <div class="card" data-toggle="modal" data-target="#sugestaoModalView"
+                            [ngClass]="{'card-add':selectedCardView == 8, 'card-view':selectedCardView != 8}"
+                            (click)="changeView(8)">
+                            <div class="card-body h-100 justify-content-center align-items-center">
+                                <span>Sugerir</span> &nbsp;&nbsp;
+                                <img src="../../../assets/Logo_PNG/Symbol 2 – 1.png" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5"> 
+                <!-- <app-resumo-grafico *ngIf="selectedCardView != 4"></app-resumo-grafico> -->
+                <app-transacoes *ngIf="selectedCardView != 3 && selectedCardView != 4 && selectedCardView != 11 && selectedCardView != 6" ></app-transacoes>
+
+                <ng-container *ngIf="selectedCardView == 4">
+                    <div class="row" id="transacoesIDSection">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="left-side">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 d-flex justify-content-between">
+                                        <div class="titulo-baixa">
+                                            Transações
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="tipos">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewTransacao == 1, 'card-view':selectedCardViewTransacao != 1}"
+                                                (click)="changeViewTransacao(1)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Aguarda confirmação
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewTransacao == 2, 'card-view':selectedCardViewTransacao != 2}"
+                                                (click)="changeViewTransacao(2)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Aguarda pagamento
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewTransacao == 3, 'card-view':selectedCardViewTransacao != 3}"
+                                                (click)="changeViewTransacao(3)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Pagamento processado
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewTransacao == 4, 'card-view':selectedCardViewTransacao != 4}"
+                                                (click)="changeViewTransacao(4)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Devolvidos
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card-add"
+                                                (click)="getAllTransacoesExcel()">
+                                                <div class="card-body align-items-center d-flex justify-content-center" style="cursor: pointer;">
+                                                    <i class="fas fa-download"></i> &nbsp; Transações
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+
+                                    <div id="custom-search-input">
+                                        <div class="input-group">
+                                            <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                                        class="fas fa-search"></i></button> </span>
+                                            <input type="text" class="form-control input-lg"
+                                                [(ngModel)]="searchTextTransacoes" placeholder="Procurar..."
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-8 table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Membro Principal</th>
+                                                <th scope="col">Data</th>
+                                                <th scope="col">Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of show_By_Estado | filter:searchTextTransacoes">
+                                            <!-- <tbody> -->
+                                            <tr (click)="viewCardBaixaModal(item)" data-toggle="modal"
+                                                data-target="#baixaModalView">
+                                                <td>{{item.nome_beneficiario}}</td>
+                                                <td>{{item.updated_at}}</td>
+                                                <td>{{item.valor_baixa | currency:'INR':''}} MZN</td>
+                                            </tr>
+                                        </tbody>
+                                        <p class="text-center"><i *ngIf="spinner"
+                                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                        </p>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="selectedCardView == 11">
+                    <div class="row" id="transacoesIDSection">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="left-side">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 d-flex justify-content-between">
+                                        <div class="titulo-baixa">
+                                            Pedidos de Autorizações
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="tipos">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewPedidos == 1, 'card-view':selectedCardViewPedidos != 1}"
+                                                (click)="changeViewPedidos(1)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Aguardando Aprovação
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card"
+                                                [ngClass]="{'card-add':selectedCardViewPedidos == 2, 'card-view':selectedCardViewPedidos != 2}"
+                                                (click)="changeViewPedidos(2)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Rejeitado
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div style="width: 435px;" class="card"
+                                                [ngClass]="{'card-add':selectedCardViewPedidos == 3, 'card-view':selectedCardViewPedidos != 3}"
+                                                (click)="changeViewPedidos(3)">
+                                                <div class="card-body align-items-center d-flex justify-content-center">
+                                                    Aguardando a inicialização do Gasto
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="card-add"
+                                                (click)="getAllPedidosExcel()">
+                                                <div class="card-body align-items-center d-flex justify-content-center" style="cursor: pointer;">
+                                                    <i class="fas fa-download"></i> &nbsp; Pedidos de Autorizações
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+
+                                    <div id="custom-search-input">
+                                        <div class="input-group">
+                                            <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                                        class="fas fa-search"></i></button> </span>
+                                            <input type="text" class="form-control input-lg"
+                                                [(ngModel)]="searchTextTransacoes" placeholder="Procurar..."
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-8 table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Membro Principal</th>
+                                                <th scope="col">Data</th>
+                                                <th scope="col">Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngFor="let item of show_By_Estado | filter:searchTextTransacoes">
+                                            <!-- <tbody> -->
+                                            <tr (click)="viewCardBaixaModal(item)" data-toggle="modal"
+                                                data-target="#baixaModalView">
+                                                <td>{{item.nome_beneficiario}}</td>
+                                                <td>{{item.updated_at}}</td>
+                                                <td>{{item.valor_baixa | currency:'INR':''}} MZN</td>
+                                            </tr>
+                                        </tbody>
+                                        <p class="text-center"><i *ngIf="spinner"
+                                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                                        </p>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <app-us-utilizadores *ngIf="selectedCardView == 6"></app-us-utilizadores>
+
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="switch_to_ordemReserva">
+        <!-- É ORDEM DE RESERVA-->
+
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <button class="btn btn-indigo-active" style="margin-left: 0;"
+                    (click)="backtoFarmaciaOverView()">Voltar</button>
+            </div>
+
+            <div class="col-lg-10 col-md-10">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-lg-6 col-md-6">
+                        <h3>Ordem de Reserva</h3>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                            class="fas fa-search"></i></button> </span>
+                                <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                                    placeholder="Procurar..." />
+                            </div>
+                        </div>
+                    </div>
+                </div> <br>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table ordem-reserva-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nome do beneficiário</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Acções</th>
+                                </tr>
+                            </thead>
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+
+                            <tbody
+                                *ngFor="let item of ordemReserva_array | filter:searchTextOrdemReserva | paginate: { id: 'ordemIDPagination', itemsPerPage: 5, currentPage: p }">
+                                <!-- <tbody> -->
+                                <tr>
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.nome_beneficiario}}</td>
+                                    <td>{{item.updated_at}}</td>
+                                    <td>{{item.valor_baixa | currency:'INR':''}} MZN</td>
+                                    <td style="display: inline-flex;">
+                                        <button type="button" class="btn btn-view" data-toggle="modal"
+                                            data-target="#ordemReservaModal" (click)="viewItemOrdemRserva(item)">
+                                            <i class="fas fa-eye"></i>&nbsp; Ver</button>
+                                        <button type="button" class="btn btn-add" data-toggle="modal"
+                                            data-target="#pesquisarBen"
+                                            (click)="iniciarVendaOrdemDeReserva(item)">Iniciar Venda</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls id="ordemIDPagination" (pageChange)="p = $event"
+                            class="d-flex justify-content-end paginator"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="switch_to_iniciarVenda">
+        <!-- INICIAR VENDA-->
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <button class="btn btn-indigo-active" style="margin-left: 0;"
+                    (click)="iniciarVendaViewSwitch()">Voltar</button>
+            </div>
+
+            <div class="col-lg-10 col-md-10">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-lg-6 col-md-6">
+                        <h3>
+                            <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                            <ng-container *ngIf="selectedCardView == 2">Vender Medicamento através da Ordem de Reserva
+                            </ng-container>
+                            <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento
+                            </ng-container>
+                            <ng-container *ngIf="selectedCardView == 11">Vender Medicamento através da Pedidos de
+                                Autorização</ng-container>
+                            <ng-container *ngIf="selectedCardView == 4">Ressubmissão de Venda de Medicamentos
+                            </ng-container>
+                            - Produtos Selecionados
+                        </h3>
+                    </div>
+                    <div class="col-lg-3 col-md-3" [hidden]="selectedCardView == 11">
+                        <button type="button" class="btn btn-add" data-toggle="modal"
+                            data-target="#SelectMedicamentovendaModal"><i class="fas fa-plus"></i>&nbsp; Adicionar a
+                            lista</button>
+                    </div>
+
+                </div>
+                <ng-container *ngIf="model_venda.itens_baixa">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 table-responsive">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Sub. Activa</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Preço sem IVA</th>
+                                        <th scope="col">IVA</th>
+                                        <th scope="col">Preço com IVA</th>
+                                        <th scope="col" [hidden]="selectedCardView == 11"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngFor="let item of model_venda.itens">
+                                    <!-- <tbody> -->
+                                    <tr>
+                                        <ng-container *ngIf="marcas_medicamentos_farmacia">
+                                            <td>{{verifyName(item.marca_medicamento_id)}}</td>
+                                            <td>{{verifySubActiva(item.marca_medicamento_id)}}</td>
+                                        </ng-container>
+                                        <td>{{item.quantidade}}</td>
+                                        <td>{{item.preco}}</td>
+                                        <td>{{item.iva}}</td>
+                                        <td>{{item.preco_iva}}</td>
+                                        <td [hidden]="selectedCardView == 11">
+                                            <button type="button" class="btn btn-add" (click)="removeItem(item)"><i
+                                                    class="fas fa-trash"></i>&nbsp;</button>
+                                            <span>{{ item.show_message }}</span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                    <br>
+                    <div class="row" *ngIf="selectedCardView == 1 || selectedCardView == 2 || selectedCardView == 4">
+                        <div class="col-md-12">
+                            <label for="">Anexos</label>
+                        </div>
+                        <ng-container *ngFor="let anexo of selectedFiles; let i = index;">
+                            <div class="col-lg-4 col-md-4">
+                                <label>{{anexo.name}}</label>
+                                <button type="button" class="btn-floating btn-danger" (click)="deleteFile(i)"> <i
+                                        class="fas fa-trash"></i></button>
+                            </div>
+                        </ng-container>
+                        <div class="col-lg-12 col-lg-12 form-group d-flex justify-content-start">
+                            <button type="button" class="btn btn-indigo white-text" style="float: right;"
+                                (click)="fileInput.click()"> <i class="fas fa-plus"></i> Ficheiro</button>
+                            <input type="file" style="display: none" id="files" #fileInput multiple
+                                (change)="detectFiles($event)">
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-4">
+                            <span class="beneficiario-titulo">Total: </span> <span
+                                class="beneficiario-valor">{{model_venda.valor | currency:'INR':''}} MZN</span>
+                            <!-- <span class="beneficiario-titulo">Total: </span> <span class="beneficiario-valor">{{model_venda.valor | currency:'INR':''}} MZN</span> -->
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group d-flex justify-content-end">
+                            <input type="text" [(ngModel)]="model_baixa.nr_comprovativo"
+                                placeholder="Número do comprovativo" maxlength="80" name="nr_comprovativo"
+                                class="form-control" required>
+                        </div>
+                        <!-- <div class="col-md-12 form-group d-flex justify-content-end"  *ngIf="this.selectedCardView == 4">
+                            <input type="text" [(ngModel)]="model_venda.nr_comprovativo" [value]="model_baixa.nr_comprovativo" placeholder="Número do comprovativo" maxlength="80" name="nr_comprovativo" class="form-control" required>
+                        </div> -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="submeterVenda()" [disabled]="spinner_all">Submeter</button>
+                        </div>
+                        <button type="button" style="display: none;" id="submeterVendaID"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                    <p class="text-center"><i *ngIf="spinner_all"
+                            class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                    </p>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+    <!-- PEDIDOS DE AUTORIZACAO REALIZANDO VENDA -->
+</div>
+
+
+<!--  MODAL - PESQUISA BENEFICIÁRIO -->
+<div class="modal fade" id="pesquisarBeneficiario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 7 || selectedCardView == 2">Verificar Beneficiário
+                    </ng-container>
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-start">
+                    <span class="texto-inicial">Insira o número de identificação do beneficiário
+                        para a verificação</span>
+                </div>
+                <br><br><br>
+                <form [formGroup]="pesquisa_beneficiario_form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-10 form-group">
+                                    <input type="text" formControlName="codigo" placeholder="Número de identificação"
+                                        maxlength="10" name="codigo" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && pesquisa_beneficiario_form.controls.codigo.errors }">
+                                    <div *ngIf="submitted && pesquisa_beneficiario_form.controls.codigo.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pesquisa_beneficiario_form.controls.codigo.errors.required">Este
+                                            campo é obrigatório</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-outline-indigo text-center"
+                                        (click)="searchBeneficiario()" [disabled]="spinner">Verificar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+
+                        <div class="row w-100">
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="!model_beneficiario_view.foto_perfil && model_beneficiario_view.beneficiario_nome">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="../../../assets/images/noProfile.png">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4 d-flex justify-content-center" *ngIf="!model_dependente_view.foto_perfil && model_dependente_view.dependente_beneficiario_nome">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="../../../assets/images/noProfile.png">
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="model_beneficiario_view.foto_perfil">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="{{model_beneficiario_view.foto_perfil}}"
+                                        style="height: 130px; width: 130px;">
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="model_dependente_view.foto_perfil">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="{{model_dependente_view.foto_perfil}}"
+                                        style="height: 130px; width: 130px;">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8" *ngIf="model_beneficiario_view.beneficio_proprio_beneficiario">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_nome}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Contacto do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_telefone}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome da Empresa : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.empresa_nome}} </span>
+                                    </div>
+                                </div>
+
+                                <br><br>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-indigo white-text text-center"
+                                        (click)="proximo_venda()" *ngIf="selectedCardView != 7"
+                                        [disabled]="!model_beneficiario_view.beneficiario_id">Próximo</button>
+                                </div>
+                                <button type="button" style="display: none;" id="closePesquisaModalID"
+                                    data-dismiss="modal">sub</button>
+                            </div>
+                            <div class="col-md-8" *ngIf="!model_beneficiario_view.beneficio_proprio_beneficiario">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_dependente_view.beneficiario_nome}}</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome do dependente : </span> <span
+                                            class="beneficiario-valor">{{model_dependente_view.dependente_beneficiario_nome}}</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Contacto do dependente : </span> <span
+                                            class="beneficiario-valor">{{model_dependente_view.dependente_beneficiario_telefone}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome da Empresa : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.empresa_nome}} </span>
+                                    </div>
+                                </div>
+
+                                <br><br>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-indigo white-text text-center"
+                                        (click)="proximo_venda()" *ngIf="selectedCardView != 7"
+                                        [disabled]="!model_dependente_view.dependente_beneficiario_id">Próximo</button>
+                                </div>
+                                <button type="button" style="display: none;" id="closePesquisaModalID"
+                                    data-dismiss="modal">sub</button>
+                            </div>
+                        </div>
+
+                        <!-- <br><br>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-indigo white-text text-center" (click)="proximo_venda()" *ngIf="selectedCardView != 7" [disabled]="!model_dependente_view.dependente_beneficiario_id">Próximo</button>
+                        </div>
+                        <button type="button" style="display: none;" id="closePesquisaModalID" data-dismiss="modal">sub</button> -->
+                    </div>
+                </form>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+</div>
+<!--  MODAL - PESQUISA BENEFICIÁRIO -->
+<div class="modal fade" id="pesquisarBen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 7 || selectedCardView == 2">Verificar Beneficiário
+                    </ng-container>
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-start">
+                    <span class="texto-inicial">Insira o número de identificação do beneficiário
+                        para a verificação</span>
+                </div>
+                <br><br><br>
+                <form [formGroup]="pesquisa_beneficiario_form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-10 form-group">
+                                    <input type="text" formControlName="codigo" placeholder="Número de identificação"
+                                        maxlength="10" name="codigo" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && pesquisa_beneficiario_form.controls.codigo.errors }">
+                                    <div *ngIf="submitted && pesquisa_beneficiario_form.controls.codigo.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pesquisa_beneficiario_form.controls.codigo.errors.required">Este
+                                            campo é obrigatório</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-outline-indigo text-center"
+                                        (click)="searchBen()" [disabled]="spinner">Verificar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+
+                        <div class="row w-100">
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="!model_beneficiario_view.foto_perfil && model_beneficiario_view.beneficiario_nome">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="../../../assets/images/noProfile.png">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="model_beneficiario_view.foto_perfil">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="{{model_beneficiario_view.foto_perfil}}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8" *ngIf="model_beneficiario_view.beneficiario_id">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_nome}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Contacto do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_telefone}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome da Empresa : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.empresa_nome}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="proximo_venda()" *ngIf="selectedCardView != 7"
+                                [disabled]="model_baixa.nome_beneficiario != model_beneficiario_view.beneficiario_nome "
+                                data-dismiss="modal">Próximo</button>
+                            <!-- <button type="submit" class="btn btn-indigo white-text text-center" data-toggle="modal" data-target="#vendaModal" (click)="proximo_venda()" *ngIf="selectedCardView != 7" [disabled]="!model_beneficiario_view.beneficiario_id">Próximo</button> -->
+                        </div>
+                        <button type="button" style="display: none;" id="closePesquisaModalID"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+</div>
+<!--  MODAL - PESQUISA BENEFICIÁRIO -->
+<div class="modal fade" id="pesquisarBens" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 7 || selectedCardView == 2">Verificar Beneficiário
+                    </ng-container>
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row d-flex justify-content-start">
+                    <span class="texto-inicial">Insira o número de identificação do beneficiário
+                        para a verificação</span>
+                </div>
+                <br><br><br>
+                <form [formGroup]="pesquisa_beneficiario_form">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-10 form-group">
+                                    <input type="text" formControlName="codigo" placeholder="Número de identificação"
+                                        maxlength="10" name="codigo" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && pesquisa_beneficiario_form.controls.codigo.errors }">
+                                    <div *ngIf="submitted && pesquisa_beneficiario_form.controls.codigo.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="pesquisa_beneficiario_form.controls.codigo.errors.required">Este
+                                            campo é obrigatório</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-outline-indigo text-center"
+                                        (click)="searchBen()" [disabled]="spinner">Verificar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+
+                        <div class="row w-100">
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="!model_beneficiario_view.foto_perfil && model_beneficiario_view.beneficiario_nome">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="../../../assets/images/noProfile.png">
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 d-flex justify-content-center"
+                                *ngIf="model_beneficiario_view.foto_perfil">
+                                <div class="img-profile">
+                                    <img class="d-block text-center" src="{{model_beneficiario_view.foto_perfil}}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8" *ngIf="model_beneficiario_view.beneficiario_id">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_nome}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Contacto do beneficiário : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.beneficiario_telefone}}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="beneficiario-titulo">Nome da Empresa : </span> <span
+                                            class="beneficiario-valor">{{model_beneficiario_view.empresa_nome}} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br><br>
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="resubmeterView()" *ngIf="selectedCardView != 7"
+                                [disabled]="model_baixa.nome_beneficiario != model_beneficiario_view.beneficiario_nome "
+                                data-dismiss="modal">Próximo</button>
+                            <!-- <button type="submit" class="btn btn-indigo white-text text-center" (click)="submeterIniciarVenda()" *ngIf="selectedCardView != 7" [disabled]="model_baixa.nome_beneficiario != model_beneficiario_view.beneficiario_nome " data-dismiss="modal">Finalizar</button> -->
+                            <!-- <button type="submit" class="btn btn-indigo white-text text-center" data-toggle="modal" data-target="#vendaModal" (click)="proximo_venda()" *ngIf="selectedCardView != 7" [disabled]="!model_beneficiario_view.beneficiario_id">Próximo</button> -->
+                        </div>
+                        <button type="button" style="display: none;" id="closePesquisaModalID"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+</div>
+
+
+<!-- REGIST, VIEW, EDIT MODAL - VENDA -->
+<div class="modal fade" id="vendaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg modal-dialog-scrollable " role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 2">Vender Medicamento através da Ordem de Reserva
+                    </ng-container>
+                    <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento</ng-container>
+
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                            class="fas fa-search"></i></button> </span>
+                                <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                                    placeholder="Procurar..." />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Sub. Activa</th>
+                                    <th scope="col">Forma</th>
+                                    <th scope="col">Dosagem</th>
+                                    <th scope="col">Quantidade</th>
+                                    <th scope="col">Preço sem IVA</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+
+                            <tbody
+                                *ngFor="let item of marcas_medicamentos_farmacia | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <!-- <tbody> -->
+                                <tr>
+                                    <td>{{item.marca}}</td>
+                                    <td>{{item.medicamento_nome_generico}}</td>
+                                    <td>{{item.medicamento_forma}}</td>
+                                    <td>{{item.medicamento_dosagem}}</td>
+                                    <td>{{item.quantidade_disponivel}}</td>
+                                    <td>{{item.preco}}</td>
+                                    <td>
+                                        <ng-container *ngIf="selectedCardView == 1 || selectedCardView == 2">
+                                            <ng-container *ngIf="item.coberto && item.pre_autorizacao">
+                                                <span class="label-autorizacao">Precisa de autorização</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="item.coberto && !item.pre_autorizacao">
+                                                <button type="button" class="btn btn-add" data-toggle="modal"
+                                                    data-target="#crudModal" (click)="addItem(item)"><i
+                                                        class="fas fa-plus"></i>&nbsp;</button>
+                                            </ng-container>
+                                            <ng-container *ngIf="!item.coberto">
+                                                <span class="label-autorizacao">Não coberto</span>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="selectedCardView == 3">
+
+                                            <ng-container *ngIf="item.pre_autorizacao">
+                                                <button type="button" class="btn btn-add" data-toggle="modal"
+                                                    data-target="#crudModal" (click)="addItem(item)"><i
+                                                        class="fas fa-plus"></i>&nbsp;</button>
+                                            </ng-container>
+                                            <ng-container *ngIf="!item.coberto && !item.pre_autorizacao">
+                                                <span class="label-autorizacao">Não coberto</span>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator">
+                        </pagination-controls>
+                    </div>
+                </div>
+
+                <hr>
+                <ng-container *ngIf="model_venda.itens_baixa">
+
+                    <h6>Produtos selecionados:</h6>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Sub. Activa</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Preço sem IVA</th>
+                                        <th scope="col">IVA</th>
+                                        <th scope="col">Preço com IVA</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody
+                                    *ngFor="let item of model_venda.itens_baixa | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+                                    <!-- <tbody> -->
+                                    <tr>
+                                        <ng-container *ngIf="marcas_medicamentos_farmacia">
+                                            <td>{{verifyName(item.marca_medicamento_id)}}</td>
+                                            <td>{{verifySubActiva(item.marca_medicamento_id)}}</td>
+                                        </ng-container>
+                                        <td>{{item.quantidade}}</td>
+                                        <td>{{item.preco}}</td>
+                                        <td>{{item.iva}}</td>
+                                        <td>{{item.preco_iva}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-add" (click)="removeItem(item)"><i
+                                                    class="fas fa-trash"></i>&nbsp;</button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-4">
+                            <span class="beneficiario-titulo">Total: </span> <span
+                                class="beneficiario-valor">{{model_venda.valor | currency:'INR':''}} MZN</span>
+                        </div>
+                    </div>
+                    <br><br>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group d-flex justify-content-end">
+                            <input type="text" [(ngModel)]="model_venda.nr_comprovativo"
+                                placeholder="Número do comprovativo" maxlength="80" name="nr_comprovativo"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-indigo white-text text-center"
+                                (click)="submeterVenda()" [disabled]="spinner_all">Submeter</button>
+                        </div>
+                        <button type="button" style="display: none;" id="submeterVendaID"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                    <p class="text-center"><i *ngIf="spinner_all"
+                            class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                    </p>
+                </ng-container>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+</div>
+
+<!-- Select Medicamentos MODAL - VENDA -->
+<div class="modal fade" id="SelectMedicamentovendaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    <ng-container *ngIf="selectedCardView == 1"> Vender Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 2">Vender Medicamento através da Ordem de Reserva
+                    </ng-container>
+                    <ng-container *ngIf="selectedCardView == 3">Pedido de Autorização de Medicamento</ng-container>
+                    <ng-container *ngIf="selectedCardView == 4"> Ressubmeter Medicamento</ng-container>
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                            class="fas fa-search"></i></button> </span>
+                                <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                                    placeholder="Procurar..." />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Sub. Activa</th>
+                                    <th scope="col">Forma</th>
+                                    <th scope="col">Dosagem</th>
+                                    <th scope="col">Quantidade</th>
+                                    <th scope="col">Preço sem IVA</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+
+                            <tbody *ngFor="let item of marcas_medicamentos_farmacia | filter:searchText">
+                                <!-- <tbody> -->
+                                <tr>
+                                    <td>{{item.marca}}</td>
+                                    <td>{{item.medicamento_nome_generico}}</td>
+                                    <td>{{item.medicamento_forma}}</td>
+                                    <td>{{item.medicamento_dosagem}}</td>
+                                    <td>{{item.quantidade_disponivel}}</td>
+                                    <td>{{item.preco}}</td>
+                                    <td>
+                                        <ng-container
+                                            *ngIf="selectedCardView == 1 || selectedCardView == 2 || selectedCardView == 4">
+                                            <ng-container *ngIf="item.coberto && item.pre_autorizacao">
+                                                <span class="label-autorizacao">Precisa de autorização</span>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="item.coberto && !item.pre_autorizacao">
+                                                <ng-container *ngIf="verifyIfSelected(item.marca_medicamento_id)">
+                                                    <button type="button" class="btn btn-checked"><i
+                                                            class="fas fa-check"></i>&nbsp;</button>
+                                                </ng-container>
+                                                <ng-container *ngIf="!verifyIfSelected(item.marca_medicamento_id)">
+                                                    <button type="button" class="btn btn-add" data-toggle="modal"
+                                                        data-target="#crudModal" (click)="addItem(item)"><i
+                                                            class="fas fa-plus"></i>&nbsp;</button>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="!item.coberto">
+                                                <span class="label-autorizacao">Não coberto</span>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="selectedCardView == 3">
+                                            <ng-container *ngIf="item.pre_autorizacao">
+                                                <ng-container *ngIf="verifyIfSelected(item.marca_medicamento_id)">
+                                                    <button type="button" class="btn btn-checked"><i
+                                                            class="fas fa-check"></i>&nbsp;</button>
+                                                </ng-container>
+                                                <ng-container *ngIf="!verifyIfSelected(item.marca_medicamento_id)">
+                                                    <button type="button" class="btn btn-add" data-toggle="modal"
+                                                        data-target="#crudModal" (click)="addItem(item)"><i
+                                                            class="fas fa-plus"></i>&nbsp;</button>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="!item.coberto && !item.pre_autorizacao">
+                                                <span class="label-autorizacao">Não coberto</span>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+</div>
+
+<!-- MODEL- ADICIONAR STOCK/QUANTIDADE -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Adicionar Stock
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Substância Activa</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_nome_generico"
+                                placeholder="" name="medicamento_nome_generico" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Marca</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca" placeholder="" name="marca"
+                                maxlength="16" class="form-control" [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Forma</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_forma" placeholder=""
+                                name="medicamento_forma" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> Dosagem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.medicamento_dosagem" placeholder=""
+                                name="medicamento_dosagem" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="telefone"> País de Origem</label>
+                            <input type="text" [(ngModel)]="model_medicamento_view.marca_pais_origem" placeholder=""
+                                name="marca_pais_origem" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço sem IVA</label>
+                            <input type="number" [(ngModel)]="preco_sem_iva_view" placeholder=""
+                                name="preco_sem_iva_view" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Preço com IVA</label>
+                            <input type="number" [(ngModel)]="preco_com_iva_view" placeholder=""
+                                name="preco_com_iva_view" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}" disabled>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="preco_iva"> Quantidade</label>
+                            <input type="number" [(ngModel)]="quantidade_venda_item" (ngModelChange)="calculoIVA()"
+                                placeholder="" name="quantidade_disponivel" maxlength="16" class="form-control"
+                                [ngModelOptions]="{standalone: true}">
+                        </div>
+
+                        <div class="col-md-8 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-indigo white-text text-center" data-dismiss="modal"
+                                (click)="addToArray(model_medicamento_view, quantidade_venda_item)">OK</button>
+                        </div>
+                        <button type="button" style="display: none;" id="closeQtd" data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+
+<!-- REGIST, MODAL - EDITAR FARMÁCIA -->
+<div class="modal fade" id="editModalFarmacia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Farmâcia
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label for="nome"> Nome <span class="required-mark">*</span> </label>
+                            <input type="text" formControlName="nome" placeholder="" maxlength="80" name="nome"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.nome.errors }">
+                            <div *ngIf="submitted && form.controls.nome.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.nome.errors.required">Este campo é obrigatório</div>
+                            </div>
+
+                        </div>
+                        <!-- </div> -->
+
+                        <div class="col-md-8 form-group">
+                            <label for="endereco"> Endereço <span class="required-mark">*</span></label>
+                            <input type="text" id="endereco" placeholder="" class="form-control"
+                                formControlName="endereco" name="endereco"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.endereco.errors }">
+                            <div *ngIf="submitted && form.controls.endereco.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.endereco.errors.required">Este campo é obrigatório</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="latitude"> Coordenadas geográficas </label>
+                            <div class="two-columns" style="display: inline-flex;">
+                                <input type="number" id="latitude" formControlName="latitude" maxlength="20"
+                                    placeholder="Latitude" name="latitude" class="form-control">
+                                <input type="number" id="longitude" formControlName="longitude" maxlength="20"
+                                    placeholder="Longitude" name="longitude" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <div class="d-flex justify-content-between" style="width: 325px;">
+                                <label for="horario_funcionamento"> Horário de funcionamento</label>
+                                <label for="horario_funcionamento"> Abertura &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Encerramento</label>
+                            </div>
+
+                            <div formArrayName="horario_funcionamento"
+                                *ngFor="let item of form.get('horario_funcionamento')['controls']; let i = index;">
+                                <div [formGroupName]="i">
+                                    <div class="two-columns-horario" style="display: inline-flex;">
+                                        <mat-label style="width: 100px; font-size: 12px; color: #707070;">
+                                            {{item.value.dia}}</mat-label>
+                                        <mat-slide-toggle formControlName="estado">
+                                            <ng-container *ngIf="item.value.estado">Aberto</ng-container>
+                                            <ng-container *ngIf="!item.value.estado">Fechado</ng-container>
+                                        </mat-slide-toggle>
+                                        <mat-select formControlName="abertura" name="abertura" class="form-control">
+                                            <mat-option *ngFor="let opcao of horarios" [value]="opcao"
+                                                [disabled]="!item.value.estado">
+                                                {{opcao}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-select formControlName="enceramento" name="enceramento"
+                                            class="form-control">
+                                            <mat-option *ngFor="let opcao of horarios" [value]="opcao"
+                                                [disabled]="!item.value.estado">
+                                                {{opcao}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label for="contacto"> Contactos <span class="required-mark">*</span> </label>
+                            <div formArrayName="contactos">
+                                <div *ngFor="let item of form.get('contactos')['controls']; let pointIndex=index"
+                                    [formGroupName]="pointIndex">
+                                    <div class="two-columns-contacto" style="display: inline-flex;">
+                                        <input type="number" placeholder="Contacto {{pointIndex + 1}}"
+                                            class="form-control" formControlName="contacto" name="contacto">
+                                        <button type="button" class="addContacto" (click)="addContacto()"
+                                            *ngIf="pointIndex == 0"> Adicionar contacto</button>
+                                        <button type="button" class="remove-contacto"
+                                            (click)="deleteContacto(pointIndex)" *ngIf="pointIndex > 0"> <i
+                                                class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && form.controls.contactos.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.contactos.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="activa">Situação <span class="required-mark">*</span></label>
+                            <mat-select id="activa" formControlName="activa" name="activa" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.activa.errors }">
+                                <mat-option *ngFor="let opcao of situacao_farmacia" [value]="opcao.value">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form.controls.activa.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.activa.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="numero_alvara"> Número de Alvará <span class="required-mark">*</span></label>
+                            <input type="number" formControlName="numero_alvara" maxlength="10" placeholder=""
+                                name="numero_alvara" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && form.controls.numero_alvara.errors }">
+                            <div *ngIf="submitted && form.controls.numero_alvara.errors" class="invalid-feedback">
+                                <div *ngIf="form.controls.numero_alvara.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-10 form-group">
+                            <label for="data_alvara_emissao"> Data de emissão do Alvará (dia/mês/ano) <span
+                                    class="required-mark">*</span></label>
+                            <div class="d-flex flex-row data-emissao-select">
+                                <mat-select name="dia" class="form-control dia-ano" [(ngModel)]="modelData.dia"
+                                    (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}"
+                                    [disabled]="!editBtnFarmacia">
+                                    <mat-option *ngFor="let opcao of dias" [value]="opcao">
+                                        {{opcao}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-select name="mes" class="form-control cl-mes" [(ngModel)]="modelData.mes"
+                                    (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}"
+                                    [disabled]="!editBtnFarmacia">
+                                    <mat-option *ngFor="let opcao of meses" [value]="opcao.value">
+                                        {{opcao.nome}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-select name="ano" class="form-control dia-ano" [(ngModel)]="modelData.ano"
+                                    (selectionChange)="dateBinding()" [ngModelOptions]="{standalone: true}"
+                                    [disabled]="!editBtnFarmacia">
+                                    <mat-option *ngFor="let opcao of anos" [value]="opcao">
+                                        {{opcao}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                            <div *ngIf="selectdiaMesAnoBoolean" class="genero-error">
+                                Deve preencher o campo da data correctamente
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="observacoes"> Observações</label>
+                            <textarea rows="2" class="form-control" formControlName="observacoes"
+                                name="observacoes"></textarea>
+                        </div>
+
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text float-left"
+                                (click)="toUpdateFarmacia()" *ngIf="!editBtnFarmacia">Editar</button>
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner"
+                                (click)="updateFarmaciaSubmit()" *ngIf="editBtnFarmacia">Submeter</button>
+
+                            <p class="text-center"><i *ngIf="spinner"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_farmacia"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+                <!-- Form -->
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+    <!--/Modal: Contact form-->
+</div>
+
+<!-- VIEW SUGESTÃO -->
+<div class="modal fade" id="sugestaoModalView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Ver sugestões
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-add" data-toggle="modal" data-target="#sugestaoModal"
+                            (click)="changeView(9)"><i class="fas fa-plus"></i>&nbsp;Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Descrição</th>
+                                </tr>
+                            </thead>
+                            <p class="text-center"><i *ngIf="spinner_all"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+
+                            <tbody *ngFor="let item of sugestoesArray | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <!-- <tbody> -->
+                                <tr>
+                                    <td>{{item.nome}}</td>
+                                    <td>{{item.conteudo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+            <button type="button" style="display: none;" id="verSugestoesID_sugestao" data-dismiss="modal">sub</button>
+        </div>
+    </div>
+</div>
+
+<!-- ENVIAR SUGESTÃO -->
+<div class="modal fade" id="sugestaoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Sugestão
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form_sugestao">
+                    <div class="row d-flex justify-content-start">
+                        <div class="col-md-8 form-group">
+                            <label for="tipo">Selecione a opção <span class="required-mark">*</span></label>
+                            <mat-select formControlName="tipo" name="tipo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && form_sugestao.controls.tipo.errors }">
+                                <mat-option *ngFor="let opcao of tipo_sugestoes" [value]="opcao.nome">
+                                    {{opcao.nome}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && form_sugestao.controls.tipo.errors" class="invalid-feedback">
+                                <div *ngIf="form_sugestao.controls.tipo.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 form-group">
+                            <label for="descricao"> Descrição</label>
+                            <textarea rows="2" class="form-control" formControlName="descricao" name="descricao"
+                                class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && form_sugestao.controls.descricao.errors }"></textarea>
+                            <div *ngIf="submitted && form_sugestao.controls.descricao.errors" class="invalid-feedback">
+                                <div *ngIf="form_sugestao.controls.descricao.errors.required">Este campo é obrigatório
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 d-flex">
+                            <button type="submit" class="btn btn-indigo white-text text-center" [disabled]="spinner"
+                                (click)="sugestaoSubmit()">Submeter</button>
+                            <p class="text-center"><i *ngIf="spinner"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <button type="button" style="display: none;" id="actualizarID_sugestao"
+                            data-dismiss="modal">sub</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VER ORDEM DE RESERVA -->
+<div class="modal fade" id="ordemReservaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Informação da Ordem de Reserva
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="nome"> Membro Principal</label>
+                                <input type="text" [(ngModel)]="model_baixa.nome_beneficiario" placeholder=""
+                                    maxlength="80" name="nome_beneficiario" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="nome">Proveniência</label>
+                                <ng-container *ngIf="model_baixa.proveniencia == 1">
+                                    <input type="text" value="Farmácia" placeholder="" maxlength="80"
+                                        name="proveniencia" class="form-control" disabled>
+                                </ng-container>
+                                <ng-container *ngIf="model_baixa.proveniencia == 2">
+                                    <input type="text" value="Unidade Sanitária" placeholder="" maxlength="80"
+                                        name="proveniencia" class="form-control" disabled>
+                                </ng-container>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="nome">Nome da Instituição</label>
+                                <input type="text" [(ngModel)]="model_baixa.nome_instituicao" placeholder=""
+                                    maxlength="80" name="nome_instituicao" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="nome"> Data</label>
+                                <input type="text" [(ngModel)]="model_baixa.data_baixa" placeholder="" maxlength="80"
+                                    name="data_baixa" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="nome"> Valor da Baixa</label>
+                                <input type="text" [(ngModel)]="model_baixa.valor_baixa" placeholder="" maxlength="80"
+                                    name="valor_baixa" class="form-control" disabled>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="nome"> Descrição</label>
+                            </div>
+                        </div>
+
+                        <ng-container *ngIf="model_baixa.proveniencia == 1">
+                            <ng-container *ngFor="let item of model_baixa.iten_ordem_reserva">
+                                <div class="row card-content">
+                                    <div class="col-lg-12 col-md-12 form-group">
+                                        <label for="nome"> Nome do medicamento</label>
+                                        <input type="text" value="{{item.medicamento_nome_generico}}" placeholder=""
+                                            maxlength="80" name="medicamento_nome_generico" class="form-control"
+                                            disabled>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 form-group">
+                                        <label for="nome"> Dosagem</label>
+                                        <input type="text" value="{{item.medicamento_dosagem}}" placeholder=""
+                                            maxlength="80" name="medicamento_dosagem" class="form-control two-columns"
+                                            disabled>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 form-group">
+                                        <label for="nome"> Forma</label>
+                                        <input type="text" value="{{item.medicamento_forma}}" placeholder=""
+                                            maxlength="80" name="medicamento_forma" class="form-control two-columns"
+                                            disabled>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 form-group">
+                                        <label for="nome"> Quantidade</label>
+                                        <input type="text" value="{{item.quantidade}}" placeholder="" maxlength="80"
+                                            name="quantidade" class="form-control two-columns" disabled>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 form-group">
+                                        <label for="nome"> Valor</label>
+                                        <input type="text" value="{{item.preco_iva}}" placeholder="" maxlength="80"
+                                            name="preco_iva" class="form-control two-columns" disabled>
+                                    </div>
+
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
+                        <ng-container *ngIf="model_baixa.proveniencia == 2">
+                            <ng-container *ngFor="let item of model_baixa.iten_ordem_reserva">
+                                <div class="row card-content">
+                                    <div class="col-lg-12 col-md-12 form-group">
+                                        <label for="nome"> Serviço</label>
+                                        <input type="text" value="{{item.servico}}" placeholder="" maxlength="80"
+                                            name="servico" class="form-control" disabled>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 form-group">
+                                        <label for="nome"> Quantidade</label>
+                                        <input type="text" value="{{item.quantidade}}" placeholder="" maxlength="80"
+                                            name="quantidade" class="form-control two-columns" disabled>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="baixaModalView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title">
+                    Informação da Baixa
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Membro Principal</label>
+                        <input type="text" [(ngModel)]="model_baixa.nome_beneficiario" placeholder="" maxlength="80"
+                            name="nome_beneficiario" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome">Proveniência</label>
+                        <ng-container *ngIf="model_baixa.proveniencia == 1">
+                            <input type="text" value="Farmácia" placeholder="" maxlength="80" name="proveniencia"
+                                class="form-control" disabled>
+                        </ng-container>
+                        <ng-container *ngIf="model_baixa.proveniencia == 2">
+                            <input type="text" value="Unidade Sanitária" placeholder="" maxlength="80"
+                                name="proveniencia" class="form-control" disabled>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome">Nome da Instituição</label>
+                        <input type="text" [(ngModel)]="model_baixa.nome_instituicao" placeholder="" maxlength="80"
+                            name="nome_instituicao" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Data</label>
+                        <input type="text" [(ngModel)]="model_baixa.updated_at" placeholder="" maxlength="80"
+                            name="updated_at" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Valor da Baixa</label>
+                        <input type="text" [(ngModel)]="model_baixa.valor_baixa" placeholder="" maxlength="80"
+                            name="valor_baixa" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Número da factura</label>
+                        <input type="text" [(ngModel)]="model_baixa.nr_comprovativo" placeholder="" maxlength="80"
+                            name="valor_baixa" class="form-control" disabled>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12" *ngIf="selectedCardViewTransacao != 1">
+                        <label for="">Anexos</label>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="row">
+                            <ng-container *ngFor="let anexo of model_baixa.comprovativo; let i = index;">
+                                <div class="col-md-3 form-group"
+                                    [ngStyle]=" i > 0 ?{'display': 'inline-flex'} : {'display': 'block'}">
+                                    <label for="" class="btn-anexo"> <a
+                                            (click)="getFileDownload(anexo)">{{anexo}}</a></label>
+                                </div>
+                            </ng-container>
+                            <p class="text-center"><i *ngIf="spinner_download"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <ng-container *ngIf="model_baixa.proveniencia == 1">
+                                        <th scope="col">Nome do medicamento</th>
+                                        <th scope="col">Dosagem</th>
+                                        <th scope="col">Forma</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Valor</th>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="model_baixa.proveniencia == 2">
+                                        <th scope="col">Serviço</th>
+                                        <th scope="col">Quantidade</th>
+                                    </ng-container>
+                                </tr>
+                            </thead>
+
+                            <tbody *ngFor="let item of model_baixa.descricao">
+                                <tr>
+                                    <ng-container *ngIf="model_baixa.proveniencia == 1">
+                                        <td>{{item.medicamento_nome_generico}}</td>
+                                        <td>{{item.dosagem}}</td>
+                                        <td>{{item.forma}}</td>
+                                        <td>{{item.quantidade}}</td>
+                                        <td>{{item.preco_iva}}</td>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="model_baixa.proveniencia == 2">
+                                        <td>{{item.servico_nome}}</td>
+                                        <td>{{item.quantidade}}</td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-start" *ngIf="model_baixa.responsavel">
+                    <div class="col-md-12 form-group">
+                        <span for="nome" class="responsavel_class"> RESPONSÁVEL</span>
+                    </div>
+                    <ng-container *ngFor="let item of model_baixa.responsavel">
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="nome">Data: </label> &nbsp; <span>{{item.data}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nome">Acção:</label>&nbsp; <span>{{item.accao}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nome">Nome:</label> &nbsp;<span>{{item.nome}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <ng-container *ngFor="let item of model_baixa.comentario_baixa">
+                        <div class="col-md-12 form-group">
+                            <label for="nome">Data: {{item.data}}</label> <br>
+                            <label for="nome">Nome: {{item.nome}}</label>
+                            <textarea rows="2" class="form-control" value="{{item.comentario}}" name="comentario"
+                                disabled></textarea>
+                        </div>
+                    </ng-container>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-indigo white-text text-center" (click)="resubmeterView()"
+                            data-dismiss="modal" *ngIf="selectedCardViewTransacao == 4">Re-submeter</button>
+                        <!-- <button type="submit" class="btn btn-indigo white-text text-center" (click)="resubmeterView()" *ngIf="selectedCardViewTransacao == 4">Re-submeter</button> -->
+                    </div>
+                    <button type="button" style="display: none;" id="actualizarID_resubmeter"
+                        data-dismiss="modal">sub</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-indigo white-text text-center" data-dismiss="modal"
+                            data-toggle="modal" data-target="#pesquisarBens" (click)="limparCampos()"
+                            *ngIf="selectedCardViewPedidos == 3">Iniciar Venda</button>
+
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <button type="button" class="btn btn-indigo white-text text-center"  data-toggle="modal" data-target="#pesquisarBens"  (click)="limparCampos()" *ngIf="selectedCardViewPedidos == 3">Iniciar Venda</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

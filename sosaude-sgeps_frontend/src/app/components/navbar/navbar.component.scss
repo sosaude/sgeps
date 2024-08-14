@@ -1,0 +1,107 @@
+@media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #ffffff!important;
+    }
+}
+
+
+/* Navbar animation */
+
+.navbar {
+    background-color: #ffffff!important;
+    padding: 0px 5px !important;
+    // height: 60px;
+}
+
+.navbar-brand {
+    width: 150px;
+    height: 50px;
+}
+
+.ml-auto .nav-link img {
+    width: 25px;
+}
+
+.navbar img,
+.ml-auto img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.top-nav-collapse {
+    background-color: #ffffff;
+}
+
+
+/* Adding color to the Navbar on mobile */
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #ffffff;
+    }
+}
+
+.dropdown-menu .dropdown-item a:hover {
+    color: white !important;
+    background-color: #f15726 !important;
+}
+
+#navbarSupportedContent li.active {
+    border-bottom: 3px solid #f15726 !important;
+}
+
+#navbarSupportedContent li .nav-link:hover {
+    // border-bottom: 1px solid #f15726 !important;
+    color: black !important;
+    font-weight: 600;
+}
+
+.nav-item a {
+    color: #2B3D51;
+    font-size: 14px;
+}
+
+.verticalLine {
+    border-left: thick solid #ff0000;
+}
+
+.empresa-nome {
+    color: #5F7D8C;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.us-nome {
+    color: #707070;
+    font-weight: 700;
+    font-size: 20px;
+    height: 40px;
+}
+
+.btn-nav-link {
+    width: 176.67px;
+    height: 40px;
+    background-color: #FF5722;
+    color: white !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    .first {
+        color: #FF5722;
+        font-weight: 700;
+        font-size: 20px;
+        height: 40px;
+        // word-spacing: 5px;
+    }
+    .second {
+        color: #707070;
+        font-weight: 700;
+        font-size: 20px;
+        height: 40px;
+        // word-spacing: 5px;
+    }
+}

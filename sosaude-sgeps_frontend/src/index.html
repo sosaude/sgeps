@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>iFarmácias</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/x-icon" href="./assets/Logo_PNG/SGEPS.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./assets/css/mdb.min.css" rel="stylesheet">
+    <!-- <link href="./assets/css/addons/datatables.min.css" rel="stylesheet"> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.12/dist/css/bootstrap-select.min.css">
+
+</head>
+
+<body>
+    <app-root></app-root>
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="./assets/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="./assets/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="./assets/js/mdb.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.nav-item a', function(e) {
+                $(this).parent().addClass('active').siblings().removeClass('active');
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '.nav-item .dropdown-menu a', function(e) {
+                $(this).parent().addClass('active').siblings().removeClass('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

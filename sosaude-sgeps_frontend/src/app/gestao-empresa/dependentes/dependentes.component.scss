@@ -1,0 +1,254 @@
+.all-page {
+    background: #F3F7F8;
+    width: 100%;
+    min-height: 100vh;
+}
+
+#custom-search-input {
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: 47px;
+}
+
+#custom-search-input input {
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input .search-btn {
+    margin: 11px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #ff551e;
+    padding: 0 8px 0 10px;
+    // border-left: dashed 1px rgb(255, 85, 30);
+}
+
+#custom-search-input .fas {
+    font-size: 20px;
+}
+
+#custom-search-input .btn-add {
+    width: 132.45px;
+    height: 33.12px;
+    border-radius: 4px;
+    border: 1px solid #ff551e;
+    background-color: #ff551e;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+#custom-search-input .fa-plus {
+    font-size: 13px;
+}
+
+.btn {
+    padding: 10px 10px !important;
+    text-transform: none;
+}
+
+.number {
+    color: #2A3C52;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.card-title {
+    color: #2A3C52;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.card {
+    width: 95px;
+    border-radius: 0px;
+}
+
+.card-add {
+    background-color: #2A3C52;
+    .card-title {
+        color: white;
+    }
+    .number {
+        color: white;
+    }
+}
+
+.card-view {
+    background-color: white;
+    .card-title {
+        color: #2A3C52;
+    }
+    .number {
+        color: #2A3C52;
+    }
+    // border: 1px solid #FF5100;
+}
+
+.btn-import {
+    background-color: transparent !important;
+}
+
+.table {
+    background-color: #FFFFFF;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.table thead th {
+    color: #585858;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.table tbody tr {
+    color: #585858;
+    font-size: 14px;
+    font-weight: normal;
+    height: 80px !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.loading_spin {
+    color: rgb(255, 85, 30);
+}
+
+.modal-header {
+    padding: 5px 5px;
+    background-color: rgb(255, 85, 30);
+}
+
+.modal-header .title {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0px 0px 10px;
+}
+
+.modal-header .waves-light span {
+    color: #ffffff;
+    width: 17.64px;
+    height: 17.64px;
+}
+
+.form-group span {
+    width: 411px;
+}
+
+.modal-content {
+    width: 411px;
+    height: 100%;
+}
+
+.form-group input {
+    width: 374.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+.form-group mat-select {
+    width: 374.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+}
+
+:host /deep/ .mat-slide-toggle-label {
+    padding: 10px;
+}
+
+:host /deep/ .mat-slide-toggle-content {
+    color: #707070;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+::-webkit-input-placeholder {
+    /* Edge */
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+ :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 12px;
+    color: #7B7B7B;
+}
+
+ ::placeholder {
+    color: #7B7B7B;
+    font-size: 12px;
+}
+
+.form-group .data-emissao-select .dia-ano {
+    width: 320.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin: 1px 1px;
+}
+
+.form-group .data-emissao-select .cl-mes {
+    width: 441.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin: 1px 1px;
+}
+
+.form-group .two-columns-contacto button,
+.remove-contacto {
+    color: #FF5500;
+    font-size: 12px;
+    background-color: #ffffff;
+    border: 0;
+    width: 102px;
+    height: 14px;
+}
+
+.form-group .two-columns-contacto input {
+    width: 252.41px;
+    height: 46.46px;
+    border-radius: 0;
+    border: 2px solid #A1B7C2;
+    margin-bottom: 5px;
+}
+
+.form-group .two-columns-contacto a {
+    text-decoration: underline;
+    color: #FF5500;
+}
+
+.btn-edit {
+    background-color: rgb(255, 85, 30);
+    color: #fff !important;
+    border-radius: 4px;
+    // height: 30px;
+    width: 76px;
+}
+
+.paginator /deep/ .ngx-pagination .current {
+    background: rgb(255, 85, 30);
+    border-radius: 4px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.paginator /deep/ .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+    background: rgb(255, 85, 30);
+    border-radius: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
+    text-decoration: none;
+}
+
+.paginator /deep/ .ngx-pagination a:focus,
+.ngx-pagination button:focus {
+    outline: none;
+    background: rgb(255, 85, 30);
+}

@@ -1,0 +1,353 @@
+<div class="container-fluid all-page">
+    <br>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="left-side">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 d-flex justify-content-between">
+                        <div class="titulo-baixa">
+                            Pedido de Aprovação
+                        </div>
+                        <div class="btn-group" role="group" aria-label="tipos">
+                            <div class="row d-flex flex-row">
+                                <div class="col-md-4">
+                                    <div class="card"
+                                        [ngClass]="{'card-add':selectedCardView == 1, 'card-view':selectedCardView != 1}"
+                                        (click)="changeView(1)">
+                                        <div class="card-body align-items-center d-flex justify-content-center">
+                                            Pendentes
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card"
+                                        [ngClass]="{'card-add':selectedCardView == 2, 'card-view':selectedCardView != 2}"
+                                        (click)="changeView(2)">
+                                        <div class="card-body align-items-center d-flex justify-content-center">
+                                            Aprovados
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card"
+                                        [ngClass]="{'card-add':selectedCardView == 3, 'card-view':selectedCardView != 3}"
+                                        (click)="changeView(3)">
+                                        <div class="card-body align-items-center d-flex justify-content-center">
+                                            Rejeitados
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card-add"
+                                        (click)="getAllExcel()">
+                                        <div class="card-body align-items-center d-flex justify-content-center">
+                                            <i class="fas fa-download"></i> &nbsp; Aprovações
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+
+                        <div id="custom-search-input">
+                            <div class="input-group">
+                                <span class="input-group-btn"><button class="search-btn" type="button"><i
+                                            class="fas fa-search"></i></button> </span>
+                                <input type="text" class="form-control input-lg" [(ngModel)]="searchText"
+                                    placeholder="Procurar Baixas..." [ngModelOptions]="{standalone: true}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="array_bulk.length > 0">
+                    <div class="col-lg-12 col-md-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-indigo btn-submit white-text" (click)="submeterGastoBulk()"
+                            *ngIf="selectedCardView == 1" [disabled]="spinner_1">Aprovar ({{array_bulk.length}})
+                            pedido(s)</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-8 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Membro Principal</th>
+                                    <th scope="col">Nome da Instituição</th>
+                                    <th scope="col">Proveniência</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <p class="text-center"><i *ngIf="spinner"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                            <tbody *ngFor="let item of show_By_Estado | filter:searchText">
+                                <!-- <tbody> -->
+                                <tr>
+                                    <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                        {{item.nome_beneficiario}}</td>
+                                    <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                        {{item.nome_instituicao}}</td>
+                                    <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                        <ng-container *ngIf="item.proveniencia == 1">Farmácia</ng-container>
+                                        <ng-container *ngIf="item.proveniencia == 2">Unidade Sanitária</ng-container>
+                                    </td>
+                                    <td (click)="viewCard(item)" data-toggle="modal" data-target="#crudModal">
+                                        {{item.updated_at}}</td>
+                                    <td *ngIf="selectedCardView == 1">
+                                        <mat-checkbox (change)="changeStateGasto($event, item.proveniencia, item.id)"
+                                            [checked]="stateGasto(item.id)"></mat-checkbox>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-lg-6 col-md-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">Gastos mensais</div>
+                <div class="col-lg-6 col-md-6">relatório</div>
+            </div>
+            <div class="row">clinicas mais visitadas ($)</div>
+            <div class="row">Farmácias mais visitadas</div>
+            
+        </div> -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card" style="position: -webkit-sticky; position: sticky; top: 0;">
+                <div class="card-body">
+                    <h4>Resumo das Aprovações</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="text-center"><i *ngIf="spinner"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="myChart" height="250px"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <canvas id="myChart2" height="250px"></canvas>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <canvas id="myChart3" height="100px"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- REGIST, VIEW, EDIT MODAL-->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--Modal: Contact form-->
+    <div class="modal-dialog modal-lg" role="document">
+        <!-- CLASS => cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h6 class="title">
+                    Informação do pedido de aprovação
+                </h6>
+                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Quem deseja se beneficiar do serviço?</label>
+                        <input type="text" value="BENEFICIÁRIO" *ngIf="model_baixa.beneficio_proprio_beneficiario"
+                            placeholder="" maxlength="80" name="beneficio_proprio_beneficiario" class="form-control"
+                            disabled>
+                        <input type="text" value="DEPENDENTE" *ngIf="!model_baixa.beneficio_proprio_beneficiario"
+                            placeholder="" maxlength="80" name="beneficio_proprio_beneficiario" class="form-control"
+                            disabled>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Membro Principal</label>
+                        <input type="text" [(ngModel)]="model_baixa.nome_beneficiario" placeholder="" maxlength="80"
+                            name="nome_beneficiario" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group" *ngIf="!model_baixa.beneficio_proprio_beneficiario">
+                        <label for="nome"> Nome do Dependente</label>
+                        <input type="text" [(ngModel)]="model_baixa.nome_dependente" placeholder="" maxlength="80"
+                            name="nome_dependente" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome">Proveniência</label>
+                        <ng-container *ngIf="model_baixa.proveniencia == 1">
+                            <input type="text" value="Farmácia" placeholder="" maxlength="80" name="proveniencia"
+                                class="form-control" disabled>
+                        </ng-container>
+                        <ng-container *ngIf="model_baixa.proveniencia == 2">
+                            <input type="text" value="Unidade Sanitária" placeholder="" maxlength="80"
+                                name="proveniencia" class="form-control" disabled>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome">Nome da Instituição</label>
+                        <input type="text" [(ngModel)]="model_baixa.nome_instituicao" placeholder="" maxlength="80"
+                            name="nome_instituicao" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Data</label>
+                        <input type="text" [(ngModel)]="model_baixa.updated_at" placeholder="" maxlength="80"
+                            name="updated_at" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nome"> Valor da Baixa</label>
+                        <input type="text" [(ngModel)]="model_baixa.valor_baixa" placeholder="" maxlength="80"
+                            name="valor_baixa" class="form-control" disabled>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 form-group" *ngIf="selectedCardView != 1">
+                        <label for="">Anexos</label>
+                    </div>
+                    <div class="col-lg-12 col-md-12 form-group">
+                        <div class="row">
+                            <ng-container *ngFor="let anexo of model_baixa.comprovativo; let i = index;">
+                                <div class="col-md-3 form-group"
+                                    [ngStyle]=" i > 0 ?{'display': 'inline-flex'} : {'display': 'block'}">
+                                    <label for="" class="btn-anexo"> <a
+                                            (click)="getFileDownload(anexo)">{{anexo}}</a></label>
+                                </div>
+                            </ng-container>
+                            <p class="text-center"><i *ngIf="spinner_download"
+                                    class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <ng-container *ngIf="model_baixa.proveniencia == 1">
+                                        <th scope="col">Nome do medicamento</th>
+                                        <th scope="col">Dosagem</th>
+                                        <th scope="col">Forma</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Valor</th>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="model_baixa.proveniencia == 2">
+                                        <th scope="col">Serviço</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Valor</th>
+                                    </ng-container>
+                                </tr>
+                            </thead>
+
+                            <tbody
+                                *ngFor="let item of model_baixa.descricao | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <ng-container *ngIf="model_baixa.proveniencia == 1">
+                                        <td>{{item.medicamento_nome_generico}}</td>
+                                        <td>{{item.dosagem}}</td>
+                                        <td>{{item.forma}}</td>
+                                        <td>{{item.quantidade}}</td>
+                                        <td>{{item.preco_iva}}</td>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="model_baixa.proveniencia == 2">
+                                        <td>{{item.servico}}</td>
+                                        <td>{{item.quantidade}}</td>
+                                        <td>{{item.preco_iva}}</td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="d-flex justify-content-end paginator">
+                        </pagination-controls>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-start" *ngIf="model_baixa.responsavel">
+                    <div class="col-md-12 form-group">
+                        <span for="nome" class="responsavel_class"> RESPONSÁVEL</span>
+                    </div>
+                    <ng-container *ngFor="let item of model_baixa.responsavel">
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="nome">Data: </label> &nbsp; <span>{{item.data}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nome">Acção:</label>&nbsp; <span>{{item.accao}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nome">Nome:</label> &nbsp;<span>{{item.nome}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="row d-flex justify-content-center" *ngIf="model_baixa.comentario_pedido_aprovacao">
+                    <div class="col-md-12 form-group">
+
+                        <span for="nome" class="responsavel_class"> Comentários</span>
+                    </div>
+                    <ng-container *ngFor="let item of model_baixa.comentario_pedido_aprovacao">
+                        <div class="col-md-12 form-group">
+                            <label for="nome">Data: {{item.data}}</label> <br>
+                            <label for="nome">Nome: {{item.nome}}</label>
+                            <textarea rows="2" class="form-control" value="{{item.comentario}}" name="comentario"
+                                disabled></textarea>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div class="row d-flex justify-content-center" *ngIf="model_baixa.estado_codigo == '8'">
+                    <div class="col-md-12 form-group">
+                        <label for="comentario_pedido_aprovacao"> Comentário</label>
+                        <textarea rows="2" class="form-control" [(ngModel)]="comentario_devolucao"
+                            name="comentario_devolucao" (ngModelChange)="changeComentario($event)"
+                            [ngClass]="{ 'is-invalid': submitted && invalid_comentario}"></textarea>
+                        <div *ngIf="invalid_comentario" class="d-block invalid-feedback">Deve preencher este campo</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-indigo white-text text-center" (click)="aprovarSubmit()"
+                            *ngIf="model_baixa.estado_codigo == '8'" [disabled]="spinner_1">Aprovar Pedido</button>
+                        <button type="submit" class="btn btn-outline-indigo text-center"
+                            (click)="rejeitarPedidoSubmit()" *ngIf="model_baixa.estado_codigo == '8'"
+                            [disabled]="spinner_1">Rejeitar Pedido</button>
+                        <p class="text-center"><i *ngIf="spinner_1"
+                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading_spin"></i>
+                        </p>
+                    </div>
+                    <button type="button" style="display: none;" id="actualizarID" data-dismiss="modal">sub</button>
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+        <!--/Modal: Contact form-->
+    </div>
+
+</div>
