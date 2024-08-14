@@ -1,0 +1,118 @@
+[
+    {
+        "name": "id",
+        "dbType": "integer,false,true",
+        "htmlType": null,
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": true,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "nome",
+        "dbType": "string,100",
+        "htmlType": "text",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "contacto",
+        "dbType": "string,100:nullable",
+        "htmlType": "text",
+        "validations": null,
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "email",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "activo",
+        "dbType": "boolean",
+        "htmlType": "checkbox,1",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "role_id",
+        "dbType": "integer,false,true",
+        "htmlType": null,
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "created_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "updated_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "deleted_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,Role,role_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,User,utilizador_administracao_id"
+    }
+]
